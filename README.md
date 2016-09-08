@@ -1,3 +1,3 @@
-# app
+# Storkd
 
-PLEASE CHANGE ME
+An app to connect local artisans with consumers.
