@@ -8,6 +8,8 @@ The Storkd name comes from the concept of delivering a beautiful package.  The a
 
 ## Target Users
 
+This app will target two types of users: artists who are looking to sell goods that have a local theme, and consumers who are looking to purchase local artwork. The app will then render different artwork to different consumers based on geographic area. Due to this, the app must be easy enough to use for an audience of varying technical experience. In addition, we would prefer that the app be available to both amateur and professional artisans.  
+
 ## Value
 
 This app has two main audiences: artists (sellers) and art lovers (consumers).  This app will attempt to unite these two groups who benefit from each other.
@@ -19,3 +21,5 @@ For art lovers this app will fill a missing market of local art, which is often 
 ## Functionality
 
 ## Technical Recommendation
+
+For our app, we recommend using React Naïve for the core development of the app, with a MySql database. The client doesn’t have a strong opinion on the technology used, though they envision their app as a mobile app first on iOS. We recommend React Native for this purpose because it is a modern framework that will allow for dual use on iOS and Android in the future. In addition, we are more familiar with using Javascript for development than any other mobile app languages. For this semester, the client shouldn’t face any costs, since we can use a Duke OIT managed VM to run the database server.  
