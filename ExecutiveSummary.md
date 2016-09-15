@@ -1,22 +1,24 @@
 # Artisan - Executive Summary
 
+Ryan St.Pierre, David Maydew, Sung-Hoon Kim
+
 ## Overview
 
-When people travel they love to immerse themselves completely in the culture, such as trying the local food and drink specialties.  When these travelers leave they like to take a piece of this culture with them, in the for of a souvenir. Brian Anderson, a frequent traveler, was looking for a way to purchase meaningful items before leaving a destination; something nicer than a cheap, unoriginal knick knacks.  From this desire the Storkd app idea was born.  Storkd is a geo-location mobile application that connects local artisans with travelers and community consumers.  It will allow consumers to purchase hand-woven rugs from New Mexico, paintings from New York, and jewelry from the West Coast directly from local artist.
+When people travel they love to immerse themselves completely in the culture, such as trying the local food and drink specialties.  When these travelers leave they like to take a piece of this culture with them, often in the form of a souvenir. Brian Anderson, a frequent traveler, was looking for a way to purchase meaningful items before leaving a destination; something nicer than cheap, unoriginal knick knacks.  From this desire the Storkd was born.  Storkd is a geo-location mobile application that connects local artisans with travelers and community consumers.  It will allow consumers to purchase hand-woven rugs from New Mexico, paintings from New York, and jewelry from the West Coast directly from local artist.
 
-The Storkd name comes from the concept of delivering a beautiful package.  The artisans, the storks, will be able to share their craft and items directly with the consumer, allowing the consumer to get art pieces that are not only beautiful, but also have a face and story behind them.
+The Storkd name comes from the concept of delivering a beautiful package.  The artisans, aka the storks, will be able to share their craft and items directly with the consumer, allowing the consumer to get art pieces that are not only beautiful, but also have a face and story behind them.
 
 ## Target Users
 
-This app will target two types of users: artists who are looking to sell goods that have a local theme, and consumers who are looking to purchase local artwork. The app will then render different artwork to different consumers based on geographic area. Due to this, the app must be easy enough to use for an audience of varying technical experience. In addition, we would prefer that the app be available to both amateur and professional artisans.  
+This app will target two types of users: artists who are looking to sell goods that have a local theme, and consumers who are looking to purchase local artwork. The app will then render different artwork to different consumers based on geographic area. Given this target audience, the app must be easy enough to use for individuals with little to no technical experience. In addition, we want to target a wide variety of artisans, including both amateurs and professionals.  
 
 ## Value
 
-This app has two main audiences: artists (sellers) and art lovers (consumers).  This app will attempt to unite these two groups who benefit from each other.
+This app has two main audiences: artists (sellers) and art lovers (consumers).  This app will attempt to unite these two groups in a mutually beneficial manner.
 
-For artists this app will provide an avenue for exposure and sales.  The app will provide artists to post their art as well as their artistic process (in the form of pictures and videos).  Having a central collection of their work, in addition to the geo-location feature, will allow local artists to gain a following, leading to sales.  
+For artists this app will provide an avenue for exposure and sales.  The app will provide artists a space to post their art, as well as their artistic process (in the form of pictures and videos).  Having a central collection of their work, in addition to the geo-location feature, will allow local artists to gain a following, leading to sales.  
 
-For art lovers this app will fill a missing market of local art, which is often hard to find. However, the app will also provide a place to view art and interact with artist.  This mix of social media and e-commerce will foster a stronger relationships between artists and the local community, allowing art lovers to become more involved in the art scene as well as purchase unique, local art.
+For art lovers this app will fill a missing market of local art, which is often hard to find. However, the app will also provide a place to view art and interact with artist.  This mix of social media and e-commerce will foster a strong relationships between artists and the local community, allowing art lovers to become more involved in the art scene as well as purchase unique, local art.
 
 ## Functionality
 
@@ -26,4 +28,6 @@ A user can become a seller by paying some fee to upgrade their account, allowing
 
 ## Technical Recommendation
 
-For our app, we recommend using React Naïve for the core development of the app, with a MySql database. The client doesn’t have a strong opinion on the technology used, though they envision their app as a mobile app first on iOS. We recommend React Native for this purpose because it is a modern framework that will allow for dual use on iOS and Android in the future. In addition, we are more familiar with using Javascript for development than any other mobile app languages. For this semester, the client shouldn’t face any costs, since we can use a Duke OIT managed VM to run the database server.  
+For our app, we recommend using React Native for the core development of the app, with a MySql database. The client doesn’t have a strong opinion on the technology used, though they envision their app as a mobile app first on iOS. We recommend React Native for this purpose because it is a modern framework that will allow for dual use on iOS and Android in the future. In addition, we are more familiar with using Javascript for development than any other mobile app languages. For this semester, the client shouldn’t face any costs, since we can use a Duke OIT managed VM to run the database server.  
+
+## Transition After this Semester
