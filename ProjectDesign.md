@@ -2,6 +2,23 @@
 
 Ryan St.Pierre, David Maydew, Sung-Hoon Kim
 
+### Overall Design and Feature Scope
+
+The project will deliver:
+* Login through Facebook and Instagram or the ability to create an account through email.
+* Geo-location technology.
+* Internal messaging between artists and users.
+* Ability to link internally to PayPals.
+* The following screens/capabilities
+  * Place where users can browse art based on geo-location and add art to their "bundle"
+  * Place to view the bundle of selected art, where the user can view the art piece in greater detail
+  * User profile
+  * Artist profile (complete with photos and videos)
+
+The project will not deliver:
+* A comprehensive internal messaging application
+* Customizable views
+
 ### User Stories
 
 ### Professional Artist (Power User)
@@ -28,8 +45,6 @@ I am not a curator or traveler but like to check out unique, local art items.  I
 
 We plan on rotating roles every sprint (approx. every 2 weeks).  However, a description of the initial plan for the structure of the team is included below.
 
-**Roles**
-
 **Business Analyst: Ryan St.Pierre**
 
 As business analyst Ryan will be the main point of contact with the client.  He will draft all e-mails (including agendas) and coordinate meeting times.  Coordination also includes the exchanging of resources, both from client to dev team and dev team to client. It is also Ryan's focus to ensure the client's desires are proper communicated and represented to the team.  
@@ -43,7 +58,7 @@ David Maydew should be the point of contact for any technical questions.  Any qu
 
 David should also do the research on the best approach for technical solutions.  He should organize the approach and direct the rest of the team regarding technical decisions (after considering his research and input from the rest of the team).
 
-*Note: We feel that the technical aspects of this project can consume a lot of time.  We feel investigating solutions for social media & pay-pal incorporation could be particularly time consuming.  For this reason we have designated Sung-Hoon as the secondary to this role.  His main role is to aid in the research of multiple solutions*
+*Note: We feel that the technical aspects of this project can consume a lot of time.  We feel investigating solutions for social media & PayPal incorporation could be particularly time consuming.  For this reason we have designated Sung-Hoon as the secondary to this role.  His main role is to aid in the research of multiple solutions*
 
 **Scrum Master: Ryan St.Pierre**
 
