@@ -29,5 +29,3 @@ A user can become a seller by paying some fee to upgrade their account, allowing
 ## Technical Recommendation
 
 For our app, we recommend using React Native for the core development of the app, with a MySql database. The client doesn’t have a strong opinion on the technology used, though they envision their app as a mobile app first on iOS. We recommend React Native for this purpose because it is a modern framework that will allow for dual use on iOS and Android in the future. In addition, we are more familiar with using Javascript for development than any other mobile app languages. For this semester, the client shouldn’t face any costs, since we can use a Duke OIT managed VM to run the database server. When the semester ends, the main cost would simply be from running the server/database machine, which could be done through any cloud computing platform (AWS, Azure, etc.). It is hard to estimate the exact cost since that will depend on the number of users and activity, but almost certainly wouldn't exceed a few hundred dollars per year.  
-
-## Transition After this Semester
