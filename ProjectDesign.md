@@ -30,14 +30,14 @@ We plan on rotating roles every sprint (approx. every 2 weeks).  However, a desc
 
 **Roles**
 
-Business Analyst: Ryan St.Pierre
+**Business Analyst: Ryan St.Pierre**
 
 As business analyst Ryan will be the main point of contact with the client.  He will draft all e-mails (including agendas) and coordinate meeting times.  Coordination also includes the exchanging of resources, both from client to dev team and dev team to client. It is also Ryan's focus to ensure the client's desires are proper communicated and represented to the team.  
 
 *Note: Although Ryan is current assigned as Business Analyst the client should feel comfortable reaching out to any of the team members*
 
-Technical Lead:
-primary- David Maydew secondary - Sung-Hoon Kim
+**Technical Lead: David Maydew**
+*secondary - Sung-Hoon Kim*
 
 David Maydew should be the point of contact for any technical questions.  Any question from the client starting with "How feasible is it to..." should be directed to David.  
 
@@ -45,14 +45,14 @@ David should also do the research on the best approach for technical solutions. 
 
 *Note: We feel that the technical aspects of this project can consume a lot of time.  We feel investigating solutions for social media & pay-pal incorporation could be particularly time consuming.  For this reason we have designated Sung-Hoon as the secondary to this role.  His main role is to aid in the research of multiple solutions*
 
-Scrum Master: Ryan St.Pierre
+**Scrum Master: Ryan St.Pierre**
 
 Ryan's job to ensure the team is on task with regard to the Sprint plan drafted prior to the Sprint. This includes reaching out to the necessary resources when roadblocks are encountered.
 
-Quality Assurance: Sung-Hoon Kim
+**Quality Assurance: Sung-Hoon Kim**
 
 The client should reach out to Sung-Hoon regarding any questions on the robustness or completeness of a certain feature.  Sung-Hoon should be aware of all current known bugs and draft solutions for their resolution.
 
 **Back-end vs Front-end**
 
-David Maydew has the most experience with setting up a server/database system.  For this reason he will be responsible for taking point on setting up the server, database, and the proper connections.  Sung-Hoon has experience with Javascript and will take point on the front-end. 
+David Maydew has the most experience with setting up a server/database system.  For this reason he will be responsible for taking point on setting up the server, database, and the proper connections.  Sung-Hoon has experience with Javascript and will take point on the front-end.
