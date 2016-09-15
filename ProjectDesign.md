@@ -2,7 +2,9 @@
 
 Ryan St.Pierre, David Maydew, Sung-Hoon Kim
 
-### Overall Design and Feature Scope
+# Overall Design and Feature Scope
+
+Overall this app intends to create a market for travelers and art lovers to buy local art.
 
 The project will deliver:
 * Login through Facebook and Instagram or the ability to create an account through email.
@@ -19,7 +21,17 @@ The project will not deliver:
 * A comprehensive internal messaging application
 * Customizable views
 
-### User Stories
+### Functionality
+
+The app is designed with two central users in mind: artists and art consumers (see User Stories for more in depth list).  As an artist, one of our clients has given necessary functionality to protect and benefit the artists.  This includes the ability for in app payment and a required deposit before on-order art is made.  
+
+We have also considered functionality to protect the user.  The inclusion of video into the app where artists can upload videos of their artistic process will allow consumers to better authenticate the art they buy.
+
+### Database
+
+We discussed with the client that it is expected we used our own server (through Duke OIT) to house data during this semester.  As the end of the semester approaches we will help more this data to an Amazon AWS server the client already has.  Once the data is transferred the cost will depend on the traffic the app receives.
+
+# User Stories
 
 ### Professional Artist (Power User)
 
@@ -41,17 +53,17 @@ I will use the app to make constant purchases.  I may be an art curator or own a
 
 I am not a curator or traveler but like to check out unique, local art items.  I will spend most of my time on the app browsing, only purchasing the items I like a lot.  I might also browse the app to find cool art works to share with my friends (through pictures or social media means).
 
-### Team Organization
+# Team Organization
 
 We plan on rotating roles every sprint (approx. every 2 weeks).  However, a description of the initial plan for the structure of the team is included below.
 
-**Business Analyst: Ryan St.Pierre**
+## Business Analyst: Ryan St.Pierre
 
 As business analyst Ryan will be the main point of contact with the client.  He will draft all e-mails (including agendas) and coordinate meeting times.  Coordination also includes the exchanging of resources, both from client to dev team and dev team to client. It is also Ryan's focus to ensure the client's desires are proper communicated and represented to the team.  
 
 *Note: Although Ryan is current assigned as Business Analyst the client should feel comfortable reaching out to any of the team members*
 
-**Technical Lead: David Maydew**
+## Technical Lead: David Maydew
 *secondary - Sung-Hoon Kim*
 
 David Maydew should be the point of contact for any technical questions.  Any question from the client starting with "How feasible is it to..." should be directed to David.  
@@ -60,11 +72,11 @@ David should also do the research on the best approach for technical solutions. 
 
 *Note: We feel that the technical aspects of this project can consume a lot of time.  We feel investigating solutions for social media & PayPal incorporation could be particularly time consuming.  For this reason we have designated Sung-Hoon as the secondary to this role.  His main role is to aid in the research of multiple solutions*
 
-**Scrum Master: Ryan St.Pierre**
+## Scrum Master: Ryan St.Pierre
 
 Ryan's job to ensure the team is on task with regard to the Sprint plan drafted prior to the Sprint. This includes reaching out to the necessary resources when roadblocks are encountered.
 
-**Quality Assurance: Sung-Hoon Kim**
+## Quality Assurance: Sung-Hoon Kim
 
 The client should reach out to Sung-Hoon regarding any questions on the robustness or completeness of a certain feature.  Sung-Hoon should be aware of all current known bugs and draft solutions for their resolution.
 
