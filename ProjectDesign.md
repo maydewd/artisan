@@ -21,15 +21,20 @@ The project will not deliver:
 * A comprehensive internal messaging application
 * Customizable views
 
+
 ### Functionality
 
 The app is designed with two central users in mind: artists and art consumers (see User Stories for more in depth list).  As an artist, one of our clients has given necessary functionality to protect and benefit the artists.  This includes the ability for in app payment and a required deposit before on-order art is made.  
 
 We have also considered functionality to protect the user.  The inclusion of video into the app where artists can upload videos of their artistic process will allow consumers to better authenticate the art they buy.
 
+### Quality
+
+We conveyed to our clients that there is a tradeoff between quality and quantity of what can be accomplished.  The clients conveyed there are several areas they are willing to sacrifice quality in order to allow us to create more feature.  These include: messaging and payment.  The clients expressed the messaging app can be primitive (no audio or image sending) and are flexible to the payment method linking directly to PayPal.  However, it also needs to be noted both these features are considered essential.
+
 ### Database
 
-We discussed with the client that it is expected we used our own server (through Duke OIT) to house data during this semester.  As the end of the semester approaches we will help more this data to an Amazon AWS server the client already has.  Once the data is transferred the cost will depend on the traffic the app receives.
+We discussed with the clients that it is expected we used our own server (through Duke OIT) to house data during this semester.  As the end of the semester approaches we will help more this data to an Amazon AWS server the clients already have.  Once the data is transferred the cost will depend on the traffic the app receives.
 
 # User Stories
 
@@ -59,14 +64,14 @@ We plan on rotating roles every sprint (approx. every 2 weeks).  However, a desc
 
 ## Business Analyst: Ryan St.Pierre
 
-As business analyst Ryan will be the main point of contact with the client.  He will draft all e-mails (including agendas) and coordinate meeting times.  Coordination also includes the exchanging of resources, both from client to dev team and dev team to client. It is also Ryan's focus to ensure the client's desires are proper communicated and represented to the team.  
+As business analyst Ryan will be the main point of contact with the clients.  He will draft all e-mails (including agendas) and coordinate meeting times.  Coordination also includes the exchanging of resources, both from clients to dev team and dev team to clients. It is also Ryan's focus to ensure the clients' desires are proper communicated and represented to the team.  
 
 *Note: Although Ryan is current assigned as Business Analyst the client should feel comfortable reaching out to any of the team members*
 
 ## Technical Lead: David Maydew
 *secondary - Sung-Hoon Kim*
 
-David Maydew should be the point of contact for any technical questions.  Any question from the client starting with "How feasible is it to..." should be directed to David.  
+David Maydew should be the point of contact for any technical questions.  Any question from the clients starting with "How feasible is it to..." should be directed to David.  
 
 David should also do the research on the best approach for technical solutions.  He should organize the approach and direct the rest of the team regarding technical decisions (after considering his research and input from the rest of the team).
 
@@ -78,7 +83,7 @@ Ryan's job to ensure the team is on task with regard to the Sprint plan drafted 
 
 ## Quality Assurance: Sung-Hoon Kim
 
-The client should reach out to Sung-Hoon regarding any questions on the robustness or completeness of a certain feature.  Sung-Hoon should be aware of all current known bugs and draft solutions for their resolution.
+The clients should reach out to Sung-Hoon regarding any questions on the robustness or completeness of a certain feature.  Sung-Hoon should be aware of all current known bugs and draft solutions for their resolution.
 
 **Back-end vs Front-end**
 
