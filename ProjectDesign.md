@@ -50,6 +50,14 @@ Given some level of proficiency with React Native, it should be relatively easy 
 
 Since the app will rely on the remote server to function, the client will have to continue to power that server in the future. If no changes need to be made, this step should be relatively easy given the ubiquity of cloud service providers presently. 
 
+# Impact
+
+There are a number of options available for individual artisans who are looking to sell their works, ranging from Etsy to Craigslist, but we feel that all of them lack a sense of personality and authenticity - you browse a website and order items which may or may not actually be handmade, and they are delivered straight to your home. What we hope to achieve with Stork'd is an experience that is more personal for both consumer and artisan.  
+
+Currently, if someone who is traveling decides they want to buy a local artwork as a souvenir, they might go to a gift shop and get some unoriginal trinket. However, with Stork'd, they can find a specific, unique piece of art in the local area, and interact directly with the artisan who made it. Not only does this add a sense of authenticity to the souvenir, the discovery of the item and the transaction become a unique, memorable experience.  
+
+For the artisan, Stork'd provides a way to build a local presence and connect with the local community. The app will provide a quick and easy way to sell goods: the artisan just takes a picture on their phone and adds a price and appropriate tags.
+
 # User Stories
 
 ### Professional Artist (Power User)
@@ -75,6 +83,14 @@ I am not a curator or traveler but like to check out unique, local art items.  I
 # Dependencies
 
 The major dependencies of the project have to do with React-Native. This is the main piece of software we are using to develop the app, and will have a bit of a learning curve since none of us developers have used it before. Since we are building this project from the ground up, the client is not responsible for delivering any back-end integration or database functionality (we will get to build that ourselves). The primary deliverable from the client to us is graphic UI elements, such as logos, images, and color scheme. In addition, the client is responsible for providing feedback on each iteration of the app primarily from the artisan point of view. This is a point of view that is hard to capture from our end as developers, but one that the clients have experience with.
+
+# Concerns
+
+We as developers are still in the process of learning some of the technologies we plan to use for the development of the app. Therefore, the client should be aware that our estimates for how quickly we can implement certain features may turn out to be off simply due to lack of experience.  
+
+There are privacy concerns with storing and using location data; particularly, we will need to be careful with how we show the location of an artisan.  
+
+It could be tricky to handle account authentication for both third-part social media accounts and accounts created in Stork'd.  
 
 # Team Organization
 
