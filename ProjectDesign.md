@@ -40,7 +40,7 @@ We discussed with the clients that it is expected we used our own server (throug
 
 From an overall perspective, the main priority of the app is to streamline the transaction process between buyers and sellers, and enable a unique discovery pipeline for potential customers. This dichotomy is at the core of the app, and defines two distinct processes that interact with each other. As such, each one should be designed in such a way that they are flexible to changes in the other. As an example, a change in the navigational flow for posting an art piece should not impact the navigational flow of a user searching to buy art.
 
-Looking at the semester overall, the features we view as essential or addons are covered in the first section of the document. To drill a bit deeper, the core functionality for a customer contains three qualities: Search for local artwork, select which artwork he/she is most interested, and communicate with the seller to finalize the transaction. From the artisan point of view, the core of the app is as follows: Authenticate through social media, post artwork listing with information/description, receive communication from potential buyers. 
+Looking at the semester overall, the features we view as essential or add-ons are covered in the first section of the document. To drill a bit deeper, the core functionality for a customer contains three qualities: Search for local artwork, select which artwork he/she is most interested, and communicate with the seller to finalize the transaction. From the artisan point of view, the core of the app is as follows: Authenticate through social media, post artwork listing with information/description, receive communication from potential buyers. 
 
 To accomplish this core functionality, we will need a database that maintains art listings with location information along with channels to retrieve this information based on geography. Once this database is established, any changes to how the listings are stored could cause disruption in the algorithms that return nearby artwork listings to customers. As such, this is an area that will be given a lot of focus before jumping into an implementation. 
 
@@ -90,7 +90,7 @@ We as developers are still in the process of learning some of the technologies w
 
 There are privacy concerns with storing and using location data; particularly, we will need to be careful with how we show the location of an artisan.  
 
-It could be tricky to handle account authentication for both third-part social media accounts and accounts created in Stork'd.  
+It could be tricky to handle account authentication for both third-party social media accounts and accounts created in Stork'd.  
 
 # Team Organization
 
@@ -100,7 +100,7 @@ We plan on rotating roles every sprint (approx. every 2 weeks).  However, a desc
 
 As business analyst Ryan will be the main point of contact with the clients.  He will draft all e-mails (including agendas) and coordinate meeting times.  Coordination also includes the exchanging of resources, both from clients to dev team and dev team to clients. It is also Ryan's focus to ensure the clients' desires are proper communicated and represented to the team.  
 
-*Note: Although Ryan is current assigned as Business Analyst the client should feel comfortable reaching out to any of the team members*
+*Note: Although Ryan is currently assigned as Business Analyst the client should feel comfortable reaching out to any of the team members*
 
 ## Technical Lead: David Maydew
 *secondary - Sung-Hoon Kim*
