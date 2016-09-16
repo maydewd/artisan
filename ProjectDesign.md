@@ -36,6 +36,20 @@ We conveyed to our clients that there is a tradeoff between quality and quantity
 
 We discussed with the clients that it is expected we used our own server (through Duke OIT) to house data during this semester.  As the end of the semester approaches we will help more this data to an Amazon AWS server the clients already have.  Once the data is transferred the cost will depend on the traffic the app receives.
 
+# Design Goals
+
+From an overall perspective, the main priority of the app is to streamline the transaction process between buyers and sellers, and enable a unique discovery pipeline for potential customers. This dichotomy is at the core of the app, and defines two distinct processes that interact with each other. As such, each one should be designed in such a way that they are flexible to changes in the other. As an example, a change in the navigational flow for posting an art piece should not impact the navigational flow of a user searching to buy art.
+
+Looking at the semester overall, the features we view as essential or addons are covered in the first section of the document. To drill a bit deeper, the core functionality for a customer contains three qualities: Search for local artwork, select which artwork he/she is most interested, and communicate with the seller to finalize the transaction. From the artisan point of view, the core of the app is as follows: Authenticate through social media, post artwork listing with information/description, receive communication from potential buyers. 
+
+To accomplish this core functionality, we will need a database that maintains art listings with location information along with channels to retrieve this information based on geography. Once this database is established, any changes to how the listings are stored could cause disruption in the algorithms that return nearby artwork listings to customers. As such, this is an area that will be given a lot of focus before jumping into an implementation. 
+
+One other portion of the app that will be difficult to modify once fully implemented is the registration flow. Since one of the requirements for the app is that it allow for email-based authentication and social media authentication, there will have to be a rigid set of guidelines that allow us to handle both cases in the registration flow. For example, in one case we may prompt the user to enter a name and photo, whereas in the other we may pull that directly from the social profile. 
+
+Given some level of proficiency with React Native, it should be relatively easy to modify the layout of individual app screens as well as the responsibilities of each app screen. Since the main brunt of the data manipulation is done on the server, this means the React Native app is serving more as a 'view' layer. As such, the infrastructure should be flexible enough to allow for modifications to the React Native app without needing to modify the back-end (not including major feature additions).
+
+Since the app will rely on the remote server to function, the client will have to continue to power that server in the future. If no changes need to be made, this step should be relatively easy given the ubiquity of cloud service providers presently. 
+
 # User Stories
 
 ### Professional Artist (Power User)
@@ -57,6 +71,10 @@ I will use the app to make constant purchases.  I may be an art curator or own a
 ### Casual Local Art Consumer
 
 I am not a curator or traveler but like to check out unique, local art items.  I will spend most of my time on the app browsing, only purchasing the items I like a lot.  I might also browse the app to find cool art works to share with my friends (through pictures or social media means).
+
+# Dependencies
+
+The major dependencies of the project have to do with React-Native. This is the main piece of software we are using to develop the app, and will have a bit of a learning curve since none of us developers have used it before. Since we are building this project from the ground up, the client is not responsible for delivering any back-end integration or database functionality (we will get to build that ourselves). The primary deliverable from the client to us is graphic UI elements, such as logos, images, and color scheme. In addition, the client is responsible for providing feedback on each iteration of the app primarily from the artisan point of view. This is a point of view that is hard to capture from our end as developers, but one that the clients have experience with.
 
 # Team Organization
 
