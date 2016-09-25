@@ -4,21 +4,21 @@ Ryan St.Pierre, David Maydew, Sung-Hoon Kim
 
 # Overall
 
-We intend to deliver an iOS application that connects local artists to travelers and their community.
+We intend to deliver an iOS application that connects local artists to their community and travelers.
 
-The following are features we find essential or core to this goal:
+The following are features we find essential to this goal:
 
-* Login authentication with Facebook as well as the option for email authentication
+* Login authentication with Facebook, as well as the option for email authentication
 * Geolocation technology- artwork displayed to user based on location
 * Editing of art search preference settings (radius, price, type)
-* The ability for users to respond to the art displayed in their area and add certain pieces to a queue for later viewing
+* The ability for users to respond (like dislike) art and add certain pieces to a queue for later viewing
 * In app messaging
-* A central place where users can display the art they have added to the app
+* A central place where users can display the art they have contributed to the app
 
 The following are features we regard as wish-list components:
 
 * In app purchases (PayPal)
-* Video integration
+* Video integration - we feel this will add a sense of authenticity to the app
 
 ## Backend
 
@@ -46,7 +46,7 @@ We plan on supporting the following screens:
 * Message
 * Message hub
 
-We will spend the first two weeks (Sprint 1) planning out these screens; particularly finding the common threads between them and designing robust component classes that can be extended to easily add new screens.
+We will spend the first two weeks (Sprint 1) planning out these screens; particularly finding the common threads between them and designing robust component classes that can be extended in the future to easily add new screens.
 
 ## Client side
 
@@ -62,13 +62,13 @@ The two largest components of this list is the artwork and user testers.  We exp
 
 ## Testing
 
-We realize the user testers will require more effort and time from the clients to provide.  Ideally we would like to do user testing through the app development process.  We will notify the clients as soon as possible to put this in motion.  Reasonably we expect a pool of user testers by the end of Sprint 3 (when the core features of the app are complete).
+We realize the user testers will require more effort from the clients to provide.  Ideally we would like to do user testing through the app development process.  We will notify the clients as soon as possible to put this in motion.  Reasonably we expect a pool of user testers by the end of Sprint 3 (when the core features of the app are complete).
+
+We have broken the users into several groups, which can be viewed in the User stories section of the Project Design.  We would like several user testers from each group if possible.
 
 # Sprint 1 (Mockup UI with Navigation) - Complete
 
-We used the proto.io software to deliver create a UI that we believe showcases the desired functionality of the app.  This mockup UI can be accessed using the following link:
-
-https://pr.to/JQDIB9/
+We used the proto.io software to deliver create a UI that we believe showcases the desired functionality of the app.  This mockup UI can be accessed using the following [link](https://pr.to/JQDIB9/).
 
 
 # Sprint 2 (Prototype- basic features) - 2 weeks
@@ -83,7 +83,7 @@ https://pr.to/JQDIB9/
 
 # Sprint 3 (Baseline Prototype- Prototype with core features) - 3 weeks
 * MyBundle screen
-* Post images with art
+* Post images with art posts
 * Display images with art in Discover screen
 * Ability to move artwork to MyBundle
 * Art piece information screen
@@ -91,7 +91,7 @@ https://pr.to/JQDIB9/
 * Allow altering of account settings (i.e. MyStorkfront settings)
 
 ### Client side
-* Icons
+* Icons (or approval of third party library if used)
 * Artwork to use as data to populate the app
 
 # Sprint 4 (Alpha- Partial functionality) - 2 weeks
@@ -99,7 +99,7 @@ https://pr.to/JQDIB9/
 * Facebook login option
 * Robust sign-up process (e.g. additional signup details)
 * Finalize login screen front-end
-* Basic messaging process
+* Basic messaging (in-app)
 * Allow the altering of geolocation settings (i.e. Discover screen settings)
 
 ### Client side
