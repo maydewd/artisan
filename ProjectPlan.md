@@ -77,6 +77,7 @@ https://pr.to/JQDIB9/
 * View posts in 'Discover' page (text only)
 * View posts in 'My Storkfront' page (text only)
 * Basic navigation between screens (create placeholders for all planned screens)
+
 ### Client side
 * Names of screens
 
@@ -88,6 +89,7 @@ https://pr.to/JQDIB9/
 * Art piece information screen
 * Only see nearby posts based on geolocation
 * Allow altering of account settings (i.e. MyStorkfront settings)
+
 ### Client side
 * Icons
 * Artwork to use as data to populate the app
@@ -99,6 +101,7 @@ https://pr.to/JQDIB9/
 * Finalize login screen front-end
 * Basic messaging process
 * Allow the altering of geolocation settings (i.e. Discover screen settings)
+
 ### Client side
 * Fields for account creation (what information is needed/desired from the user)
 * Full list of Discover preferences and artwork categories
