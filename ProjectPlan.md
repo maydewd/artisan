@@ -4,6 +4,22 @@ Ryan St.Pierre, David Maydew, Sung-Hoon Kim
 
 # Overall
 
+We intend to deliver an iOS application that connects local artists to travelers and their community.
+
+The following are features we find essential or core to this goal:
+
+* Login authentication with Facebook as well as the option for email authentication
+* Geolocation technology- artwork displayed to user based on location
+* Editing of art search preference settings (radius, price, type)
+* The ability for users to respond to the art displayed in their area and add certain pieces to a queue for later viewing
+* In app messaging
+* A central place where users can display the art they have added to the app
+
+The following are features we regard as wish-list components:
+
+* In app purchases (PayPal)
+* Video integration
+
 ## Backend
 
 ## Front-end
