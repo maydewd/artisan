@@ -22,13 +22,21 @@ The following are features we regard as wish-list components:
 
 ## Backend
 
+* Login + Signup using multiple different strategies
+* Authentication protected submitting of posts
+* Authentication protected editing of posts
+* Viewing nearby posts based on Geolocation
+* Including pictures in art postings
+* 1 on 1 message posting and viewing in app
+* Documented, easy, and automated server provisioning for transition after semester
+
 ## Front-end
 
 ## Client side
 
 We expect relatively few resources from the client.  Our app will be light on text and necessary images.  We have already received a first version of the logo.  In the future we will need:
 
-* Icons (if the client prefers we not use third part open source image libraries)
+* Icons (if the client prefers we not use third party open source image libraries)
 * Names of screens (examples: StorkFront, My bundle)
 * Artwork (images) to use as data to populate the app
 * User testers (artists Edreys should know & business partners from Brian)
@@ -48,11 +56,24 @@ https://pr.to/JQDIB9/
 
 
 # Sprint 2 (Prototype- basic features) - 2 weeks
+* Basic login/authentication
+* Make post with text only (description, category)
+* View posts in 'Discover' page
+* View posts in 'My Storkfront' page
 
 # Sprint 3 (Baseline Prototype- Prototype with core features) - 3 weeks
+* Post images with art
+* Display images with art
+* Only see nearby posts based on geolocation
 
 # Sprint 4 (Alpha- Partial functionality) - 2 weeks
+* Facebook login option
+* Robust sign-up process (e.g. additional signup details)
+* Basic messaging process
 
 # Sprint 5 (Beta- Full functionality) - 3 weeks
+* Incorporate push notifications
+* Link social media account after creation
 
 # Production (Robust Full Functionality) - 2 weeks
+* Documented, easy, and automated server provisioning for transition after semester
