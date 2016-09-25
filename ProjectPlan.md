@@ -32,6 +32,20 @@ The following are features we regard as wish-list components:
 
 ## Front-end
 
+We plan on supporting the following screens:
+
+* Login
+* Signup
+* Discover
+* Discover settings
+* Art piece information
+* My StorkFront
+* My StorkFront settings
+* My Bundle
+* Create a post
+
+We will spend the first two weeks (Sprint 1) planning out these screens; particularly finding the common threads between them and designing robust component classes that can be extended to easily add new screens.
+
 ## Client side
 
 We expect relatively few resources from the client.  Our app will be light on text and necessary images.  We have already received a first version of the logo.  In the future we will need:
@@ -58,8 +72,8 @@ https://pr.to/JQDIB9/
 # Sprint 2 (Prototype- basic features) - 2 weeks
 * Basic login/authentication
 * Make post with text only (description, category)
-* View posts in 'Discover' page
-* View posts in 'My Storkfront' page
+* View posts in 'Discover' page (text only)
+* View posts in 'My Storkfront' page (text only)
 
 # Sprint 3 (Baseline Prototype- Prototype with core features) - 3 weeks
 * Post images with art
@@ -70,6 +84,7 @@ https://pr.to/JQDIB9/
 * Facebook login option
 * Robust sign-up process (e.g. additional signup details)
 * Basic messaging process
+* Allow the altering of geolocation settings
 
 # Sprint 5 (Beta- Full functionality) - 3 weeks
 * Incorporate push notifications
