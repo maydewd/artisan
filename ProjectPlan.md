@@ -43,6 +43,8 @@ We plan on supporting the following screens:
 * My StorkFront settings
 * My Bundle
 * Create a post
+* Message
+* Message hub
 
 We will spend the first two weeks (Sprint 1) planning out these screens; particularly finding the common threads between them and designing robust component classes that can be extended to easily add new screens.
 
@@ -71,22 +73,40 @@ https://pr.to/JQDIB9/
 
 # Sprint 2 (Prototype- basic features) - 2 weeks
 * Basic login/authentication
-* Make post with text only (description, category)
+* Make post with text only (description, category, price)
 * View posts in 'Discover' page (text only)
 * View posts in 'My Storkfront' page (text only)
+* Basic navigation between screens (create placeholders for all planned screens)
+### Client side
+* Names of screens
 
 # Sprint 3 (Baseline Prototype- Prototype with core features) - 3 weeks
+* MyBundle screen
 * Post images with art
-* Display images with art
+* Display images with art in Discover screen
+* Ability to move artwork to MyBundle
+* Art piece information screen
 * Only see nearby posts based on geolocation
+* Allow altering of account settings (i.e. MyStorkfront settings)
+### Client side
+* Icons
+* Artwork to use as data to populate the app
 
 # Sprint 4 (Alpha- Partial functionality) - 2 weeks
+* Filter posts based on category and price
 * Facebook login option
 * Robust sign-up process (e.g. additional signup details)
+* Finalize login screen front-end
 * Basic messaging process
-* Allow the altering of geolocation settings
+* Allow the altering of geolocation settings (i.e. Discover screen settings)
+### Client side
+* Fields for account creation (what information is needed/desired from the user)
+* Full list of Discover preferences and artwork categories
 
 # Sprint 5 (Beta- Full functionality) - 3 weeks
+* Editing posts
+* Camera integration with creating/editing posts
+* Messaging center/hub for artisan to view and organize incoming messages
 * Incorporate push notifications
 * Link social media account after creation
 
