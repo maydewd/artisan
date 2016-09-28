@@ -72,11 +72,31 @@ We used the proto.io software to deliver create a UI that we believe showcases t
 
 
 # Sprint 2 (Prototype- basic features) - 2 weeks
-* Basic login/authentication
-* Make post with text only (description, category, price)
-* View posts in 'Discover' page (text only)
-* View posts in 'My Storkfront' page (text only)
-* Basic navigation between screens (create placeholders for all planned screens)
+
+* Baseline
+  * Provision server (2 hr- David)
+  * Choose database (0.5 hr - all)
+  * Install database (0.5 hr - David)
+  * Start a web server that responds to a request  (2 hr - David)
+* Basic login
+  * Login UI Screen with text fields and buttons (2 hrs - Ryan)
+  * Backend
+    * Email and password authentication to access app: does not associate data with user yet (4 hr - David)
+* Front-end
+  * Design
+    * Basic hierarchy of main screens (1.5 hrs - Ryan)
+  * Research
+    * Flex & Styling in React Native (1 hr- Ryan & Sung-Hoon)
+  * Screens
+    * Discover
+      * Single centered image (0.5 hr - Sung-Hoon)
+      * 2 up and down buttons: well placed (2 hrs- Sung-Hoon)
+    * StorkFront
+      * Component for header and art piece with display icons (2 hrs - Sung-Hoon)
+  * Navigation
+    * Research best approach: might be third party (1 hr - Ryan)
+    * Implement bottom navigation bar between StorkFront and Discover pages (1 hr - Ryan)
+    * Connection from login page to Discover (0.5 hr - Ryan)
 
 ### Client side
 * Names of screens
