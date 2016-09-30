@@ -13,16 +13,13 @@ import {
 
 class LoginScreen extends Component {
 
-    constructor(props) {
-      super(props);
-    }
-
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to React Native!
         </Text>
+        <Image source = {require("../resources/Logo1.png")} style = {styles.logo} />
         <Text style={styles.instructions}>
           To get started, edit index.ios.js
         </Text>
