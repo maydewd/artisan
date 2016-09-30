@@ -20,7 +20,7 @@ class Discover extends Component {
         <View style = {styles.centered}>
           <View style = {{height: 12}} />
           <View style = {styles.centered}>
-            <Text> Ryan </Text>
+            <Text> Holder </Text>
             <BottomNav />
           </View>
         </View>
