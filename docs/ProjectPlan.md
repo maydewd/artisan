@@ -74,14 +74,15 @@ We used the proto.io software to deliver create a UI that we believe showcases t
 # Sprint 2 (Prototype- basic features) - 2 weeks
 
 * Baseline
-  * Provision server (2 hr- David)
+  * Set up environment (2 hrs - all)
+  * Provision server (2 hrs- David)
   * Choose database (0.5 hr - all)
   * Install database (0.5 hr - David)
-  * Start a web server that responds to a request  (2 hr - David)
+  * Start a web server that responds to a request  (2 hrs - David)
 * Basic login
   * Login UI Screen with text fields and buttons (2 hrs - Ryan)
   * Backend
-    * Email and password authentication to access app: does not associate data with user yet (4 hr - David)
+    * Email and password authentication to access app: does not associate data with user yet (4 hrs - David)
 * Front-end
   * Design
     * Basic hierarchy of main screens (1.5 hrs - Ryan)
@@ -102,6 +103,9 @@ We used the proto.io software to deliver create a UI that we believe showcases t
 * Names of screens
 
 # Sprint 3 (Baseline Prototype- Prototype with core features) - 3 weeks
+* Posting
+  * Backend
+    * Receive **text** post from user 
 * MyBundle screen
 * Post images with art posts
 * Display images with art in Discover screen
