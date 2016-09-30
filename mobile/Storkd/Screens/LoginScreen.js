@@ -1,7 +1,5 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
+ * Login Screen
  */
 
 import React, { Component } from 'react';
@@ -12,13 +10,27 @@ import {
   View,
   Image
 } from 'react-native';
-import LoginScreen from './Screens/LoginScreen.js'
 
-class Storkd extends Component {
+class LoginScreen extends Component {
+
+    constructor(props) {
+      super(props);
+    }
+
   render() {
     return (
-      <LoginScreen>
-      </LoginScreen>
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Welcome to React Native!
+        </Text>
+        <Text style={styles.instructions}>
+          To get started, edit index.ios.js
+        </Text>
+        <Text style={styles.instructions}>
+          Press Cmd+R to reload,{'\n'}
+          Cmd+D or shake for dev menu
+        </Text>
+      </View>
     );
   }
 }
@@ -46,4 +58,5 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('Storkd', () => Storkd);
+
+module.exports = LoginScreen
