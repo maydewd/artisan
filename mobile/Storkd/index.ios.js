@@ -13,6 +13,7 @@ import {
   Image
 } from 'react-native';
 import LoginScreen from './Screens/LoginScreen.js'
+import Discover from './Screens/Discover.js'
 
 class Storkd extends Component {
   render() {
