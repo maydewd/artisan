@@ -8,26 +8,43 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  TextInput
 } from 'react-native';
+import CenteredView from '../Screens/CenteredView'
+import Button from 'react-native-button'
 
 class LoginScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
+      <CenteredView>
         <Image source = {require("../resources/Logo1.png")} style = {styles.logo} />
+        <Button
+          containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
+          style={{fontSize: 20, color: 'blue'}}>
+          Facebook
+        </Button>
+        <View style = {styles.groupedTextBoxes}>
+          <TextInput
+            style={styles.textBox}
+            placeholder="Username"
+          />
+          <TextInput
+            style={styles.textBox}
+            placeholder="Password"
+            password = {true}
+          />
+          <Button
+            containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
+            style={{fontSize: 20, color: 'pink'}}>
+            Login
+          </Button>
+        </View>
         <Text style={styles.instructions}>
-          To get started, edit index.ios.js
+          Sign Up
         </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      </CenteredView>
     );
   }
 }
@@ -35,13 +52,27 @@ class LoginScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   logo: {
-    width: 40,
-    height: 40
+    width: 150,
+    height: 150
+  },
+  textBox: {
+    height: 40,
+    width: 300,
+    borderWidth: 0.5,
+    borderColor: '#0f0f0f',
+    padding: 4,
+    alignSelf: 'center'
+  },
+  groupedTextBoxes: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    maxHeight: 150
   },
   welcome: {
     fontSize: 20,
