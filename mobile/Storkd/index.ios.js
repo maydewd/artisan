@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  Navigator
 } from 'react-native';
 import LoginScreen from './Screens/LoginScreen.js'
 import Discover from './Screens/Discover.js'
@@ -18,10 +19,33 @@ import Discover from './Screens/Discover.js'
 class Storkd extends Component {
   render() {
     return (
-      <LoginScreen>
-      </LoginScreen>
+      <Navigator
+         initialRoute={{id: 'login', name: 'Index'}}
+         renderScene={this.renderScene.bind(this)}
+         configureScene={(route) => {
+           if (route.sceneConfig) {
+             return route.sceneConfig;
+           }
+           return Navigator.SceneConfigs.FloatFromRight;
+      }} />
     );
   }
+
+  renderScene(route, navigator) {
+      var routeId = route.id;
+      if (routeId === 'login') {
+        return (
+          <LoginScreen
+            navigator={navigator} />
+        );
+      }
+      if (routeId === 'discover') {
+        return (
+          <Discover
+            navigator={navigator} />
+        );
+      }
+    }
 }
 
 const styles = StyleSheet.create({

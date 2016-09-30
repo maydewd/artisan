@@ -18,10 +18,19 @@ class BottomNav extends Component {
     return (
         <Button
           containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
-          style={{fontSize: 20, color: 'blue'}}>
+          style={{fontSize: 20, color: 'blue'}}
+          onPress={() => this._pressed()}>
           Facebook
       </Button>
     );
+  }
+
+  _pressed() {
+    console.log("trying to log in")
+    var navigator = this.props.navigator;
+    navigator.replace({
+        id: 'login'
+    });
   }
 }
 

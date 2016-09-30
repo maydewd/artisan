@@ -37,7 +37,8 @@ class LoginScreen extends Component {
           />
           <Button
             containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
-            style={{fontSize: 20, color: 'pink'}}>
+            style={{fontSize: 20, color: 'pink'}}
+            onPress={() => this._loginPressed()}>
             Login
           </Button>
         </View>
@@ -46,6 +47,14 @@ class LoginScreen extends Component {
         </Text>
       </CenteredView>
     );
+  }
+
+  _loginPressed() {
+    console.log("trying to log in")
+    var navigator = this.props.navigator;
+    navigator.replace({
+        id: 'discover'
+    });
   }
 }
 

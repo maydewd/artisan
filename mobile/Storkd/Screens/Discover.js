@@ -18,10 +18,10 @@ class Discover extends Component {
   render() {
     return (
         <View style = {styles.centered}>
-          <View style = {{height: 12}} />
+          <View style = {{height: 14}} />
           <View style = {styles.centered}>
             <Text> Holder </Text>
-            <BottomNav />
+            <BottomNav navigator={this.props.navigator} />
           </View>
         </View>
     );
