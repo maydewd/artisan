@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import CenteredView from '../Screens/CenteredView'
 import Button from 'react-native-button'
-styles = require('../Styles/Login');
+styles = require('../Styles/Layouts');
 
 class LoginScreen extends Component {
 

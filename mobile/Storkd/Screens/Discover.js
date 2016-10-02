@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import BottomNav from '../Components/BottomNav'
 import MainNavBar from '../Components/MainNavBar'
+styles = require('../Styles/Layouts');
 
 class Discover extends Component {
 
@@ -24,17 +25,5 @@ class Discover extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-
-    centered: {
-      flex: 1,
-      flexDirection: "column",
-      justifyContent: "space-between",
-      alignItems: "center",
-      padding: 100
-    }
-});
-
 
 module.exports = Discover

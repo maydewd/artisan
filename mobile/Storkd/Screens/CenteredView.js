@@ -24,7 +24,6 @@ class CenteredView extends Component {
 }
 
 const styles = StyleSheet.create({
-
     centered: {
       flex: 1,
       flexDirection: "column",
