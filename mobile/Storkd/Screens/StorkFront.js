@@ -13,14 +13,14 @@ import {
 } from 'react-native';
 import BottomNav from '../Components/BottomNav'
 
-class Discover extends Component {
+class StorkFront extends Component {
 
   render() {
     return (
         <View style = {styles.centered}>
           <View style = {{height: 14}} />
           <View style = {styles.centered}>
-            <Text> Discover </Text>
+            <Text> StorkFront </Text>
             <BottomNav navigator={this.props.navigator} />
           </View>
         </View>
@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
 });
 
 
-module.exports = Discover
+module.exports = StorkFront

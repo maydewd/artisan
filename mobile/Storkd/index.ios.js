@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import LoginScreen from './Screens/LoginScreen.js'
 import Discover from './Screens/Discover.js'
+import StorkFront from './Screens/StorkFront.js'
 
 class Storkd extends Component {
   render() {
@@ -42,6 +43,12 @@ class Storkd extends Component {
       if (routeId === 'discover') {
         return (
           <Discover
+            navigator={navigator} />
+        );
+      }
+      if (routeId === 'storkFront') {
+        return (
+          <StorkFront
             navigator={navigator} />
         );
       }
