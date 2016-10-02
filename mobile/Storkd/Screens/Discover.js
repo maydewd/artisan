@@ -12,18 +12,15 @@ import {
   Image
 } from 'react-native';
 import BottomNav from '../Components/BottomNav'
+import MainNavBar from '../Components/MainNavBar'
 
 class Discover extends Component {
 
   render() {
     return (
-        <View style = {styles.centered}>
-          <View style = {{height: 14}} />
-          <View style = {styles.centered}>
-            <Text> Discover </Text>
-            <BottomNav navigator={this.props.navigator} />
-          </View>
-        </View>
+      <View style = {styles.centered}>
+        <Text> Discover </Text>
+      </View>
     );
   }
 }
@@ -35,6 +32,7 @@ const styles = StyleSheet.create({
       flexDirection: "column",
       justifyContent: "space-between",
       alignItems: "center",
+      padding: 100
     }
 });
 

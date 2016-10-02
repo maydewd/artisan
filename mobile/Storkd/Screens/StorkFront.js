@@ -17,13 +17,9 @@ class StorkFront extends Component {
 
   render() {
     return (
-        <View style = {styles.centered}>
-          <View style = {{height: 14}} />
-          <View style = {styles.centered}>
-            <Text> StorkFront </Text>
-            <BottomNav navigator={this.props.navigator} />
-          </View>
-        </View>
+      <View style = {styles.centered}>
+        <Text> StorkFront </Text>
+      </View>
     );
   }
 }
@@ -35,6 +31,7 @@ const styles = StyleSheet.create({
       flexDirection: "column",
       justifyContent: "space-between",
       alignItems: "center",
+      padding: 100
     }
 });
 
