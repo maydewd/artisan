@@ -30,9 +30,9 @@ class MainNavBar extends Component {
     return (
       <TabBarIOS
       selectedTab = {this.state.selectedTab}
-      unselectedTintColor="yellow"
+      unselectedTintColor="gray"
       tintColor="blue"
-      barTintColor="darkslateblue"
+      barTintColor="lightblue"
       >
       <TabBarIOS.Item
         title="Blue Tab"
