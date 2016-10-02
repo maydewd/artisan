@@ -41,15 +41,9 @@ class Storkd extends Component {
             navigator={navigator} />
         );
       }
-      if (routeId === 'discover') {
+      if (routeId === 'mainView') {
         return (
           <MainNavBar
-            navigator={navigator} />
-        );
-      }
-      if (routeId === 'storkFront') {
-        return (
-          <StorkFront
             navigator={navigator} />
         );
       }

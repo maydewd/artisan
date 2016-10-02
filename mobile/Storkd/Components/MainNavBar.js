@@ -35,9 +35,8 @@ class MainNavBar extends Component {
       barTintColor="lightblue"
       >
       <TabBarIOS.Item
-        title="Blue Tab"
+        title="Discover"
         selected={this.state.selectedTab === 'discover'}
-        systemIcon = "history"
         onPress={() => {
           console.log('pressed')
           this.setState({
@@ -47,7 +46,7 @@ class MainNavBar extends Component {
         {this._renderContent()}
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          title="Other"
+          title="StorkFront"
           systemIcon = "bookmarks"
           selected={this.state.selectedTab === 'other'}
           onPress={() => {

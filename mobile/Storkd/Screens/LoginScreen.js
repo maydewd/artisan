@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import CenteredView from '../Screens/CenteredView'
 import Button from 'react-native-button'
+styles = require('../Styles/Login');
 
 class LoginScreen extends Component {
 
@@ -51,49 +52,18 @@ class LoginScreen extends Component {
 
   _loginPressed() {
     console.log("trying to log in")
-    var navigator = this.props.navigator;
-    navigator.replace({
-        id: 'discover'
-    });
+    if (this._authenticated()) {}
+      var navigator = this.props.navigator;
+      navigator.replace({
+          id: 'mainView'
+      });
+  }
+
+
+  //placeholder
+  _authenticated() {
+    return true;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  logo: {
-    width: 150,
-    height: 150
-  },
-  textBox: {
-    height: 40,
-    width: 300,
-    borderWidth: 0.5,
-    borderColor: '#0f0f0f',
-    padding: 4,
-    alignSelf: 'center'
-  },
-  groupedTextBoxes: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    maxHeight: 150
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
-
 
 module.exports = LoginScreen
