@@ -16,6 +16,7 @@ import BottomNav from '../Components/BottomNav'
 import Discover from '../Screens/Discover.js'
 import StorkFront from '../Screens/StorkFront.js'
 import Tabbar from 'react-native-tabbar'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class AndroidTab extends Component {
 
