@@ -4,7 +4,6 @@
  * Module dependencies.
  */
 
-const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
@@ -17,7 +16,7 @@ exports.login = function (req, res) {
       if (err) throw err;
 
       if (!user) {
-        res.send({ success: false, message: 'Authentication failed.' });
+        return res.status(400).send({ success: false, message: 'Authentication failed.' });
       } else {
         // Check if password matches
         user.comparePassword(req.body.password, function(err, isMatch) {
@@ -42,7 +41,7 @@ exports.login = function (req, res) {
 
 exports.register = function (req, res) {
   if(!req.body.username || !req.body.password) {
-    res.json({ success: false, message: 'Please enter username and password.' });
+    return res.status(400).json({ success: false, message: 'Please enter username and password.' });
   } else {
     var newUser = new User({
       username: req.body.username,
@@ -52,7 +51,7 @@ exports.register = function (req, res) {
     // Attempt to save the user
     newUser.save(function(err) {
       if (err) {
-        return res.json({ success: false, message: 'That username already exists.'});
+        return res.status(400).json({ success: false, message: 'That username already exists.'});
       }
       res.json({ success: true, message: 'Successfully created new user.' });
     });
@@ -63,7 +62,7 @@ exports.register = function (req, res) {
 exports.showAll = function (req, res) {
   User.find({}, 'username', function(err, users) {
     if (err) {
-      res.send(err);
+      return res.status(400).send(err);
     }
     res.json(users);
   });

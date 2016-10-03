@@ -6,6 +6,7 @@
 
 const express = require('express');
 const users = require('../controllers/users');
+const listings = require('../controllers/listings');
 
 // /**
 //  * Route middlewares
@@ -24,13 +25,20 @@ module.exports = function (app, passport) {
   var apiRoutes = express.Router();
   app.use('/api', apiRoutes);
 
-  // API USER routes
+  // API AUTH routes
   apiRoutes.post('/login', users.login);
   apiRoutes.post('/register', users.register);
   // apiRoutes.post('/logout', users.logout);
+
+  // API USER routes
   apiRoutes.get('/users', passport.authenticate('jwt', { session: false }), users.showAll);
   // apiRoutes.get('/users/:userId', users.show);
+  // apiRoutes.get('/users/:userId/posts', users.posts);
 
+  // API LISTING routes
+  apiRoutes.post('/listings', passport.authenticate('jwt', { session: false }), listings.create);
+  apiRoutes.get('/listings/:listingID', passport.authenticate('jwt', { session: false }), listings.show);
+  apiRoutes.get('/listings', passport.authenticate('jwt', { session: false }), listings.showAll);
 
   /**
    * Error handling
