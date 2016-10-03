@@ -23,7 +23,7 @@ class AndroidTab extends Component {
     super(props, context)
     this.tabarRef = null
     this.state = {
-      tab: 'item1'
+      tab: 'discover'
     }
   }
 
@@ -33,30 +33,15 @@ class AndroidTab extends Component {
 
   renderTabs() {
     return (
-      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 1, borderTopColor: 'green' }}>
-        <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('item1')}>
+      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 1, borderTopColor: 'pink' }}>
+        <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('discover')}>
           <View>
-            <Text>Item 1</Text>
+            <Text>Discover</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('item2')}>
+        <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('storkFront')}>
           <View>
-            <Text>Item 2</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('item3')}>
-          <View>
-            <Text>Item 3</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('item4')}>
-          <View>
-            <Text>Item 4</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('item5')}>
-          <View>
-            <Text>Item 5</Text>
+            <Text>StorkFront</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -67,23 +52,15 @@ class AndroidTab extends Component {
     const { tab } = this.state
     let content
     switch(tab) {
-      case 'item1':
-        content = <Text>This is the content 1</Text>
+      case 'discover':
+        content =   <Discover
+            navigator={this.props.navigator} />
         break
-      case 'item2':
-        content = <Text>This is the content 2</Text>
-        break
-      case 'item3':
-        content = <Text>This is the content 3</Text>
-        break
-      case 'item4':
-        content = <Text>This is the content 4</Text>
-        break
-      case 'item5':
-        content = <Text>This is the content 5</Text>
+      case 'storkFront':
+        content = <StorkFront
+            navigator={this.props.navigator} />
         break
     }
-
     return content
   }
 
@@ -96,7 +73,7 @@ class AndroidTab extends Component {
           <Tabbar show={true}
                disable={false}
                ref={(ref) => this.tabarRef = ref}
-               style={{ backgroundColor: 'red' }}>
+               style={{ backgroundColor: 'lightblue' }}>
           {this.renderTabs()}
          </Tabbar>
       </View>
@@ -116,7 +93,13 @@ const styles = StyleSheet.create({
     container: {
    flex: 1,
    backgroundColor: 'white'
-  }
+ },
+
+  tabItem: {
+   flex: 1,
+   alignItems: 'center',
+   justifyContent: 'center'
+ }
 });
 
 

@@ -16,6 +16,7 @@ import LoginScreen from './Screens/LoginScreen.js'
 import MainNavBar from './Components/MainNavBar.js'
 import Discover from './Screens/Discover.js'
 import StorkFront from './Screens/StorkFront.js'
+import AndroidTab from './Components/AndroidTab.js'
 
 class Storkd extends Component {
   render() {
@@ -42,7 +43,7 @@ class Storkd extends Component {
       }
       if (routeId === 'mainView') {
         return (
-          <MainNavBar
+          <AndroidTab
             navigator={navigator} />
         );
       }
