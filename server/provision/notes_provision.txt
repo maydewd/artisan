@@ -1,0 +1,23 @@
+Set-up fresh server:
+1. (If git repo is private) On local machine, go to ~/.ssh/config and add the following lines:
+  Host example.com
+    ForwardAgent yes
+2. Copy public key to server
+  cat ~/.ssh/id_rsa.pub | ssh bitnami@colab-sbx-137.oit.duke.edu "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+3. Login to server with password
+  ssh bitnami@colab-sbx-137.oit.duke.edu
+3.5 Check to make sure public key was added successfully
+  less ~/.ssh/authorized_keys
+4. In remote server, disable password login
+  sudo nano /etc/ssh/sshd_config
+  change '#PasswordAuthentication yes' to 'PasswordAuthentication no'
+5. Restart ssh
+  sudo service ssh restart
+6. Install git
+  sudo apt-get install git
+7. Clone repository
+  git clone git@git.cs.duke.edu:CompSci408_2016Fall/Artisan.git
+8. Run provision script
+  sh ~/Artisan/server/provision/provision.sh
+9.(Optional) Start node server
+  nodemon ~/Artisan/server/server.js
