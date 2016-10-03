@@ -9,26 +9,44 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Navigator
 } from 'react-native';
+import LoginScreen from './Screens/LoginScreen.js'
+import MainNavBar from './Components/MainNavBar.js'
+import Discover from './Screens/Discover.js'
+import StorkFront from './Screens/StorkFront.js'
 
 class Storkd extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <Navigator
+         initialRoute={{id: 'login', name: 'Index'}}
+         renderScene={this.renderScene.bind(this)}
+         configureScene={(route) => {
+           if (route.sceneConfig) {
+             return route.sceneConfig;
+           }
+           return Navigator.SceneConfigs.FloatFromRight;
+      }} />
     );
   }
+
+  renderScene(route, navigator) {
+      var routeId = route.id;
+      if (routeId === 'login') {
+        return (
+          <LoginScreen
+            navigator={navigator} />
+        );
+      }
+      if (routeId === 'mainView') {
+        return (
+          <MainNavBar
+            navigator={navigator} />
+        );
+      }
+    }
 }
 
 const styles = StyleSheet.create({
@@ -37,6 +55,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  logo: {
+    width: 40,
+    height: 40
   },
   welcome: {
     fontSize: 20,
