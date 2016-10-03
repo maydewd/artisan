@@ -12,7 +12,7 @@ const config = require('../config/config');
 
 exports.login = function (req, res) {
     User.findOne({
-      email: req.body.email
+      username: req.body.username.toLowerCase()
     }, function(err, user) {
       if (err) throw err;
 
@@ -41,18 +41,18 @@ exports.login = function (req, res) {
  */
 
 exports.register = function (req, res) {
-  if(!req.body.email || !req.body.password) {
-    res.json({ success: false, message: 'Please enter email and password.' });
+  if(!req.body.username || !req.body.password) {
+    res.json({ success: false, message: 'Please enter username and password.' });
   } else {
     var newUser = new User({
-      email: req.body.email,
+      username: req.body.username,
       password: req.body.password
     });
 
     // Attempt to save the user
     newUser.save(function(err) {
       if (err) {
-        return res.json({ success: false, message: 'That email address already exists.'});
+        return res.json({ success: false, message: 'That username already exists.'});
       }
       res.json({ success: true, message: 'Successfully created new user.' });
     });
@@ -61,7 +61,7 @@ exports.register = function (req, res) {
 
 
 exports.showAll = function (req, res) {
-  User.find({}, 'email', function(err, users) {
+  User.find({}, 'username', function(err, users) {
     if (err) {
       res.send(err);
     }

@@ -11,8 +11,6 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 //const upload = require('multer')();
 
-const pkg = require('../../../package.json');
-
 const env = process.env.NODE_ENV || 'development';
 
 /**
@@ -38,7 +36,6 @@ module.exports = function (app, passport) {
 
   // expose package.json to views
   app.use(function (req, res, next) {
-    res.locals.pkg = pkg;
     res.locals.env = env;
     next();
   });
