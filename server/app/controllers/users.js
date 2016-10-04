@@ -10,6 +10,9 @@ const User = require('../models/user');
 const config = require('../config/config');
 
 exports.login = function (req, res) {
+  if(!req.body.username || !req.body.password) {
+    return res.status(400).json({ success: false, message: 'Please enter username and password.' });
+  else {
     User.findOne({
       username: req.body.username.toLowerCase()
     }, function(err, user) {
@@ -32,7 +35,8 @@ exports.login = function (req, res) {
         });
       }
     });
-  };
+  }
+};
 
 
 /**
