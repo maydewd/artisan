@@ -1,6 +1,5 @@
 /**
- * Centered Screen
- * Used as a part Component for certain screens
+ * Discover Screen
  */
 
 import React, { Component } from 'react';
@@ -13,16 +12,53 @@ import {
 } from 'react-native';
 import BottomNav from '../Components/BottomNav'
 import MainNavBar from '../Components/MainNavBar'
+import Icon from 'react-native-vector-icons/FontAwesome'
 styles = require('../Styles/Layouts');
 
-class Discover extends Component {
+const ExampleData = [
+  {image: require('../resources/Saddle-Billed_Stork.jpg')},
+  {image: require('../resources/Logo1.png')}
+]
 
+class Discover extends Component {
+  constructor(props) {
+    super(props);
+    // TODO: make this better
+    this.state = { data: ExampleData[0] };
+  }
   render() {
     return (
       <View style = {styles.centered}>
-        <Text> Discover </Text>
+        <Image
+          style = {styles.discoverImage}
+          source = {this.state.data.image}
+        />
+        <View style = {styles.centered && {flexDirection: "row"}}>
+          <Icon.Button
+            name="thumbs-down"
+            size={50}
+            iconStyle={{marginRight: 0}}
+            backgroundColor="#ec7063"
+            onPress={() => this._thumbsDownPressed()}>
+          </Icon.Button>
+          <View style={{flex:2}}></View>
+          <Icon.Button
+            name="thumbs-up"
+            size={50}
+            iconStyle={{marginRight: 0}}
+            backgroundColor="#DAF7A6"
+            onPress={() => this._thumbsUpPressed()}>
+          </Icon.Button>
+        </View>
       </View>
     );
+  }
+  _thumbsDownPressed() {
+    // TODO: temp
+    this.setState({ data: ExampleData[1]})
+  }
+  _thumbsUpPressed() {
+    // TODO:
   }
 }
 
