@@ -55,7 +55,7 @@ exports.register = function (req, res) {
     // Attempt to save the user
     newUser.save(function(err) {
       if (err) {
-        return res.status(400).json({ success: false, message: 'That username already exists.'});
+        return res.status(400).json({ success: false, message: err});
       }
       res.json({ success: true, message: 'Successfully created new user.' });
     });
