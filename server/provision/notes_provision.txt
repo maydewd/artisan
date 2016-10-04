@@ -20,4 +20,4 @@ Set-up fresh server:
 8. Run provision script
   sh ~/Artisan/server/provision/provision.sh
 9.(Optional) Start node server
-  nodemon ~/Artisan/server/server.js
+  pm2 start ~/Artisan/server/server.js

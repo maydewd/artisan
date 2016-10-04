@@ -11,7 +11,7 @@ sudo npm install -g n
 sudo n stable
 
 # INSTALL NODE MODULES
-sudo npm install -g nodemon
+sudo npm install -g pm2
 
 # INSTALL MONGO
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
