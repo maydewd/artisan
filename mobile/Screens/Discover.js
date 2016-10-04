@@ -41,7 +41,7 @@ class Discover extends Component {
             backgroundColor="#ec7063"
             onPress={() => this._thumbsDownPressed()}>
           </Icon.Button>
-          <View style={{flex:2}}></View>
+          <View style={{flex:1}}></View>
           <Icon.Button
             name="thumbs-up"
             size={50}

@@ -56,7 +56,34 @@ const styles = StyleSheet.create({
       flex: 1,
       resizeMode: 'contain',
       height: 800,
-    }
+    },
+
+    storkfrontScreen: {
+      flex: 1,
+      flexDirection: "column",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    storkfrontList: {
+      flex: 1,
+    },
+    storkfrontProfileImage: {
+      flex: 1,
+      resizeMode: 'contain',
+    },
+    storkfrontProfileText: {
+      flex: 1,
+      fontSize: 24,
+      textAlign: 'center',
+    },
+
+    storkfrontImage: {
+      resizeMode: 'contain',
+      height: 800,
+    },
+    storkfrontPostText: {
+      fontSize: 50,
+    },
 });
 
 module.exports = styles
