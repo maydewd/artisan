@@ -81,12 +81,9 @@ class LoginScreen extends Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({username: username, password: password})})
-    .then((response) =>
-      {
-        console.log(response.json())
-        return response.json()
-      })
+    .then((response) => response.json())
     .then((responseData) => {
+      console.log(responseData);
       if (responseData.success === true) {
         AsyncStorage.setItem('jwtToken', responseData.token, () =>
           this.props.navigator.push({id:'mainView'})
@@ -94,13 +91,9 @@ class LoginScreen extends Component {
       }
        return responseData;
      })
-    .then((data) => {
-       console.log(data);
-     })
     .catch(function(err) {
-      //Error is caught here, saying Network request failed
-        console.log("Getting an error here");
-        console.log(err);
+      console.log("Error in Login Fetch request");
+      console.log(err);
     })
     .done();
   }
