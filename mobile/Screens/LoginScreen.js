@@ -80,7 +80,7 @@ class LoginScreen extends Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({email: username, password: password})})
+        body: JSON.stringify({username: username, password: password})})
     .then((response) =>
       {
         console.log(response.json())

@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
 
     navBar: {
       flex: 1,
-      maxHeight: 1
     },
 
     navBarView: {
