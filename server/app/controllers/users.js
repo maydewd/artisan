@@ -12,7 +12,7 @@ const config = require('../config/config');
 exports.login = function (req, res) {
   if(!req.body.username || !req.body.password) {
     return res.status(400).json({ success: false, message: 'Please enter username and password.' });
-  else {
+  } else {
     User.findOne({
       username: req.body.username.toLowerCase()
     }, function(err, user) {
