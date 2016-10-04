@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
       flexDirection: "column",
       justifyContent: "space-between",
       alignItems: "center",
-      padding: 100
+      padding: 0
     },
 
     container: {
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     discoverImage: {
       flex: 1,
       resizeMode: 'contain',
-      height: 800,
+      height: 400,
     },
 
     storkfrontScreen: {

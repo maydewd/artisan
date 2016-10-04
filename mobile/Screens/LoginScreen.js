@@ -18,6 +18,11 @@ styles = require('../Styles/Layouts');
 
 class LoginScreen extends Component {
 
+    componentDidMount() {
+        this.setState({username: 'devuser'});
+        this.setState({password: 'securetest'});
+    }
+
   render() {
     return (
       <CenteredView>
@@ -29,11 +34,13 @@ class LoginScreen extends Component {
           <TextInput
             style={styles.textBox}
             placeholder="Username"
+            onChangeText={(username) => this.setState({username})}
           />
           <TextInput
             style={styles.textBox}
             placeholder="Password"
             password = {true}
+            onChangeText={(password) => this.setState({password})}
           />
           <Button
             containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
@@ -50,12 +57,52 @@ class LoginScreen extends Component {
   }
 
   _loginPressed() {
-    console.log("trying to log in")
+    const { username, password } = this.state
+    console.log(username);
+    console.log(password);
     if (this._authenticated()) {}
       var navigator = this.props.navigator;
       navigator.replace({
           id: 'mainView'
       });
+  }
+
+  //Not functional
+  _submitLogin = () => {
+    const { username, password } = this.state
+
+    console.log(username);
+    console.log(password);
+    //Username and password reach this point
+    fetch("http://colab-sbx-137.oit.duke.edu:3000/api/login",
+      {method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email: username, password: password})})
+    .then((response) =>
+      {
+        console.log(response.json())
+        return response.json()
+      })
+    .then((responseData) => {
+      if (responseData.success === true) {
+        AsyncStorage.setItem('jwtToken', responseData.token, () =>
+          this.props.navigator.push({id:'mainView'})
+        );
+      }
+       return responseData;
+     })
+    .then((data) => {
+       console.log(data);
+     })
+    .catch(function(err) {
+      //Error is caught here, saying Network request failed
+        console.log("Getting an error here");
+        console.log(err);
+    })
+    .done();
   }
 
 
