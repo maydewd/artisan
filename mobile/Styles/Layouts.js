@@ -12,6 +12,16 @@ const styles = StyleSheet.create({
       padding: 0
     },
 
+    navBar: {
+      flex: 1,
+      maxHeight: 1
+    },
+
+    navBarView: {
+      flex: 1,
+      maxHeight: 1
+    },
+
     container: {
       flex: 1,
       justifyContent: 'space-between',

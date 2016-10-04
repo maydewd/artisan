@@ -68,7 +68,7 @@ class LoginScreen extends Component {
   }
 
   //Not functional
-  _submitLogin = () => {
+  _submitLogin() {
     const { username, password } = this.state
 
     console.log(username);

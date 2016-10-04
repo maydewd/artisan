@@ -14,6 +14,7 @@ import BottomNav from '../Components/BottomNav'
 import MainNavBar from '../Components/MainNavBar'
 import Icon from 'react-native-vector-icons/FontAwesome'
 styles = require('../Styles/Layouts');
+var NavigationBar = require('react-native-navbar');
 
 const ExampleData = [
   {image: require('../resources/Saddle-Billed_Stork.jpg')},
@@ -26,12 +27,23 @@ class Discover extends Component {
     // TODO: make this better
     this.state = { data: ExampleData[0] };
   }
+
   render() {
+    var titleConfig = {
+     title: 'Hello, world',
+   };
+
     return (
+      <View>
+        <NavigationBar
+        style = {styles.navBar}
+        tintColor = 'blue'
+        title={titleConfig}
+        />
       <View style = {styles.centered}>
         <Image
-          style = {styles.discoverImage}
-          source = {this.state.data.image}
+             style = {styles.discoverImage}
+             source = {this.state.data.image}
         />
         <View style = {styles.centered && {flexDirection: "row"}}>
           <Icon.Button
@@ -50,6 +62,7 @@ class Discover extends Component {
             onPress={() => this._thumbsUpPressed()}>
           </Icon.Button>
         </View>
+      </View>
       </View>
     );
   }
