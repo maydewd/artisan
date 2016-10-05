@@ -69,29 +69,55 @@ const styles = StyleSheet.create({
 
     storkfrontScreen: {
       flex: 1,
-      flexDirection: "column",
-      justifyContent: "space-between",
+      flexDirection: 'column',
+      justifyContent: "flex-start",
+      alignItems: "center",
+      paddingTop: 5
+    },
+
+    storkFront: {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: "flex-start",
       alignItems: "center",
     },
+
+    storkFrontBanner: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: "flex-start",
+      alignItems: "center",
+      maxHeight: 80,
+      paddingTop: 5
+    },
+
     storkfrontList: {
       flex: 1,
+      paddingTop: 10,
+      width: 375
     },
+
     storkfrontProfileImage: {
-      flex: 1,
       resizeMode: 'contain',
+      height: 75,
+      width: 75
     },
+
     storkfrontProfileText: {
       flex: 1,
-      fontSize: 24,
-      textAlign: 'center',
+      padding: 10,
+      fontSize: 16,
     },
 
     storkfrontImage: {
       resizeMode: 'contain',
-      height: 800,
+      height: 400,
+      width: 300
     },
+
     storkfrontPostText: {
-      fontSize: 50,
+      fontSize: 14,
+      
     },
 });
 
