@@ -92,9 +92,9 @@ const styles = StyleSheet.create({
     },
 
     storkfrontList: {
-      flex: 1,
       paddingTop: 10,
-      width: 375
+      width: 375,
+      maxHeight: 475
     },
 
     storkfrontProfileImage: {
