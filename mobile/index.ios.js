@@ -16,7 +16,9 @@ import {
 import LoginScreen from './Screens/LoginScreen.js'
 import MainNavBar from './Components/MainNavBar.js'
 import Discover from './Screens/Discover.js'
+import DiscoverSettings from './Screens/DiscoverSettings.js'
 import StorkFront from './Screens/StorkFront.js'
+import MyBundle from './Screens/MyBundle.js'
 import BottomTabBar from './Components/BottomTabBar.js'
 
 class Storkd extends Component {
@@ -45,6 +47,18 @@ class Storkd extends Component {
       if (routeId === 'mainView') {
         return (
           <BottomTabBar
+            navigator={navigator} />
+        );
+      }
+      if (routeId === 'discoverSettings') {
+        return (
+          <DiscoverSettings
+            navigator={navigator} />
+        );
+      }
+      if (routeId === 'myBundle') {
+        return (
+          <MyBundle
             navigator={navigator} />
         );
       }

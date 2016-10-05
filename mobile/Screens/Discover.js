@@ -32,15 +32,29 @@ class Discover extends Component {
   leftButton() {
     return  (
       <View style = {styles.navIcon}>
-        <Ionicons name="ios-settings" size={30}/>
+        <Ionicons name="ios-settings" size={30} onPress={(event) => {this.goToSettings()}}/>
       </View>
     );
+  }
+
+  goToSettings() {
+    console.log("pressed")
+    this.props.navigator.push({
+        id: 'discoverSettings'
+    });
+  }
+
+  goToMyBundle() {
+    console.log("pressed")
+    this.props.navigator.push({
+        id: 'myBundle'
+    });
   }
 
   rightButton() {
     return (
       <View style = {styles.navIcon}>
-        <Ionicons name="ios-basket" size={30}/>
+        <Ionicons name="ios-basket" size={30} onPress={(event) => {this.goToMyBundle()}}/>
       </View>
     );
   }
@@ -51,7 +65,7 @@ class Discover extends Component {
    };
 
     return (
-      <View View >
+      <View>
         <NavigationBar
         style={styles.navBar}
         title={titleConfig}
