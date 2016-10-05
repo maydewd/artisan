@@ -10,8 +10,17 @@ import {
   View
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class DiscoverSettings extends Component {
+
+  rightButton() {
+    return (
+      <View style = {styles.navIcon}>
+        <Icon name="save" size={25}/>
+      </View>
+    )
+  }
 
   render() {
     var titleConfig = {
@@ -28,6 +37,7 @@ class DiscoverSettings extends Component {
       style={styles.navBar}
       title={titleConfig}
       leftButton={leftButtonConfig}
+      rightButton={this.rightButton()}
       />
     );
   }
