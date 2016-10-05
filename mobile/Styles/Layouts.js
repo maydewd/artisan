@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
       justifyContent: "flex-start",
       alignItems: "center",
       maxHeight: 80,
-      paddingTop: 5
+      padding: 5
     },
 
     storkfrontList: {
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
 
     storkfrontPostText: {
       fontSize: 14,
-      
+
     },
 });
 

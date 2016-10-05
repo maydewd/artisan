@@ -15,6 +15,7 @@ import BottomNav from '../Components/BottomNav'
 import Icon from 'react-native-vector-icons/FontAwesome'
 styles = require('../Styles/Layouts');
 var NavigationBar = require('react-native-navbar');
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const DefaultProfileImage = require("../resources/profile.png");
 
@@ -30,6 +31,22 @@ class StorkFront extends Component {
       ])
     };
   }
+
+  leftButton() {
+    return  (
+      <View style = {styles.navIcon}>
+        <Ionicons name="ios-settings" size={30}/>
+      </View>
+    );
+  }
+
+  rightButton() {
+    return (
+      <View style = {styles.navIcon}>
+        <Ionicons name="ios-add" size={30}/>
+      </View>
+    );
+  }
   render() {
 
     var titleConfig = {
@@ -41,11 +58,13 @@ class StorkFront extends Component {
         <NavigationBar
           style={styles.navBar}
           title={titleConfig}
+          leftButton = {this.leftButton()}
+          rightButton = {this.rightButton()}
         />
         <View style={styles.storkFront}>
           <View style = {styles.storkFrontBanner}>
             <Image style = {styles.storkfrontProfileImage} source={DefaultProfileImage} />
-            <Text style = {styles.storkfrontProfileText}>Description</Text>
+            <Text style = {styles.storkfrontProfileText}>Username</Text>
           </View>
           <ListView
             style = {styles.storkfrontList}
