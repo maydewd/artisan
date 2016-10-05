@@ -31,7 +31,7 @@ class Storkd extends Component {
            if (route.sceneConfig) {
              return route.sceneConfig;
            }
-           return Navigator.SceneConfigs.FloatFromRight;
+           return Navigator.SceneConfigs.FadeAndroid;
       }} />
     );
   }
