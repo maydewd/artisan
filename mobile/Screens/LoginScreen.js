@@ -9,7 +9,8 @@ import {
   Text,
   View,
   Image,
-  TextInput
+  TextInput,
+  AsyncStorage
 } from 'react-native';
 import CenteredView from '../Screens/CenteredView'
 import Button from 'react-native-button'
