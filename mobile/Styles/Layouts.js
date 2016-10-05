@@ -16,6 +16,10 @@ const styles = StyleSheet.create({
       backgroundColor: 'lightblue'
     },
 
+    navIcon: {
+      padding: 10
+    },
+
     container: {
       flex: 1,
       justifyContent: 'space-between',

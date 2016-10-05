@@ -15,6 +15,7 @@ import MainNavBar from '../Components/MainNavBar'
 import Icon from 'react-native-vector-icons/FontAwesome'
 styles = require('../Styles/Layouts');
 var NavigationBar = require('react-native-navbar');
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const ExampleData = [
   {image: require('../resources/Saddle-Billed_Stork.jpg')},
@@ -28,6 +29,22 @@ class Discover extends Component {
     this.state = { data: ExampleData[0] };
   }
 
+  leftButton() {
+    return  (
+      <View style = {styles.navIcon}>
+        <Ionicons name="ios-settings" size={30}/>
+      </View>
+    );
+  }
+
+  rightButton() {
+    return (
+      <View style = {styles.navIcon}>
+        <Ionicons name="ios-basket" size={30}/>
+      </View>
+    );
+  }
+
   render() {
     var titleConfig = {
      title: 'Discover',
@@ -38,6 +55,8 @@ class Discover extends Component {
         <NavigationBar
         style={styles.navBar}
         title={titleConfig}
+        leftButton={this.leftButton()}
+        rightButton={this.rightButton()}
         />
         <View style = {styles.centered}>
           <Image
