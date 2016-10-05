@@ -30,39 +30,38 @@ class Discover extends Component {
 
   render() {
     var titleConfig = {
-     title: 'Hello, world',
+     title: 'Discover',
    };
 
     return (
-      <View>
+      <View View >
         <NavigationBar
-        style = {styles.navBar}
-        tintColor = 'blue'
+        style={styles.navBar}
         title={titleConfig}
         />
-      <View style = {styles.centered}>
-        <Image
-             style = {styles.discoverImage}
-             source = {this.state.data.image}
-        />
-        <View style = {styles.centered && {flexDirection: "row"}}>
-          <Icon.Button
-            name="thumbs-down"
-            size={50}
-            iconStyle={{marginRight: 0}}
-            backgroundColor="#ec7063"
-            onPress={() => this._thumbsDownPressed()}>
-          </Icon.Button>
-          <View style={{flex:1}}></View>
-          <Icon.Button
-            name="thumbs-up"
-            size={50}
-            iconStyle={{marginRight: 0}}
-            backgroundColor="#DAF7A6"
-            onPress={() => this._thumbsUpPressed()}>
-          </Icon.Button>
+        <View style = {styles.centered}>
+          <Image
+               style = {styles.discoverImage}
+               source = {this.state.data.image}
+          />
+          <View style = {styles.centered && {flexDirection: "row"}}>
+            <Icon.Button
+              name="thumbs-down"
+              size={50}
+              iconStyle={{marginRight: 0}}
+              backgroundColor="#ec7063"
+              onPress={() => this._thumbsDownPressed()}>
+            </Icon.Button>
+            <View style={{flex:1}}></View>
+            <Icon.Button
+              name="thumbs-up"
+              size={50}
+              iconStyle={{marginRight: 0}}
+              backgroundColor="#DAF7A6"
+              onPress={() => this._thumbsUpPressed()}>
+            </Icon.Button>
+          </View>
         </View>
-      </View>
       </View>
     );
   }

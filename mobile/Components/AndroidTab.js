@@ -68,7 +68,7 @@ class AndroidTab extends Component {
   render() {
     return (
       <View style={styles.container}>
-         <View style={{ paddingTop: 30 }}>
+         <View>
            {this.renderContent()}
           </View>
           <Tabbar show={true}
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     container: {
    flex: 1,
    backgroundColor: 'white'
- },
+  },
 
   tabItem: {
    flex: 1,

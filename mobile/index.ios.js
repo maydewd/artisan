@@ -48,6 +48,7 @@ class Storkd extends Component {
             navigator={navigator} />
         );
       }
+
     }
 }
 

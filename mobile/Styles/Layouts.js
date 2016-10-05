@@ -9,16 +9,11 @@ const styles = StyleSheet.create({
       flexDirection: "column",
       justifyContent: "space-between",
       alignItems: "center",
-      padding: 0
+      padding: 20
     },
 
     navBar: {
-      flex: 1,
-    },
-
-    navBarView: {
-      flex: 1,
-      maxHeight: 1
+      backgroundColor: 'lightblue'
     },
 
     container: {
@@ -65,6 +60,7 @@ const styles = StyleSheet.create({
       flex: 1,
       resizeMode: 'contain',
       height: 400,
+      width: 300
     },
 
     storkfrontScreen: {

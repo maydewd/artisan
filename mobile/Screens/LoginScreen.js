@@ -27,7 +27,7 @@ class LoginScreen extends Component {
     return (
       <CenteredView>
         <Image source = {require("../resources/Logo1.png")} style = {styles.logo} />
-        <Icon.Button name="facebook" backgroundColor="#3b5998">
+        <Icon.Button name="facebook" backgroundColor="#3b5998"   onPress={() => this._loginPressed()}>
             Login with Facebook
         </Icon.Button>
         <View style = {styles.groupedTextBoxes}>
@@ -45,7 +45,7 @@ class LoginScreen extends Component {
           <Button
             containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
             style={{fontSize: 20, color: 'pink'}}
-            onPress={() => this._loginPressed()}>
+            onPress={() => this._submitLogin()}>
             Login
           </Button>
         </View>
