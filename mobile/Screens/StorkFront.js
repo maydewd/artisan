@@ -43,10 +43,17 @@ class StorkFront extends Component {
   rightButton() {
     return (
       <View style = {styles.navIcon}>
-        <Ionicons name="ios-add" size={30}/>
+        <Ionicons name="ios-add" size={30} onPress={(event) => {this.goToNewPost()}}/>
       </View>
     );
   }
+
+  goToNewPost() {
+    this.props.navigator.push({
+        id: 'newPost'
+    });
+  }
+
   render() {
 
     var titleConfig = {

@@ -1,5 +1,5 @@
 /**
- * Discover Screen
+ * MyBundle
  */
 
 import React, { Component } from 'react';

@@ -14,6 +14,7 @@ import {
   Navigator
 } from 'react-native';
 import LoginScreen from './Screens/LoginScreen.js'
+import NewPost from './Screens/NewPost.js'
 import MainNavBar from './Components/MainNavBar.js'
 import Discover from './Screens/Discover.js'
 import DiscoverSettings from './Screens/DiscoverSettings.js'
@@ -59,6 +60,12 @@ class Storkd extends Component {
       if (routeId === 'myBundle') {
         return (
           <MyBundle
+            navigator={navigator} />
+        );
+      }
+      if (routeId === 'newPost') {
+        return (
+          <NewPost
             navigator={navigator} />
         );
       }
