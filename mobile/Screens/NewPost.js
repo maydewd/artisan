@@ -8,12 +8,16 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput
+  TextInput,
+  TouchableOpacity,
+  Image,
+  PixelRatio,
+  Platform
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 styles = require('../Styles/Layouts');
 import Button from 'react-native-button'
-var myPhotoGetter = require('NativeModules').CameraRoll;
+var ImagePicker = require('react-native-image-picker');
 
 class NewPost extends Component {
 
@@ -21,7 +25,8 @@ class NewPost extends Component {
     super(props);
     this.state = {
       description: '',
-      number: 0
+      number: 0,
+      avatarSource: null
     };
   }
 
@@ -50,15 +55,58 @@ class NewPost extends Component {
           placeholder="Enter Description"
           onChangeText={(description) => this.setState({description})}
         />
-        <Button
-          containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
-          style={{fontSize: 20, color: 'blue'}}
-          onPress={() => this._post()}>
-          Post
-        </Button>
-        <Text> {this.state.number} </Text>
+        <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+          <Text>Ryan</Text>
+        </TouchableOpacity>
+        <View>
+          { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
+              <Image style={styles.avatar} source={this.state.avatarSource} />
+            }
+        </View>
       </View>
     );
+  }
+
+  selectPhotoTapped() {
+    console.log("Getting photo");
+    const options = {
+        quality: 1.0,
+        maxWidth: 500,
+        maxHeight: 500,
+        storageOptions: {
+          skipBackup: true
+        }
+      };
+    ImagePicker.showImagePicker(options, (response) => {
+        console.log('Response = ', response);
+
+        if (response.didCancel) {
+       console.log('User cancelled photo picker');
+     }
+     else if (response.error) {
+       console.log('ImagePicker Error: ', response.error);
+     }
+     else if (response.customButton) {
+       console.log('User tapped custom button: ', response.customButton);
+     }
+     else {
+       var source;
+
+       // You can display the image using either:
+       //source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
+
+       //Or:
+       if (Platform.OS === 'android') {
+         source = {uri: response.uri, isStatic: true};
+       } else {
+         source = {uri: response.uri.replace('file://', ''), isStatic: true};
+       }
+
+       this.setState({
+         avatarSource: source
+       });
+     }
+    });
   }
 
   changeNumber() {
@@ -72,7 +120,7 @@ class NewPost extends Component {
   }
 
   _post() {
-    this.changeNumber();
+    this._getPhoto();
     const {description} = this.state;
     console.log(description)
   }

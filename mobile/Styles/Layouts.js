@@ -41,6 +41,12 @@ const styles = StyleSheet.create({
       alignSelf: 'center'
     },
 
+    avatar: {
+      borderRadius: 75,
+      width: 150,
+      height: 150
+    },
+
     groupedTextBoxes: {
       flex: 1,
       flexDirection: 'column',
