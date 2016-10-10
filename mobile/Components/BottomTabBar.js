@@ -34,13 +34,15 @@ class BottomTabBar extends Component {
 
   renderTabs() {
     return (
-      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 1, borderTopColor: 'pink' }}>
+      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 2, borderTopColor: 'pink' }}>
         <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('discover')}>
+          <Icon name="globe" size={30} />
           <View>
             <Text>Discover</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('storkFront')}>
+          <Icon name="home" size={30} />
           <View>
             <Text>StorkFront</Text>
           </View>
