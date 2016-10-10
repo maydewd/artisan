@@ -36,15 +36,23 @@ class BottomTabBar extends Component {
     return (
       <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 2, borderTopColor: 'pink' }}>
         <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('discover')}>
-          <Icon name="globe" size={30} />
+          <Icon
+            style = {(this.state.tab == 'discover') ? styles.iconActive : styles.icon}
+            name="globe" size={30} />
           <View>
-            <Text>Discover</Text>
+            <Text
+            style = {(this.state.tab == 'discover') ? styles.tabTextActive : styles.tabText}
+            >Discover</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('storkFront')}>
-          <Icon name="home" size={30} />
+          <Icon
+          style = {(this.state.tab == 'storkFront') ? styles.iconActive : styles.icon}
+          name="home" size={30} />
           <View>
-            <Text>StorkFront</Text>
+            <Text
+            style = {(this.state.tab == 'storkFront') ? styles.tabTextActive : styles.tabText}
+            >StorkFront</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -86,16 +94,33 @@ class BottomTabBar extends Component {
 
 const styles = StyleSheet.create({
 
-    centered: {
+  centered: {
       flex: 1,
       flexDirection: "column",
       justifyContent: "space-between",
       alignItems: "center",
     },
 
-    container: {
+  container: {
    flex: 1,
    backgroundColor: 'white'
+  },
+
+  tabTextActive: {
+    fontSize: 10,
+    color: 'blue'
+  },
+
+  tabText: {
+    fontSize: 10,
+  },
+
+  iconActive : {
+    color: 'blue'
+  },
+
+  icon : {
+    color: 'black'
   },
 
   tabItem: {
