@@ -22,6 +22,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		281651CD1DAC480800F07DCD /* CameraRoll.m in Sources */ = {isa = PBXBuildFile; fileRef = 281651CC1DAC480800F07DCD /* CameraRoll.m */; };
 		2A911E4D82AB45C78DA8D093 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B36EA3B1F7F1443B9D8860DA /* Foundation.ttf */; };
 		30F8B2C952A94CD683309D55 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72AE471F6D184D06AF89396E /* libRNVectorIcons.a */; };
 		3B39BFEC2FC047BCBD6B8E2E /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D00B47D30D7E47E8B801B9D7 /* Zocial.ttf */; };
@@ -143,6 +144,8 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Storkd/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		195179EE3E84432FBF3771F9 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		281651CB1DAC480800F07DCD /* CameraRoll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraRoll.h; path = Storkd/CameraRoll.h; sourceTree = "<group>"; };
+		281651CC1DAC480800F07DCD /* CameraRoll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CameraRoll.m; path = Storkd/CameraRoll.m; sourceTree = "<group>"; };
 		29546C3319D84F16BDA07822 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		59E16B8FCBC44CE7A1069624 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		6204117F04C24984B2A9DB77 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
@@ -266,6 +269,8 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				281651CB1DAC480800F07DCD /* CameraRoll.h */,
+				281651CC1DAC480800F07DCD /* CameraRoll.m */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -620,6 +625,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				281651CD1DAC480800F07DCD /* CameraRoll.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

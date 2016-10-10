@@ -13,12 +13,21 @@ import {
 var NavigationBar = require('react-native-navbar');
 styles = require('../Styles/Layouts');
 import Button from 'react-native-button'
+var myPhotoGetter = require('NativeModules').CameraRoll;
 
 class NewPost extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      description: '',
+      number: 0
+    };
+  }
+
   render() {
     var titleConfig = {
-     title: 'Post',
+     title: 'New Post',
    };
 
    const leftButtonConfig = {
@@ -35,24 +44,37 @@ class NewPost extends Component {
         />
         <View style= {{height:20}}/>
         <TextInput
-          style={styles.textBox}
-          placeholder="Post"
-          onChangeText={(post) => this.setState({post})}
+          style={{height: 80, padding: 5}}
+          multiline = {true}
+          numberOfLines = {4}
+          placeholder="Enter Description"
+          onChangeText={(description) => this.setState({description})}
         />
         <Button
           containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
-          style={{fontSize: 20, color: 'green'}}
+          style={{fontSize: 20, color: 'blue'}}
           onPress={() => this._post()}>
           Post
         </Button>
+        <Text> {this.state.number} </Text>
       </View>
-
     );
   }
 
+  changeNumber() {
+    myPhotoGetter.getPhoto(5, (error, result) => {
+      if(error) {
+        console.error(error);
+      } else {
+        this.setState({number: result});
+      }
+    })
+  }
+
   _post() {
-    const {post} = this.state;
-    console.log(post)
+    this.changeNumber();
+    const {description} = this.state;
+    console.log(description)
   }
 
   pop() {
