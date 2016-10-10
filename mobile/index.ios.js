@@ -41,12 +41,6 @@ class Storkd extends Component {
       var routeId = route.id;
       if (routeId === 'login') {
         return (
-          <NewPost
-            navigator={navigator} />
-        );
-      }
-      if (routeId === 'login') {
-        return (
           <LoginScreen
             navigator={navigator} />
         );

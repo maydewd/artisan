@@ -91,7 +91,7 @@ class NewPost extends Component {
      }
      else {
        var source;
-
+       
        // You can display the image using either:
        //source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
 
