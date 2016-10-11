@@ -12,10 +12,11 @@ import {
   TouchableOpacity,
   Image,
   PixelRatio,
-  Platform
+  Picker,
+  Platform,
+  ScrollView
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
-styles = require('../Styles/Layouts');
 import Button from 'react-native-button'
 var ImagePicker = require('react-native-image-picker');
 
@@ -26,7 +27,8 @@ class NewPost extends Component {
     this.state = {
       description: '',
       number: 0,
-      avatarSource: null
+      photoSource: null,
+      type: 'ceramics'
     };
   }
 
@@ -47,22 +49,47 @@ class NewPost extends Component {
         title={titleConfig}
         leftButton={leftButtonConfig}
         />
-        <View style= {{height:20}}/>
-        <TextInput
-          style={{height: 80, padding: 5}}
-          multiline = {true}
-          numberOfLines = {4}
-          placeholder="Enter Description"
-          onChangeText={(description) => this.setState({description})}
-        />
-        <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-          <Text>Ryan</Text>
-        </TouchableOpacity>
-        <View>
-          { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
-              <Image style={styles.avatar} source={this.state.avatarSource} />
-            }
-        </View>
+        <ScrollView style = {{height: 600}}>
+          <TouchableOpacity style = {styles.container} onPress={this.selectPhotoTapped.bind(this)}>
+              <View>
+                { this.state.photoSource === null ? <Text>Select a Photo</Text> :
+                    <Image style={styles.avatar} source={this.state.photoSource} />
+                  }
+                </View>
+            </TouchableOpacity>
+            <TextInput
+              style={{height: 130, padding: 5, borderTopWidth: 1, borderBottomWidth: 1, borderColor: 'gray'}}
+              multiline = {true}
+              numberOfLines = {3}
+              placeholder="Story"
+              onChangeText={(description) => this.setState({description})}
+            />
+            <TextInput
+              style={{height: 40, padding: 5}}
+              placeholder="Location"
+            />
+            <TextInput
+              style={{height: 40, padding: 5, borderBottomWidth: 1, borderColor: 'gray'}}
+              placeholder="Asking Price"
+            />
+            <Picker
+                style = {styles.picker}
+                selectedValue={this.state.type}
+                onValueChange={(selected) => this.setState({type: selected})}
+                mode="dropdown">
+                <Picker.Item label="Painting" value="painting" />
+                <Picker.Item label="Sculpture" value="sculpture" />
+                <Picker.Item label="Jewelry" value="jewelry" />
+                <Picker.Item label="Furntiture" value="furniture" />
+                <Picker.Item label="Ceramics" value="ceramics" />
+            </Picker>
+            <Button
+              containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'blue'}}
+              style={{fontSize: 20, color: 'white'}}
+              onPress={() => this._post()}>
+              Post
+            </Button>
+        </ScrollView>
       </View>
     );
   }
@@ -91,7 +118,7 @@ class NewPost extends Component {
      }
      else {
        var source;
-       
+
        // You can display the image using either:
        //source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
 
@@ -103,7 +130,7 @@ class NewPost extends Component {
        }
 
        this.setState({
-         avatarSource: source
+         photoSource: source
        });
      }
     });
@@ -120,14 +147,43 @@ class NewPost extends Component {
   }
 
   _post() {
-    this._getPhoto();
-    const {description} = this.state;
-    console.log(description)
+    const {description, type} = this.state;
+    console.log("description: " + description)
+    console.log("type: " + type)
   }
 
   pop() {
     this.props.navigator.pop()
   }
 }
+
+const styles = StyleSheet.create({
+  navBar: {
+    backgroundColor: 'lightblue'
+  },
+
+  container: {
+    width: 400,
+    height: 300,
+    alignItems: 'center',
+    justifyContent: "space-around",
+  },
+
+  center: {
+    alignItems: 'center',
+    justifyContent: "space-around",
+  },
+
+  avatar: {
+    resizeMode: 'contain',
+    width: 400,
+    height: 300
+  },
+
+  picker: {
+    height: 150
+  }
+});
+
 
 module.exports = NewPost
