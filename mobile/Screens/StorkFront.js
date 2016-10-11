@@ -14,6 +14,8 @@ import {
 import BottomNav from '../Components/BottomNav'
 import Icon from 'react-native-vector-icons/FontAwesome'
 styles = require('../Styles/Layouts');
+var NavigationBar = require('react-native-navbar');
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const DefaultProfileImage = require("../resources/profile.png");
 
@@ -29,23 +31,49 @@ class StorkFront extends Component {
       ])
     };
   }
+
+  leftButton() {
+    return  (
+      <View style = {styles.navIcon}>
+        <Ionicons name="ios-settings" size={30}/>
+      </View>
+    );
+  }
+
+  rightButton() {
+    return (
+      <View style = {styles.navIcon}>
+        <Ionicons name="ios-add" size={30}/>
+      </View>
+    );
+  }
   render() {
+
+    var titleConfig = {
+     title: 'StorkFront',
+   };
     // TODO: profile
     return (
-      <View style = {styles.storkfrontScreen}>
-        <View style = {styles.centered && {flexDirection: "row"}}>
-          <Image style = {styles.storkfrontProfileImage} source={DefaultProfileImage} />
-          <Text style = {styles.storkfrontProfileText}>Description</Text>
-          <View style={{flex: 1}}></View>
-        </View>
-        <View style={{height:50}}></View>
-        <ListView
-          style = {styles.storkfrontList}
-          initialListSize = {1}
-          dataSource = {this.state.dataSource}
-          renderRow = {this._renderPost}
-          renderSeparator = {this._renderSeparator}
+      <View>
+        <NavigationBar
+          style={styles.navBar}
+          title={titleConfig}
+          leftButton = {this.leftButton()}
+          rightButton = {this.rightButton()}
         />
+        <View style={styles.storkFront}>
+          <View style = {styles.storkFrontBanner}>
+            <Image style = {styles.storkfrontProfileImage} source={DefaultProfileImage} />
+            <Text style = {styles.storkfrontProfileText}>Username</Text>
+          </View>
+          <ListView
+            style = {styles.storkfrontList}
+            initialListSize = {1}
+            dataSource = {this.state.dataSource}
+            renderRow = {this._renderPost}
+            renderSeparator = {this._renderSeparator}
+          />
+        </View>
       </View>
     );
   }
@@ -56,10 +84,13 @@ class StorkFront extends Component {
         <View style = {styles.centered && {flexDirection: "row"}}>
           <Icon.Button
             name="thumbs-up"
-            size={50}
-            backgroundColor="#DAF7A6">
-            <Text style={styles.storkfrontPostText}>{data.likes}</Text>
+            size={25}
+            color = 'black'
+            padding = {2}
+            backgroundColor= 'rgba(0,0,0,0)'
+            >
           </Icon.Button>
+          <Text style={styles.storkfrontPostText}>{data.likes}</Text>
           <View style={{flex:1}}></View>
           <Text style = {styles.storkfrontPostText}>
             {data.price}

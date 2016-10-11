@@ -18,7 +18,7 @@ import StorkFront from '../Screens/StorkFront.js'
 import Tabbar from 'react-native-tabbar'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-class AndroidTab extends Component {
+class BottomTabBar extends Component {
 
   constructor(props, context) {
     super(props, context)
@@ -68,7 +68,7 @@ class AndroidTab extends Component {
   render() {
     return (
       <View style={styles.container}>
-         <View style={{ paddingTop: 30 }}>
+         <View>
            {this.renderContent()}
           </View>
           <Tabbar show={true}
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     container: {
    flex: 1,
    backgroundColor: 'white'
- },
+  },
 
   tabItem: {
    flex: 1,
@@ -104,4 +104,4 @@ const styles = StyleSheet.create({
 });
 
 
-module.exports = AndroidTab
+module.exports = BottomTabBar
