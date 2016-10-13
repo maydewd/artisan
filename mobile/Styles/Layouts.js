@@ -97,6 +97,11 @@ const styles = StyleSheet.create({
       maxHeight: 475
     },
 
+    storkfrontList2: {
+      flex: 1,
+      flexDirection: 'column'
+    },
+
     storkfrontProfileImage: {
       resizeMode: 'contain',
       height: 75,

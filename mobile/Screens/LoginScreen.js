@@ -10,7 +10,8 @@ import {
   View,
   Image,
   TextInput,
-  AsyncStorage
+  AsyncStorage,
+  Dimensions
 } from 'react-native';
 import CenteredView from '../Screens/CenteredView'
 import Button from 'react-native-button'
@@ -20,6 +21,8 @@ styles = require('../Styles/Layouts');
 class LoginScreen extends Component {
 
     componentDidMount() {
+        console.log(Dimensions.get('window').width);
+        console.log(Dimensions.get('window').height);
         this.setState({username: 'devuser'});
         this.setState({password: 'securetest'});
     }

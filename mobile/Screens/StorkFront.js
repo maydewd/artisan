@@ -73,13 +73,15 @@ class StorkFront extends Component {
             <Image style = {styles.storkfrontProfileImage} source={DefaultProfileImage} />
             <Text style = {styles.storkfrontProfileText}>Username</Text>
           </View>
+          <View style = {{flex:1}}>
           <ListView
-            style = {styles.storkfrontList}
+            contentContainerStyle = {styles.storkfrontList}
             initialListSize = {1}
             dataSource = {this.state.dataSource}
             renderRow = {this._renderPost}
             renderSeparator = {this._renderSeparator}
           />
+          </View>
         </View>
       </View>
     );
