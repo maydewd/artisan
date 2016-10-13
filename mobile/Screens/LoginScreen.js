@@ -17,12 +17,13 @@ import CenteredView from '../Screens/CenteredView'
 import Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/FontAwesome';
 styles = require('../Styles/Layouts');
+import {getScreenWidth, getScreenHeight} from '../helpers/dimension'
 
 class LoginScreen extends Component {
 
     componentDidMount() {
-        console.log(Dimensions.get('window').width);
-        console.log(Dimensions.get('window').height);
+        console.log(getScreenWidth());
+        console.log(getScreenHeight());
         this.setState({username: 'devuser'});
         this.setState({password: 'securetest'});
     }
