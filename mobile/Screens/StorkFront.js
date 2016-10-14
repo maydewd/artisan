@@ -9,7 +9,8 @@ import {
   Text,
   View,
   ListView,
-  Image
+  Image,
+  AsyncStorage
 } from 'react-native';
 import BottomNav from '../Components/BottomNav'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -30,6 +31,44 @@ class StorkFront extends Component {
         {image: require('../resources/Logo1.png'), price: "$5", like: "0"}
       ])
     };
+  }
+
+  componentDidMount() {
+      this.refresh()
+  }
+
+  refresh() {
+    AsyncStorage.getItem('jwtToken', (err, result) => {
+      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings",
+        {method: "GET",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': result
+          }})
+        .then((response) => response.json())
+        .then((responseData) => {
+          console.log(responseData);
+
+            var posts = [];
+            responseData.forEach((item) => {
+              posts.push({
+                image: require('../resources/Saddle-Billed_Stork.jpg'), price: item.price, likes: "5"
+              })
+            })
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(posts)
+            });
+            console.log("Successfully grabbed data");
+            alert("Success")
+         })
+        .catch(function(err) {
+          alert("error");
+          console.log("Error in Posting");
+          console.log(err);
+        })
+        .done();
+    });
   }
 
   leftButton() {
