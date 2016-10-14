@@ -10,7 +10,8 @@ import {
   View,
   ListView,
   Image,
-  AsyncStorage
+  AsyncStorage,
+  RefreshControl
 } from 'react-native';
 import BottomNav from '../Components/BottomNav'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -29,15 +30,23 @@ class StorkFront extends Component {
       dataSource: ds.cloneWithRows([
         {image: require('../resources/Saddle-Billed_Stork.jpg'), price: "$10", likes: "5"},
         {image: require('../resources/Logo1.png'), price: "$5", like: "0"}
-      ])
+      ]),
+      refreshing: false,
     };
   }
 
   componentDidMount() {
-      this.refresh()
+    console.log("Component did mount");
+    this._fetchData()
   }
 
-  refresh() {
+  _onRefresh() {
+    this.setState({refreshing: true});
+    this._fetchData();
+    this.setState({refreshing: false});
+  }
+
+  _fetchData() {
     AsyncStorage.getItem('jwtToken', (err, result) => {
       fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings",
         {method: "GET",
@@ -119,6 +128,12 @@ class StorkFront extends Component {
             dataSource = {this.state.dataSource}
             renderRow = {this._renderPost}
             renderSeparator = {this._renderSeparator}
+            refreshControl = {
+              <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this._onRefresh.bind(this)}
+              />
+            }
           />
           </View>
         </View>
