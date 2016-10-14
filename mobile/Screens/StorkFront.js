@@ -75,7 +75,7 @@ class StorkFront extends Component {
           </View>
           <View style = {{flex:1}}>
           <ListView
-            contentContainerStyle = {styles.storkfrontList}
+            style = {styles.storkfrontList}
             initialListSize = {1}
             dataSource = {this.state.dataSource}
             renderRow = {this._renderPost}

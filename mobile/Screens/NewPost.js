@@ -14,7 +14,8 @@ import {
   PixelRatio,
   Picker,
   Platform,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
@@ -150,6 +151,34 @@ class NewPost extends Component {
     const {description, type} = this.state;
     console.log("description: " + description)
     console.log("type: " + type)
+    console.log(AsyncStorage.getItem('jwtToken'))
+    AsyncStorage.getItem('jwtToken', (err, result) => {
+      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings",
+        {method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': result
+          },
+          body: JSON.stringify({description: description, type: type, price: 77})})
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData);
+        if (responseData.success === true) {
+          console.log("Successfully posted");
+          console.log(responseData.listingID);
+            alert("posted");
+        }
+         return responseData;
+       })
+      .catch(function(err) {
+        alert("error in posting");
+        console.log("Error in Posting");
+        console.log(err);
+      })
+      .done();
+    })
+
   }
 
   pop() {
