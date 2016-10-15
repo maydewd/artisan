@@ -27,18 +27,12 @@ class BottomTabBar extends Component {
     this.state = {
       tab: 'discover'
     }
-    this.navScreen = <Navigator
-       initialRoute={{id: 'discover'}}
-       renderScene={this.renderScene.bind(this)}
-       configureScene={(route) => {
-         if (route.sceneConfig) {
-           return route.sceneConfig;
-         }
-         return Navigator.SceneConfigs.FadeAndroid;
-      }} />
   }
 
   onTabSelect(tab) {
+    if(tab === this.state.tab) {
+      return;
+    }
     this.setState({ tab: tab })
     console.log('onTabSelect')
     console.log(tab)
@@ -87,7 +81,15 @@ class BottomTabBar extends Component {
   render() {
     return (
       <View style={styles.container}>
-          {this.navScreen}
+        <Navigator
+           initialRoute={{id: 'discover'}}
+           renderScene={this.renderScene.bind(this)}
+           configureScene={(route) => {
+             if (route.sceneConfig) {
+               return route.sceneConfig;
+             }
+             return Navigator.SceneConfigs.FadeAndroid;
+          }} />
           <Tabbar show={true}
                disable={false}
                ref={(ref) => this.tabarRef = ref}
