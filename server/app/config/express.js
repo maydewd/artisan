@@ -9,7 +9,6 @@ const compression = require('compression');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-//const upload = require('multer')();
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -28,7 +27,7 @@ module.exports = function (app, passport) {
   }));
 
   // Static files middleware
-  // app.use(express.static(config.root + '/public'));
+  app.use('/public', express.static('public'));
 
   // Don't log during tests
   // Logging middleware
@@ -43,7 +42,6 @@ module.exports = function (app, passport) {
   // bodyParser should be above methodOverride
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-  //app.use(upload.single('image')); this should go in specific route expecting an image
 
   // allows us to take the _method field in a request and use it for the request
   // type (e.g. PUT or DELETE)
