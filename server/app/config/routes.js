@@ -8,10 +8,12 @@ const express = require('express');
 const users = require('../controllers/users');
 const listings = require('../controllers/listings');
 
+const upload = require('./multer');
+
 // /**
 //  * Route middlewares
 //  */
-//
+
 // const articleAuth = [auth.requiresLogin, auth.article.hasAuthorization];
 // const commentAuth = [auth.requiresLogin, auth.comment.hasAuthorization];
 
@@ -20,6 +22,7 @@ const listings = require('../controllers/listings');
  */
 
 module.exports = function (app, passport) {
+  const jwtAuth = passport.authenticate('jwt', { session: false });
 
   // API group router
   var apiRoutes = express.Router();
@@ -31,14 +34,14 @@ module.exports = function (app, passport) {
   // apiRoutes.post('/logout', users.logout);
 
   // API USER routes
-  apiRoutes.get('/users', passport.authenticate('jwt', { session: false }), users.showAll);
+  apiRoutes.get('/users', jwtAuth, users.showAll);
   // apiRoutes.get('/users/:userId', users.show);
   // apiRoutes.get('/users/:userId/posts', users.posts);
 
   // API LISTING routes
-  apiRoutes.post('/listings', passport.authenticate('jwt', { session: false }), listings.create);
-  apiRoutes.get('/listings/:listingID', passport.authenticate('jwt', { session: false }), listings.show);
-  apiRoutes.get('/listings', passport.authenticate('jwt', { session: false }), listings.showAll);
+  apiRoutes.post('/listings', [jwtAuth, upload.single('image')], listings.create);
+  apiRoutes.get('/listings/:listingID', jwtAuth, listings.show);
+  apiRoutes.get('/listings', jwtAuth, listings.showAll);
 
   /**
    * Error handling

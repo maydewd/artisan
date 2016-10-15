@@ -1,11 +1,13 @@
 const Listing = require('../models/listing');
 
 exports.create = function (req, res) {
+  filePath = req.file.path || "";
   var newListing = new Listing({
     creator: req.user._id,
     description: req.body.description,
     price: req.body.price,
-    type: req.body.type
+    type: req.body.type,
+    imagePath: filePath
   });
 
   newListing.save(function(err, listing) {
