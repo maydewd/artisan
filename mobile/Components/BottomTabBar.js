@@ -106,13 +106,13 @@ class BottomTabBar extends Component {
       if (routeId === 'discover') {
         return (
           <Discover
-            navigator={navigator} />
+            navigator={this.props.navigator} />
         );
       }
       if (routeId === 'storkFront') {
         return (
           <StorkFront
-            navigator={navigator} />
+            navigator={this.props.navigator} />
         );
       }
   }
