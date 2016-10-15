@@ -27,6 +27,7 @@ class NewPost extends Component {
     super(props);
     this.state = {
       description: '',
+      price: 10,
       number: 0,
       photoSource: null,
       type: 'ceramics'
@@ -148,6 +149,28 @@ class NewPost extends Component {
   }
 
   _post() {
+    const {description, type, price} = this.state;
+    console.log("description: " + description)
+    console.log("type: " + type)
+    console.log(AsyncStorage.getItem('jwtToken'));
+    var request = new XMLHttpRequest();
+    request.open("POST", "http://colab-sbx-137.oit.duke.edu:3000/api/listings");
+    request.setRequestHeader('Accept', 'application/json');
+    request.setRequestHeader('Content-Type', 'multipart/form-data');
+    var body = new FormData();
+    body.append('description', description);
+    body.append('type', type);
+    body.append('price', price);
+    AsyncStorage.getItem('jwtToken', (err, result) => {
+        request.setRequestHeader('Authorization', result);
+        request.send(body);
+        console.log(body);
+        console.log(request);
+        console.log('request sent');
+    });
+  }
+
+  _post2() {
     const {description, type} = this.state;
     console.log("description: " + description)
     console.log("type: " + type)
@@ -169,7 +192,7 @@ class NewPost extends Component {
           console.log(responseData.listingID);
             alert("posted");
         }
-         return responseData;
+        this.pop();
        })
       .catch(function(err) {
         alert("error in posting");
@@ -184,6 +207,7 @@ class NewPost extends Component {
   pop() {
     this.props.navigator.pop()
   }
+
 }
 
 const styles = StyleSheet.create({

@@ -69,7 +69,7 @@ class StorkFront extends Component {
                 dataSource: this.state.dataSource.cloneWithRows(posts)
             });
             console.log("Successfully grabbed data");
-            alert("Success")
+            alert("Success reloaded");
          })
         .catch(function(err) {
           alert("error");
@@ -162,6 +162,7 @@ class StorkFront extends Component {
       </View>
     )
   }
+  
   _renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
     // TODO:
     return (
@@ -175,6 +176,7 @@ class StorkFront extends Component {
       />
     );
   }
+
 }
 
 module.exports = StorkFront
