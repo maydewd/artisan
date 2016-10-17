@@ -13,7 +13,8 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Listing' }]
 });
 
 // Saves the user's password hashed (plain text password storage is not good)
