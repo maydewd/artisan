@@ -18,7 +18,7 @@ import StorkFront from '../Screens/StorkFront.js'
 import Tabbar from 'react-native-tabbar'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-class AndroidTab extends Component {
+class BottomTabBar extends Component {
 
   constructor(props, context) {
     super(props, context)
@@ -34,15 +34,25 @@ class AndroidTab extends Component {
 
   renderTabs() {
     return (
-      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 1, borderTopColor: 'pink' }}>
+      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 2, borderTopColor: 'pink' }}>
         <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('discover')}>
+          <Icon
+            style = {(this.state.tab == 'discover') ? styles.iconActive : styles.icon}
+            name="globe" size={30} />
           <View>
-            <Text>Discover</Text>
+            <Text
+            style = {(this.state.tab == 'discover') ? styles.tabTextActive : styles.tabText}
+            >Discover</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('storkFront')}>
+          <Icon
+          style = {(this.state.tab == 'storkFront') ? styles.iconActive : styles.icon}
+          name="home" size={30} />
           <View>
-            <Text>StorkFront</Text>
+            <Text
+            style = {(this.state.tab == 'storkFront') ? styles.tabTextActive : styles.tabText}
+            >StorkFront</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -68,7 +78,7 @@ class AndroidTab extends Component {
   render() {
     return (
       <View style={styles.container}>
-         <View style={{ paddingTop: 30 }}>
+         <View>
            {this.renderContent()}
           </View>
           <Tabbar show={true}
@@ -84,17 +94,34 @@ class AndroidTab extends Component {
 
 const styles = StyleSheet.create({
 
-    centered: {
+  centered: {
       flex: 1,
       flexDirection: "column",
       justifyContent: "space-between",
       alignItems: "center",
     },
 
-    container: {
+  container: {
    flex: 1,
    backgroundColor: 'white'
- },
+  },
+
+  tabTextActive: {
+    fontSize: 10,
+    color: 'blue'
+  },
+
+  tabText: {
+    fontSize: 10,
+  },
+
+  iconActive : {
+    color: 'blue'
+  },
+
+  icon : {
+    color: 'black'
+  },
 
   tabItem: {
    flex: 1,
@@ -104,4 +131,4 @@ const styles = StyleSheet.create({
 });
 
 
-module.exports = AndroidTab
+module.exports = BottomTabBar
