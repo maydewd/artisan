@@ -21,3 +21,5 @@ Set-up fresh server:
   sh ~/Artisan/server/provision/provision.sh
 9.(Optional) Start node server
   pm2 start ~/Artisan/server/server.js
+10.(Optional) Add node server to boot start list
+   sudo pm2 startup && pm2 save
