@@ -10,7 +10,8 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Navigator
 } from 'react-native';
 import BottomNav from '../Components/BottomNav'
 import Discover from '../Screens/Discover.js'
@@ -29,7 +30,13 @@ class BottomTabBar extends Component {
   }
 
   onTabSelect(tab) {
-    this.setState({ tab })
+    if(tab === this.state.tab) {
+      return;
+    }
+    this.setState({ tab: tab })
+    console.log('onTabSelect')
+    console.log(tab)
+    this.renderContent(tab)
   }
 
   renderTabs() {
@@ -59,28 +66,30 @@ class BottomTabBar extends Component {
     )
   }
 
-  renderContent() {
-    const { tab } = this.state
-    let content
-    switch(tab) {
+  renderContent(screen) {
+    console.log(screen);
+    switch(screen) {
       case 'discover':
-        content =   <Discover
-            navigator={this.props.navigator} />
+        this.nav.pop();
         break
       case 'storkFront':
-        content = <StorkFront
-            navigator={this.props.navigator} />
+        this.nav.push({ id: screen});
         break
     }
-    return content
   }
 
   render() {
     return (
       <View style={styles.container}>
-         <View>
-           {this.renderContent()}
-          </View>
+        <Navigator
+           initialRoute={{id: 'discover'}}
+           renderScene={this.renderScene.bind(this)}
+           configureScene={(route) => {
+             if (route.sceneConfig) {
+               return route.sceneConfig;
+             }
+             return Navigator.SceneConfigs.FadeAndroid;
+          }} />
           <Tabbar show={true}
                disable={false}
                ref={(ref) => this.tabarRef = ref}
@@ -89,6 +98,23 @@ class BottomTabBar extends Component {
          </Tabbar>
       </View>
     );
+  }
+
+  renderScene(route, navigator) {
+      this.nav = navigator
+      var routeId = route.id;
+      if (routeId === 'discover') {
+        return (
+          <Discover
+            navigator={this.props.navigator} />
+        );
+      }
+      if (routeId === 'storkFront') {
+        return (
+          <StorkFront
+            navigator={this.props.navigator} />
+        );
+      }
   }
 }
 

@@ -149,9 +149,10 @@ class NewPost extends Component {
   }
 
   _post() {
-    const {description, type, price} = this.state;
+    const {description, type, price, photoSource} = this.state;
     console.log("description: " + description)
     console.log("type: " + type)
+    console.log("photoSource: " + photoSource)
     console.log(AsyncStorage.getItem('jwtToken'));
     var request = new XMLHttpRequest();
     request.open("POST", "http://colab-sbx-137.oit.duke.edu:3000/api/listings");
@@ -161,6 +162,12 @@ class NewPost extends Component {
     body.append('description', description);
     body.append('type', type);
     body.append('price', price);
+    var photo = {
+      uri: photoSource,
+      type: 'image/jpeg',
+      name: 'photo.jpg',
+    };
+    body.append('image', photo);
     AsyncStorage.getItem('jwtToken', (err, result) => {
         request.setRequestHeader('Authorization', result);
         request.send(body);

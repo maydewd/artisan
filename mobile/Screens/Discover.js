@@ -8,7 +8,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  AsyncStorage
 } from 'react-native';
 import BottomNav from '../Components/BottomNav'
 import MainNavBar from '../Components/MainNavBar'
@@ -16,17 +17,69 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 styles = require('../Styles/Layouts');
 var NavigationBar = require('react-native-navbar');
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-const ExampleData = [
-  {image: require('../resources/Saddle-Billed_Stork.jpg')},
-  {image: require('../resources/Logo1.png')}
-]
+import {getScreenWidth, getScreenHeight} from '../helpers/dimension'
 
 class Discover extends Component {
   constructor(props) {
     super(props);
     // TODO: make this better
-    this.state = { data: ExampleData[0] };
+    console.log("IM IN THE CONSTRUCTOR")
+    this.state = {
+      storedListings: [],
+      currentListing: {
+        imagePath: 'public/uploads/listings/loading.jpg'
+      }
+    };
+  }
+
+  componentDidMount() {
+    if (this.state.storedListings.length === 0) {
+      this._fetchData(this._nextListing.bind(this))
+    }
+  }
+
+  _nextListing() {
+    if (this.state.storedListings.length === 0) {
+      alert("No more listings");
+      return;
+    }
+    console.log("NEXT");
+    console.log(this.state)
+    const next = this.state.storedListings.shift();
+    console.log(next);
+    this.setState( {
+      currentListing: next
+    });
+  }
+
+  _fetchData(callback) {
+    AsyncStorage.getItem('jwtToken', (err, result) => {
+      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings",
+        {method: "GET",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': result
+          }})
+        .then((response) => response.json())
+        .then((responseData) => {
+          console.log(responseData);
+
+            responseData.forEach((item) => {
+              this.state.storedListings.push(item);
+            })
+
+            console.log("Successfully grabbed data");
+            callback()
+         })
+        .catch(function(err) {
+          alert("error");
+          console.log("Error in Posting");
+          console.log(err);
+        })
+        .done();
+    });
+    console.log(this.state.storedListings)
   }
 
   leftButton() {
@@ -74,8 +127,8 @@ class Discover extends Component {
         />
         <View style = {styles.centered}>
           <Image
-               style = {styles.discoverImage}
-               source = {this.state.data.image}
+               style = {[styles.discoverImage, {width: getScreenWidth()}]}
+               source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.currentListing.imagePath}}
           />
           <View style = {styles.centered && {flexDirection: "row"}}>
             <Icon.Button
@@ -98,12 +151,14 @@ class Discover extends Component {
       </View>
     );
   }
+
   _thumbsDownPressed() {
     // TODO: temp
-    this.setState({ data: ExampleData[1]})
+    this._nextListing()
   }
   _thumbsUpPressed() {
     // TODO:
+    this._nextListing()
   }
 }
 
