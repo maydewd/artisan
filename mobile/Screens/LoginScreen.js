@@ -45,6 +45,7 @@ class LoginScreen extends Component {
             style={styles.textBox}
             placeholder="Password"
             password = {true}
+            secureTextEntry = {true}
             onChangeText={(password) => this.setState({password})}
           />
           <Button

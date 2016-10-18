@@ -13,10 +13,14 @@ import {
   Navigator
 } from 'react-native';
 import LoginScreen from './Screens/LoginScreen.js'
+import NewPost from './Screens/NewPost.js'
+import DiscoverPost from './Screens/DiscoverPost.js'
 import MainNavBar from './Components/MainNavBar.js'
 import Discover from './Screens/Discover.js'
+import DiscoverSettings from './Screens/DiscoverSettings.js'
 import StorkFront from './Screens/StorkFront.js'
-import AndroidTab from './Components/AndroidTab.js'
+import MyBundle from './Screens/MyBundle.js'
+import BottomTabBar from './Components/BottomTabBar.js'
 
 class Storkd extends Component {
   render() {
@@ -28,26 +32,51 @@ class Storkd extends Component {
            if (route.sceneConfig) {
              return route.sceneConfig;
            }
-           return Navigator.SceneConfigs.FloatFromRight;
+           return Navigator.SceneConfigs.FadeAndroid;
       }} />
     );
   }
 
   renderScene(route, navigator) {
-      var routeId = route.id;
-      if (routeId === 'login') {
-        return (
-          <LoginScreen
-            navigator={navigator} />
-        );
-      }
-      if (routeId === 'mainView') {
-        return (
-          <AndroidTab
-            navigator={navigator} />
-        );
-      }
+    var routeId = route.id;
+    if (routeId === 'login') {
+      return (
+        <LoginScreen
+          navigator={navigator} />
+      );
     }
+    if (routeId === 'mainView') {
+      return (
+        <BottomTabBar
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'discoverSettings') {
+      return (
+        <DiscoverSettings
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'myBundle') {
+      return (
+        <MyBundle
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'newPost') {
+      return (
+        <NewPost
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'discoverPost') {
+      return (
+        <DiscoverPost
+          item={route.item}
+          navigator={navigator} />
+      );
+    }
+  }
 }
 
 const styles = StyleSheet.create({

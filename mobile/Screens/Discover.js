@@ -14,6 +14,7 @@ import {
 import BottomNav from '../Components/BottomNav'
 import MainNavBar from '../Components/MainNavBar'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import Button from 'react-native-button';
 styles = require('../Styles/Layouts');
 var NavigationBar = require('react-native-navbar');
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -27,7 +28,12 @@ class Discover extends Component {
     this.state = {
       storedListings: [],
       currentListing: {
-        imagePath: 'public/uploads/listings/loading.jpg'
+        imagePath: 'public/uploads/listings/loading.jpg',
+        description: 'N/A',
+        location: 0,
+        price: 0,
+        number: 0,
+        type: 'N/A'
       }
     };
   }
@@ -114,8 +120,8 @@ class Discover extends Component {
 
   render() {
     var titleConfig = {
-     title: 'Discover',
-   };
+      title: 'Discover',
+    };
 
     return (
       <View>
@@ -126,32 +132,47 @@ class Discover extends Component {
         rightButton={this.rightButton()}
         />
         <View style = {styles.centered}>
+          <View style = {styles.centered && {flexDirection: "row"}}>
+            <View style={{flex:1}} />
+            <Icon.Button name="info-circle"
+              size={50}
+              iconStyle={styles.discoverIconInfo}
+              backgroundColor="lightblue"
+              onPress={() => this._infoPressed()}>
+            </Icon.Button>
+          </View>
           <Image
                style = {[styles.discoverImage, {width: getScreenWidth()}]}
                source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.currentListing.imagePath}}
           />
           <View style = {styles.centered && {flexDirection: "row"}}>
-            <Icon.Button
-              name="thumbs-down"
-              size={50}
-              iconStyle={{marginRight: 0}}
-              backgroundColor="#ec7063"
+            <Button
+              containerStyle={styles.discoverButtonContainerDown}
+              style={styles.discoverButtonDown}
               onPress={() => this._thumbsDownPressed()}>
-            </Icon.Button>
+              <Icon name="thumbs-down" size={50}/>
+            </Button>
             <View style={{flex:1}}></View>
-            <Icon.Button
-              name="thumbs-up"
-              size={50}
-              iconStyle={{marginRight: 0}}
-              backgroundColor="#DAF7A6"
+            <Button
+              containerStyle={styles.discoverButtonContainerUp}
+              style={styles.discoverButtonUp}
               onPress={() => this._thumbsUpPressed()}>
-            </Icon.Button>
+              <Icon name="thumbs-up" size={50}/>
+            </Button>
+
           </View>
         </View>
       </View>
     );
   }
-
+  _infoPressed() {
+    //TODO
+    console.log("pressed")
+    this.props.navigator.push({
+      id: 'discoverPost',
+      item: this.state.currentListing
+    });
+  }
   _thumbsDownPressed() {
     // TODO: temp
     this._nextListing()

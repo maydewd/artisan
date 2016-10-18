@@ -60,12 +60,52 @@ const styles = StyleSheet.create({
       marginBottom: 5,
     },
 
+
+//==================================
+//  DISCOVER
+
     discoverImage: {
       flex: 1,
       resizeMode: 'contain',
       height: 400,
       width: 300
     },
+
+    discoverIconInfo: {
+      marginRight: 0
+    },
+    discoverButtonContainerUp: {
+      // flex: 1,
+      padding: 10,
+      alignItems: "center",
+      overflow: "hidden",
+      borderRadius: 20,
+      backgroundColor: '#DAF7A6'
+    },
+    discoverButtonContainerDown: {
+      // flex: 1,
+      padding: 10,
+      alignItems: "center",
+      overflow: "hidden",
+      borderRadius: 20,
+      backgroundColor: '#ec7063'
+    },
+
+
+    discoverPostContainer: {
+      width: 400,
+      height: 300,
+      alignItems: 'center',
+      justifyContent: "space-around",
+    },
+    discoverPostImage: {
+      resizeMode: 'contain',
+      width: 400,
+      height: 300
+    },
+
+//==================================
+//  STORKFRONT
 
     storkfrontScreen: {
       flex: 1,
