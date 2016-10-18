@@ -16,16 +16,26 @@ exports.create = function (req, res) {
     if (err) {
       return res.status(400).json({ success: false, message: err});
     }
-    res.json({
-      success: true,
-      message: 'Successfully created new listing.',
-      listingID: listing._id
+    req.user.posts.push(listing);
+    req.user.save(function(err, user) {
+      if (err) {
+        return res.status(500).json({ success: false, message: err});
+      }
+      res.json({
+        success: true,
+        message: 'Successfully created new listing.',
+        listingID: listing._id
+      });
     });
   });
 }
 
 exports.showAll = function (req, res) {
-  Listing.find({}, function(err, listings) {
+  var query = {};
+  if (req.query.hideMine === 'true') {
+    query['creator'] = {$ne: req.user._id};
+  }
+  Listing.find(query, function(err, listings) {
     if (err) {
       return res.status(400).send(err);
     }
@@ -33,14 +43,14 @@ exports.showAll = function (req, res) {
   });
 }
 
-// exports.showMine = function (req, res) {
-//   Listing.find({}, function(err, listings) {
-//     if (err) {
-//       return res.status(400).send(err);
-//     }
-//     res.json(listings);
-//   });
-// }
+exports.showMine = function (req, res) {
+  req.user.populate('posts', function (err, user) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.json(user.posts);
+  });
+}
 
 exports.show = function (req, res) {
   Listing.findOne({_id: req.params.listingID}, function(err, listing) {
