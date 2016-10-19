@@ -20,6 +20,9 @@ import {
 var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
 var ImagePicker = require('react-native-image-picker');
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {getScreenWidth, getScreenHeight} from '../helpers/dimension'
+import ModalPicker from 'react-native-modal-picker'
 
 class NewPost extends Component {
 
@@ -30,7 +33,7 @@ class NewPost extends Component {
       price: 10,
       number: 0,
       photoSource: null,
-      type: 'ceramics'
+      type: ''
     };
   }
 
@@ -43,6 +46,17 @@ class NewPost extends Component {
     title: 'Back',
     handler: () => {this.pop()}
   };
+  let index = 0;
+    const data = [
+        { key: index++, section: true, label: 'Types' },
+        { key: index++, label: 'Ceramics' },
+        { key: index++, label: 'Painting' },
+        { key: index++, label: 'Photograph' },
+        { key: index++, label: 'Drawing' },
+        { key: index++, label: 'Jewelry' },
+        { key: index++, label: 'Sculpture' },
+        { key: index++, label: 'Metal Work' },
+    ];
 
     return (
       <View>
@@ -51,47 +65,45 @@ class NewPost extends Component {
         title={titleConfig}
         leftButton={leftButtonConfig}
         />
-        <ScrollView style = {{height: 600}}>
+        <View style= {{height:604}}>
           <TouchableOpacity style = {styles.container} onPress={this.selectPhotoTapped.bind(this)}>
               <View>
-                { this.state.photoSource === null ? <Text>Select a Photo</Text> :
+                { this.state.photoSource === null ? <MaterialIcons name="add-a-photo" size= {50}/>:
                     <Image style={styles.avatar} source={this.state.photoSource} />
                   }
                 </View>
             </TouchableOpacity>
             <TextInput
-              style={{height: 130, padding: 5, borderTopWidth: 1, borderBottomWidth: 1, borderColor: 'gray'}}
+              style={{flex:1, padding: 5, borderTopWidth: 1, borderBottomWidth: 1, borderColor: 'gray'}}
               multiline = {true}
               numberOfLines = {3}
               placeholder="Story"
               onChangeText={(description) => this.setState({description})}
             />
             <TextInput
-              style={{height: 40, padding: 5}}
-              placeholder="Location"
-            />
-            <TextInput
               style={{height: 40, padding: 5, borderBottomWidth: 1, borderColor: 'gray'}}
+              keyboardType = 'numeric'
               placeholder="Asking Price"
             />
-            <Picker
-                style = {styles.picker}
-                selectedValue={this.state.type}
-                onValueChange={(selected) => this.setState({type: selected})}
-                mode="dropdown">
-                <Picker.Item label="Painting" value="painting" />
-                <Picker.Item label="Sculpture" value="sculpture" />
-                <Picker.Item label="Jewelry" value="jewelry" />
-                <Picker.Item label="Furntiture" value="furniture" />
-                <Picker.Item label="Ceramics" value="ceramics" />
-            </Picker>
+            <ModalPicker
+                   data={data}
+                   initValue="Select a type"
+                   onChange={(option)=> this.setState({type:option.label})}
+                   >
+                   <TextInput
+                       style={{borderWidth:1, borderColor:'#ccc', padding:10, height:40}}
+                       editable={false}
+                       placeholder="Select a type"
+                       value={this.state.type}
+                       />
+            </ModalPicker>
             <Button
-              containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'blue'}}
+              containerStyle={{padding:10, overflow:'hidden', maxHeight: 45, backgroundColor: 'blue'}}
               style={{fontSize: 20, color: 'white'}}
               onPress={() => this._post()}>
               Post
             </Button>
-        </ScrollView>
+        </View>
       </View>
     );
   }
@@ -223,10 +235,11 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    width: 400,
+    width:  getScreenWidth(),
     height: 300,
     alignItems: 'center',
     justifyContent: "space-around",
+    backgroundColor: 'lightgray'
   },
 
   center: {
@@ -237,7 +250,7 @@ const styles = StyleSheet.create({
   avatar: {
     resizeMode: 'contain',
     width: 400,
-    height: 300
+    height: 350
   },
 
   picker: {

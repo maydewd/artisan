@@ -1,6 +1,7 @@
 'use strict'
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import {getScreenWidth, getScreenHeight} from '../helpers/dimension'
 
 const styles = StyleSheet.create({
     baseText: {
