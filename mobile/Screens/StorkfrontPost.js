@@ -1,5 +1,5 @@
 /**
- * screen for viewing discover post information
+ * screen for viewing storkfront post information
  */
 
 import React, {Component} from 'react';
@@ -18,7 +18,7 @@ import Button from 'react-native-button'
 styles = require('../Styles/Layouts');
 
 
-class DiscoverPost extends Component {
+class StorkfrontPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,6 +39,7 @@ class DiscoverPost extends Component {
       title: 'Back',
       handler: () => {this.pop()}
     };
+
     // TODO: put uri somewhere else
     return (
       <View>
@@ -80,4 +81,4 @@ class DiscoverPost extends Component {
   }
 }
 
-module.exports = DiscoverPost
+module.exports = StorkfrontPost

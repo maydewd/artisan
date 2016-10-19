@@ -13,7 +13,6 @@ import {
   AsyncStorage,
   Dimensions
 } from 'react-native';
-import CenteredView from '../Screens/CenteredView'
 import Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/FontAwesome';
 styles = require('../Styles/Layouts');
@@ -30,7 +29,7 @@ class LoginScreen extends Component {
 
   render() {
     return (
-      <CenteredView>
+      <View style={styles.loginScreenView}>
         <Image source = {require("../resources/Logo1.png")} style = {styles.logo} />
         <Icon.Button name="facebook" backgroundColor="#3b5998"   onPress={() => this._loginPressed()}>
             Login with Facebook
@@ -50,15 +49,15 @@ class LoginScreen extends Component {
           />
           <Button
             containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
-            style={{fontSize: 20, color: 'pink'}}
+            style={[styles.baseText, {fontSize: 20, color: 'pink'}]}
             onPress={() => this._submitLogin()}>
             Login
           </Button>
         </View>
-        <Text style={styles.instructions}>
+        <Text style={[styles.baseText, styles.instructions]}>
           Sign Up
         </Text>
-      </CenteredView>
+      </View>
     );
   }
 

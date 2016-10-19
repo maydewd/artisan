@@ -3,7 +3,17 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-
+    baseText: {
+      // fontFamily: "serif"
+    },
+    loginScreenView: {
+      flex: 1,
+      flexDirection: "column",
+      justifyContent: "space-around",
+      alignItems: "center",
+      padding: 40,
+      backgroundColor: 'white'
+    },
     centered: {
       flex: 1,
       flexDirection: "column",

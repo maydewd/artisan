@@ -10,6 +10,7 @@ import {
   View,
   ListView,
   Image,
+  TouchableOpacity,
   AsyncStorage,
   RefreshControl
 } from 'react-native';
@@ -33,6 +34,7 @@ class StorkFront extends Component {
       ]),
       refreshing: false,
     };
+    this._renderPost = this._renderPost.bind(this);
   }
 
   componentDidMount() {
@@ -142,7 +144,7 @@ class StorkFront extends Component {
   }
   _renderPost(data) {
     return (
-      <View style = {styles.container}>
+      <TouchableOpacity style = {styles.container} onPress={() => this._postPressed(data)}>
         <Image style = {styles.storkfrontImage} source = {data.image}/>
         <View style = {styles.centered && {flexDirection: "row"}}>
           <Icon.Button
@@ -159,10 +161,10 @@ class StorkFront extends Component {
             {data.price}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
-  
+
   _renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
     // TODO:
     return (
@@ -175,6 +177,14 @@ class StorkFront extends Component {
         }
       />
     );
+  }
+
+  _postPressed(data) {
+    console.log("pressed")
+    this.props.navigator.push({
+      id: 'storkfrontPost',
+      item: data
+    });
   }
 
 }

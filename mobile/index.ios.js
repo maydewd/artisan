@@ -16,6 +16,7 @@ import {
 import LoginScreen from './Screens/LoginScreen.js'
 import NewPost from './Screens/NewPost.js'
 import DiscoverPost from './Screens/DiscoverPost.js'
+import StorkfrontPost from './Screens/StorkfrontPost.js'
 import MainNavBar from './Components/MainNavBar.js'
 import Discover from './Screens/Discover.js'
 import DiscoverSettings from './Screens/DiscoverSettings.js'
@@ -77,7 +78,13 @@ class Storkd extends Component {
             navigator={navigator} />
         );
       }
-
+      if (routeId === 'storkfrontPost') {
+        return (
+          <StorkfrontPost
+            item={route.item}
+            navigator={navigator} />
+        );
+      }
     }
 }
 
