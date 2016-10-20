@@ -7,6 +7,14 @@ const styles = StyleSheet.create({
     baseText: {
       // fontFamily: "serif"
     },
+
+    centeredBuff: {
+      flex: 1,
+      justifyContent: "space-between",
+      alignItems: "center",
+      paddingLeft: 20,
+    },
+
     loginScreenView: {
       flex: 1,
       flexDirection: "column",
@@ -15,12 +23,12 @@ const styles = StyleSheet.create({
       padding: 40,
       backgroundColor: 'white'
     },
+
     centered: {
       flex: 1,
       flexDirection: "column",
       justifyContent: "space-between",
       alignItems: "center",
-      padding: 20
     },
 
     navBar: {

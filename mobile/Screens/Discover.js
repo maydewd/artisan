@@ -131,11 +131,11 @@ class Discover extends Component {
         leftButton={this.leftButton()}
         rightButton={this.rightButton()}
         />
-        <View style = {styles.centered}>
-          <View style = {styles.centered && {flexDirection: "row"}}>
+        <View>
+          <View style = {styles.centered && {flexDirection: "row", paddingRight: 5, paddingTop: 15}}>
             <View style={{flex:1}} />
             <Icon.Button name="info-circle"
-              size={50}
+              size={30}
               iconStyle={styles.discoverIconInfo}
               backgroundColor="lightblue"
               onPress={() => this._infoPressed()}>
@@ -145,19 +145,19 @@ class Discover extends Component {
                style = {[styles.discoverImage, {width: getScreenWidth()}]}
                source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.currentListing.imagePath}}
           />
-          <View style = {styles.centered && {flexDirection: "row"}}>
+          <View style = {styles.centered && {flexDirection: "row", paddingLeft: 30, paddingRight: 30}}>
             <Button
               containerStyle={styles.discoverButtonContainerDown}
               style={styles.discoverButtonDown}
               onPress={() => this._thumbsDownPressed()}>
-              <Icon name="thumbs-down" size={50}/>
+              <Icon name="thumbs-down" size={40}/>
             </Button>
             <View style={{flex:1}}></View>
             <Button
               containerStyle={styles.discoverButtonContainerUp}
               style={styles.discoverButtonUp}
               onPress={() => this._thumbsUpPressed()}>
-              <Icon name="thumbs-up" size={50}/>
+              <Icon name="thumbs-up" size={40}/>
             </Button>
 
           </View>
