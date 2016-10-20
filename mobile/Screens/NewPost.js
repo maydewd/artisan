@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
 
   avatar: {
     resizeMode: 'contain',
-    width: 400,
+    width: getScreenWidth(),
     height: usablePercent(50)
   },
 
