@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
       flexDirection: "column",
       justifyContent: "space-around",
       alignItems: "center",
-      padding: 40,
+      paddingTop: 40,
       backgroundColor: 'white'
     },
 
@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
     },
 
     logo: {
-      width: 150,
-      height: 150
+      width: usablePercent(25),
+      height: usablePercent(25)
     },
 
     textBox: {
-      height: 40,
-      width: 300,
+      height: usablePercent(10),
+      width: getScreenWidth() * .9,
       borderWidth: 0.5,
       borderColor: '#0f0f0f',
       padding: 4,

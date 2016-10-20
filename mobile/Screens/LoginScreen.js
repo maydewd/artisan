@@ -16,7 +16,7 @@ import {
 import Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/FontAwesome';
 styles = require('../Styles/Layouts');
-import {getScreenWidth, getScreenHeight} from '../helpers/dimension'
+import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
 
 class LoginScreen extends Component {
 
@@ -31,7 +31,7 @@ class LoginScreen extends Component {
     return (
       <View style={styles.loginScreenView}>
         <Image source = {require("../resources/Logo1.png")} style = {styles.logo} />
-        <Icon.Button name="facebook" backgroundColor="#3b5998"   onPress={() => this._loginPressed()}>
+        <Icon.Button name="facebook" backgroundColor="#3b5998" size = {usablePercent(5)}  onPress={() => this._loginPressed()}>
             Login with Facebook
         </Icon.Button>
         <View style = {styles.groupedTextBoxes}>
@@ -48,7 +48,7 @@ class LoginScreen extends Component {
             onChangeText={(password) => this.setState({password})}
           />
           <Button
-            containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
+            containerStyle={{padding:10, height:usablePercent(20), overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
             style={[styles.baseText, {fontSize: 20, color: 'pink'}]}
             onPress={() => this._submitLogin()}>
             Login
