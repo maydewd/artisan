@@ -64,14 +64,13 @@ class StorkFront extends Component {
             var posts = [];
             responseData.forEach((item) => {
               posts.push({
-                image: require('../resources/Saddle-Billed_Stork.jpg'), price: item.price, likes: "5"
+                image: item.imagePath, price: item.price, likes: "5"
               })
             })
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(posts)
             });
             console.log("Successfully grabbed data");
-            alert("Success reloaded");
          })
         .catch(function(err) {
           alert("error");
@@ -145,7 +144,8 @@ class StorkFront extends Component {
   _renderPost(data) {
     return (
       <TouchableOpacity style = {styles.container} onPress={() => this._postPressed(data)}>
-        <Image style = {styles.storkfrontImage} source = {data.image}/>
+        <Image style = {styles.storkfrontImage}
+         source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + data.image}}/>
         <View style = {styles.centered && {flexDirection: "row"}}>
           <Icon.Button
             name="thumbs-up"

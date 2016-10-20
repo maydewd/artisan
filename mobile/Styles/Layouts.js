@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     storkfrontImage: {
       resizeMode: 'contain',
       height: 400,
-      width: 300
+      width: getScreenWidth()
     },
 
     storkfrontPostText: {
