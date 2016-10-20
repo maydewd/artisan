@@ -21,7 +21,7 @@ var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
 var ImagePicker = require('react-native-image-picker');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {getScreenWidth, getScreenHeight} from '../helpers/dimension'
+import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
 import ModalPicker from 'react-native-modal-picker'
 
 class NewPost extends Component {
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
 
   container: {
     width:  getScreenWidth(),
-    height: 300,
+    height: usablePercent(50),
     alignItems: 'center',
     justifyContent: "space-around",
     backgroundColor: '#f6f6f6'
@@ -205,8 +205,8 @@ const styles = StyleSheet.create({
 
   avatar: {
     resizeMode: 'contain',
-    width: 400,
-    height: 350
+    width: getScreenWidth(),
+    height: usablePercent(50)
   },
 
   picker: {
