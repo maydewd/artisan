@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     height: 300,
     alignItems: 'center',
     justifyContent: "space-around",
-    backgroundColor: 'lightgray'
+    backgroundColor: '#f6f6f6'
   },
 
   center: {

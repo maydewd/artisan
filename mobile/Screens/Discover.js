@@ -24,7 +24,6 @@ class Discover extends Component {
   constructor(props) {
     super(props);
     // TODO: make this better
-    console.log("IM IN THE CONSTRUCTOR")
     this.state = {
       storedListings: [],
       currentListing: {
@@ -124,7 +123,7 @@ class Discover extends Component {
     };
 
     return (
-      <View>
+      <View style ={{backgroundColor: '#f6f6f6', height: 620}}>
         <NavigationBar
         style={styles.navBar}
         title={titleConfig}

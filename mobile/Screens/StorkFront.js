@@ -141,6 +141,7 @@ class StorkFront extends Component {
       </View>
     );
   }
+
   _renderPost(data) {
     return (
       <TouchableOpacity style = {styles.container} onPress={() => this._postPressed(data)}>
@@ -158,7 +159,7 @@ class StorkFront extends Component {
           <Text style={styles.storkfrontPostText}>{data.likes}</Text>
           <View style={{flex:1}}></View>
           <Text style = {styles.storkfrontPostText}>
-            {data.price}
+            {'$' + data.price}
           </Text>
         </View>
       </TouchableOpacity>

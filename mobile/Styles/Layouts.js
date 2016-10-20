@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'space-between',
       alignItems: 'center',
-      backgroundColor: '#F5FCFF',
+      backgroundColor: '#f6f6f6',
     },
 
     logo: {
