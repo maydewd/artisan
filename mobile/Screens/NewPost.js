@@ -30,8 +30,7 @@ class NewPost extends Component {
     super(props);
     this.state = {
       description: '',
-      price: 10,
-      number: 0,
+      price: null,
       photoSource: null,
       type: ''
     };
@@ -84,6 +83,7 @@ class NewPost extends Component {
               style={{height: 40, padding: 5, borderBottomWidth: 1, borderColor: 'gray'}}
               keyboardType = 'numeric'
               placeholder="Asking Price"
+              onChangeText={(price) => this.setState({price})}
             />
             <ModalPicker
                    data={data}
@@ -150,16 +150,6 @@ class NewPost extends Component {
     });
   }
 
-  changeNumber() {
-    myPhotoGetter.getPhoto(5, (error, result) => {
-      if(error) {
-        console.error(error);
-      } else {
-        this.setState({number: result});
-      }
-    })
-  }
-
   _post() {
     const {description, type, price, photoSource} = this.state;
     console.log("description: " + description)
@@ -187,40 +177,6 @@ class NewPost extends Component {
         console.log(request);
         console.log('request sent');
     });
-  }
-
-  _post2() {
-    const {description, type} = this.state;
-    console.log("description: " + description)
-    console.log("type: " + type)
-    console.log(AsyncStorage.getItem('jwtToken'))
-    AsyncStorage.getItem('jwtToken', (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings",
-        {method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': result
-          },
-          body: JSON.stringify({description: description, type: type, price: 77})})
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData);
-        if (responseData.success === true) {
-          console.log("Successfully posted");
-          console.log(responseData.listingID);
-            alert("posted");
-        }
-        this.pop();
-       })
-      .catch(function(err) {
-        alert("error in posting");
-        console.log("Error in Posting");
-        console.log(err);
-      })
-      .done();
-    })
-
   }
 
   pop() {

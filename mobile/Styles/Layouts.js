@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import {getScreenWidth, getScreenHeight} from '../helpers/dimension'
+import {getScreenWidth, getScreenHeight, topNavBarHeight, usablePercent} from '../helpers/dimension'
 
 const styles = StyleSheet.create({
     baseText: {
@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
     },
 
     navBar: {
-      backgroundColor: 'lightblue'
+      backgroundColor: 'lightblue',
+      height: topNavBarHeight()
     },
 
     navIcon: {
@@ -86,8 +87,7 @@ const styles = StyleSheet.create({
     discoverImage: {
       flex: 1,
       resizeMode: 'contain',
-      height: 400,
-      width: 300
+      height: usablePercent(60),
     },
 
     discoverIconInfo: {

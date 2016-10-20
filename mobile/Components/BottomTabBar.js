@@ -18,6 +18,7 @@ import Discover from '../Screens/Discover.js'
 import StorkFront from '../Screens/StorkFront.js'
 import Tabbar from 'react-native-tabbar'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {bottomNavBarHeight} from '../helpers/dimension'
 
 class BottomTabBar extends Component {
 
@@ -41,7 +42,7 @@ class BottomTabBar extends Component {
 
   renderTabs() {
     return (
-      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 3, borderTopColor: 'pink' }}>
+      <View style={{ height: bottomNavBarHeight(), flexDirection: 'row', borderTopWidth: 3, borderTopColor: 'pink' }}>
         <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('discover')}>
           <Icon
             style = {(this.state.tab == 'discover') ? styles.iconActive : styles.icon}
@@ -93,7 +94,7 @@ class BottomTabBar extends Component {
           <Tabbar show={true}
                disable={false}
                ref={(ref) => this.tabarRef = ref}
-               style={{ backgroundColor: 'lightblue' }}>
+               style={{backgroundColor: 'lightblue' }}>
           {this.renderTabs()}
          </Tabbar>
       </View>

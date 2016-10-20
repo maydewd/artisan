@@ -18,7 +18,7 @@ import Button from 'react-native-button';
 styles = require('../Styles/Layouts');
 var NavigationBar = require('react-native-navbar');
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {getScreenWidth, getScreenHeight} from '../helpers/dimension'
+import {getScreenWidth, getScreenHeight, getUsableScreenHeight, usablePercent} from '../helpers/dimension'
 
 class Discover extends Component {
   constructor(props) {
@@ -48,10 +48,7 @@ class Discover extends Component {
       alert("No more listings");
       return;
     }
-    console.log("NEXT");
-    console.log(this.state)
     const next = this.state.storedListings.shift();
-    console.log(next);
     this.setState( {
       currentListing: next
     });
@@ -123,18 +120,18 @@ class Discover extends Component {
     };
 
     return (
-      <View style ={{backgroundColor: '#f6f6f6', height: 620}}>
+      <View>
         <NavigationBar
         style={styles.navBar}
         title={titleConfig}
         leftButton={this.leftButton()}
         rightButton={this.rightButton()}
         />
-        <View>
-          <View style = {styles.centered && {flexDirection: "row", paddingRight: 5, paddingTop: 15}}>
+        <View style ={{backgroundColor: '#f6f6f6', height: getUsableScreenHeight()}}>
+          <View style = {styles.centered && {flexDirection: "row", paddingRight: 5, paddingTop: 15, paddingBottom: 2}}>
             <View style={{flex:1}} />
             <Icon.Button name="info-circle"
-              size={30}
+              size={usablePercent(6)}
               iconStyle={styles.discoverIconInfo}
               backgroundColor="lightblue"
               onPress={() => this._infoPressed()}>
@@ -144,19 +141,19 @@ class Discover extends Component {
                style = {[styles.discoverImage, {width: getScreenWidth()}]}
                source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.currentListing.imagePath}}
           />
-          <View style = {styles.centered && {flexDirection: "row", paddingLeft: 30, paddingRight: 30}}>
+          <View style = {styles.centered && {flexDirection: "row", paddingLeft: 30, paddingRight: 30, paddingBottom: 30, paddingTop: 2}}>
             <Button
               containerStyle={styles.discoverButtonContainerDown}
               style={styles.discoverButtonDown}
               onPress={() => this._thumbsDownPressed()}>
-              <Icon name="thumbs-down" size={40}/>
+              <Icon name="thumbs-down" size={usablePercent(8)}/>
             </Button>
             <View style={{flex:1}}></View>
             <Button
               containerStyle={styles.discoverButtonContainerUp}
               style={styles.discoverButtonUp}
               onPress={() => this._thumbsUpPressed()}>
-              <Icon name="thumbs-up" size={40}/>
+              <Icon name="thumbs-up" size={usablePercent(8)}/>
             </Button>
 
           </View>
@@ -164,20 +161,21 @@ class Discover extends Component {
       </View>
     );
   }
+
   _infoPressed() {
     //TODO
-    console.log("pressed")
+    console.log("info pressed")
     this.props.navigator.push({
       id: 'discoverPost',
       item: this.state.currentListing
     });
   }
   _thumbsDownPressed() {
-    // TODO: temp
+    // TODO: other actions necessary
     this._nextListing()
   }
   _thumbsUpPressed() {
-    // TODO:
+    // TODO: other actions necessary
     this._nextListing()
   }
 }
