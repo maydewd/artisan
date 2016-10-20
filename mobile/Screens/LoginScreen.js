@@ -31,7 +31,7 @@ class LoginScreen extends Component {
     return (
       <View style={styles.loginScreenView}>
         <Image source = {require("../resources/Logo1.png")} style = {styles.logo} />
-        <Icon.Button name="facebook" backgroundColor="#3b5998" size = {usablePercent(5)}  onPress={() => this._loginPressed()}>
+        <Icon.Button name="facebook" backgroundColor="#3b5998" width = {getScreenWidth()*.6} onPress={() => this._loginPressed()}>
             Login with Facebook
         </Icon.Button>
         <View style = {styles.groupedTextBoxes}>
@@ -40,6 +40,7 @@ class LoginScreen extends Component {
             placeholder="Username"
             onChangeText={(username) => this.setState({username})}
           />
+          <View style = {{height:5}}/>
           <TextInput
             style={styles.textBox}
             placeholder="Password"

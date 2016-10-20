@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import {getScreenWidth, getScreenHeight, topNavBarHeight, usablePercent} from '../helpers/dimension'
+import {getScreenWidth, getScreenHeight, topNavBarHeight, getUsableScreenHeight, usablePercent} from '../helpers/dimension'
 
 const styles = StyleSheet.create({
     baseText: {
@@ -48,12 +48,12 @@ const styles = StyleSheet.create({
     },
 
     logo: {
-      width: usablePercent(25),
-      height: usablePercent(25)
+      width: usablePercent(30),
+      height: usablePercent(30)
     },
 
     textBox: {
-      height: usablePercent(10),
+      height: 40,
       width: getScreenWidth() * .9,
       borderWidth: 0.5,
       borderColor: '#0f0f0f',
@@ -150,10 +150,10 @@ const styles = StyleSheet.create({
       padding: 5
     },
 
+    //Remove this hardcoded 80 - it corresponds to profile height
     storkfrontList: {
-      paddingTop: 10,
-      width: 375,
-      maxHeight: 475
+      width: getScreenWidth(),
+      maxHeight: getUsableScreenHeight() - 80
     },
 
     storkfrontList2: {
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
 
     storkfrontImage: {
       resizeMode: 'contain',
-      height: 400,
+      height: usablePercent(60),
       width: getScreenWidth()
     },
 
