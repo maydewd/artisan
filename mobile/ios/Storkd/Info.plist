@@ -62,5 +62,9 @@
       <string>Octicons.ttf</string>
       <string>Zocial.ttf</string>
     </array>
+    <key>NSPhotoLibraryUsageDescription</key>
+	<string>Storkd uses photos</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Storkd uses the camera</string>
   </dict>
 </plist>
