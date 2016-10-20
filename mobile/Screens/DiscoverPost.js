@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
+import {usableWithTop} from '../helpers/dimension'
 
 styles = require('../Styles/Layouts');
 
@@ -47,7 +48,7 @@ class DiscoverPost extends Component {
           title={titleConfig}
           leftButton={leftButtonConfig}
         />
-        <ScrollView style = {{height: 600}}>
+        <ScrollView style = {{height: usableWithTop()}}>
           <View
             style = {styles.discoverPostContainer}>
             <Image style={styles.discoverPostImage} source={{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.imagePath}} />

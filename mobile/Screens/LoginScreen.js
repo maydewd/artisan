@@ -31,7 +31,7 @@ class LoginScreen extends Component {
     return (
       <View style={styles.loginScreenView}>
         <Image source = {require("../resources/Logo1.png")} style = {styles.logo} />
-        <Icon.Button name="facebook" backgroundColor="#3b5998" width = {getScreenWidth()*.6} onPress={() => this._loginPressed()}>
+        <Icon.Button name="facebook" backgroundColor="#3b5998" width = {180} onPress={() => this._loginPressed()}>
             Login with Facebook
         </Icon.Button>
         <View style = {styles.groupedTextBoxes}>

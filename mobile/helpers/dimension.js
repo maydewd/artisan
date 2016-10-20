@@ -29,3 +29,7 @@ export function getScreenHeight() {
 export function usablePercent(perc) {
   return getUsableScreenHeight() * perc/100;
 }
+
+export function usableWithTop() {
+  return (getScreenHeight() - topNavBarHeight - topPadding);
+}
