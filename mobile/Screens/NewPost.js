@@ -22,6 +22,7 @@ import Button from 'react-native-button'
 var ImagePicker = require('react-native-image-picker');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
+import { Kohana } from 'react-native-textinput-effects';
 import ModalPicker from 'react-native-modal-picker'
 
 class NewPost extends Component {

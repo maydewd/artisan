@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
 
   tabTextActive: {
     fontSize: 10,
-    color: 'blue'
+    color: '#24518D'
   },
 
   tabText: {
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
 
   iconActive : {
-    color: 'blue'
+    color: '#24518D'
   },
 
   icon : {

@@ -36,36 +36,37 @@ class LoginScreen extends Component {
         <Icon.Button name="facebook" backgroundColor="#3b5998" width = {180} onPress={() => this._loginPressed()}>
             Login with Facebook
         </Icon.Button>
-        <View >
+        <View style = {{alignItems: 'center'}}>
           <Kohana
-            style={{width: getScreenWidth() * .9, backgroundColor: 'white' }}
+            style={{width: getScreenWidth() * .9, backgroundColor: 'white', borderTopRightRadius:10, borderTopLeftRadius:10 }}
             onChangeText={(username) => this.setState({username})}
             label={'Username'}
             iconClass={MaterialIcons}
             iconName={'perm-identity'}
-            iconColor={'blue'}
+            iconColor={'#24518D'}
             labelStyle={{ color: 'pink' }}
-            inputStyle={{ color: '#91627b' }}
+            inputStyle={{ color: 'pink' }}
           />
           <Kohana
-            style={{ width: getScreenWidth() * .9, backgroundColor: 'white' }}
+            style={{ width: getScreenWidth() * .9, backgroundColor: 'white', borderBottomRightRadius:10, borderBottomLeftRadius:10}}
             onChangeText={(password) => this.setState({password})}
             label={'Password'}
             iconClass={MaterialIcons}
             iconName={'lock'}
-            iconColor={'blue'}
+            iconColor={'#24518D'}
             labelStyle={{ color: 'pink' }}
-            inputStyle={{ color: '#91627b' }}
+            inputStyle={{ color: 'pink' }}
             password = {true}
             secureTextEntry = {true}
           />
+          <View style = {{height: 10}} />
+          <Button
+            containerStyle={{paddingTop: 7, width: 110, height:40, overflow:'hidden', borderRadius:4, backgroundColor: 'pink'}}
+            style={[styles.baseText, {fontSize: 20, color: 'white'}]}
+            onPress={() => this._submitLogin()}>
+            Login
+          </Button>
         </View>
-        <Button
-          containerStyle={{paddingTop: 10, width: 80, height:50, overflow:'hidden', borderRadius:4, backgroundColor: 'pink'}}
-          style={[styles.baseText, {fontSize: 20, color: 'white'}]}
-          onPress={() => this._submitLogin()}>
-          Login
-        </Button>
         <Text style={[styles.baseText, styles.instructions]}>
           Sign Up
         </Text>
