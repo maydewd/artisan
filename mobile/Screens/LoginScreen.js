@@ -16,6 +16,8 @@ import {
 import Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/FontAwesome';
 styles = require('../Styles/Layouts');
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { Kohana } from 'react-native-textinput-effects';
 import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
 
 class LoginScreen extends Component {
@@ -30,31 +32,40 @@ class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.loginScreenView}>
-        <Image source = {require("../resources/Logo1.png")} style = {styles.logo} />
+        <Image source = {require("../resources/storkdLogo.png")} style = {styles.logo} />
         <Icon.Button name="facebook" backgroundColor="#3b5998" width = {180} onPress={() => this._loginPressed()}>
             Login with Facebook
         </Icon.Button>
-        <View style = {styles.groupedTextBoxes}>
-          <TextInput
-            style={styles.textBox}
-            placeholder="Username"
+        <View >
+          <Kohana
+            style={{width: getScreenWidth() * .9, backgroundColor: 'white' }}
             onChangeText={(username) => this.setState({username})}
+            label={'Username'}
+            iconClass={MaterialIcons}
+            iconName={'perm-identity'}
+            iconColor={'blue'}
+            labelStyle={{ color: 'pink' }}
+            inputStyle={{ color: '#91627b' }}
           />
-          <View style = {{height:5}}/>
-          <TextInput
-            style={styles.textBox}
-            placeholder="Password"
+          <Kohana
+            style={{ width: getScreenWidth() * .9, backgroundColor: 'white' }}
+            onChangeText={(password) => this.setState({password})}
+            label={'Password'}
+            iconClass={MaterialIcons}
+            iconName={'lock'}
+            iconColor={'blue'}
+            labelStyle={{ color: 'pink' }}
+            inputStyle={{ color: '#91627b' }}
             password = {true}
             secureTextEntry = {true}
-            onChangeText={(password) => this.setState({password})}
           />
-          <Button
-            containerStyle={{padding:10, height:usablePercent(20), overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
-            style={[styles.baseText, {fontSize: 20, color: 'pink'}]}
-            onPress={() => this._submitLogin()}>
-            Login
-          </Button>
         </View>
+        <Button
+          containerStyle={{paddingTop: 10, width: 80, height:50, overflow:'hidden', borderRadius:4, backgroundColor: 'pink'}}
+          style={[styles.baseText, {fontSize: 20, color: 'white'}]}
+          onPress={() => this._submitLogin()}>
+          Login
+        </Button>
         <Text style={[styles.baseText, styles.instructions]}>
           Sign Up
         </Text>
