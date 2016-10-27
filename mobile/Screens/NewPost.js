@@ -23,7 +23,8 @@ var ImagePicker = require('react-native-image-picker');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
 import { Kohana } from 'react-native-textinput-effects';
-import ModalPicker from 'react-native-modal-picker'
+import ModalPicker from 'react-native-modal-picker';
+import FA from 'react-native-vector-icons/FontAwesome';
 
 class NewPost extends Component {
 
@@ -73,33 +74,51 @@ class NewPost extends Component {
                   }
                 </View>
             </TouchableOpacity>
-            <TextInput
-              style={{flex:1, padding: 5, borderTopWidth: 1, borderBottomWidth: 1, borderColor: 'gray'}}
+            <Kohana
+              style={{flex: 3, width: getScreenWidth(), backgroundColor: 'white', paddingTop: 10, borderColor: 'gray', borderTopWidth: 1}}
+              onChangeText={(username) => this.setState({username})}
+              label={'Story'}
+              iconClass={FA}
+              iconName={'book'}
+              iconColor={'#24518D'}
+              labelStyle={{ color: 'pink' }}
+              inputStyle={{ color: '#24518D' }}
               multiline = {true}
-              numberOfLines = {3}
-              placeholder="Story"
+              numberOfLines = {2}
               onChangeText={(description) => this.setState({description})}
             />
-            <TextInput
-              style={{height: 40, padding: 5, borderBottomWidth: 1, borderColor: 'gray'}}
+            <Kohana
+              style={{flex: 1, width: getScreenWidth(), backgroundColor: 'white', borderColor: 'gray', borderTopWidth: 1}}
+              onChangeText={(username) => this.setState({username})}
+              label={'Asking Price'}
+              iconClass={MaterialIcons}
+              iconName={'payment'}
+              iconColor={'#24518D'}
+              labelStyle={{ color: 'pink' }}
+              inputStyle={{ color: '#24518D' }}
               keyboardType = 'numeric'
-              placeholder="Asking Price"
               onChangeText={(price) => this.setState({price})}
             />
             <ModalPicker
                    data={data}
+                   style = {{flex:1, width: getScreenWidth()}}
                    initValue="Select a type"
                    onChange={(option)=> this.setState({type:option.label})}
                    >
-                   <TextInput
-                       style={{borderWidth:1, borderColor:'#ccc', padding:10, height:40}}
-                       editable={false}
-                       placeholder="Select a type"
-                       value={this.state.type}
+                       <Kohana
+                         style = {{width: getScreenWidth(), borderColor: 'gray', borderTopWidth: 1}}
+                         editable= {false}
+                         label={'Type'}
+                         iconClass={MaterialIcons}
+                         iconName={'subject'}
+                         iconColor={'#24518D'}
+                         labelStyle={{ color: 'pink' }}
+                         inputStyle={{ color: '#24518D' }}
+                         value={this.state.type}
                        />
             </ModalPicker>
             <Button
-              containerStyle={{padding:10, overflow:'hidden', maxHeight: 45, backgroundColor: 'blue'}}
+              containerStyle={{padding:10, overflow:'hidden', maxHeight: 50, backgroundColor: '#24518D', borderRadius: 2}}
               style={{fontSize: 20, color: 'white'}}
               onPress={() => this._post()}>
               Post
@@ -188,7 +207,7 @@ class NewPost extends Component {
 
 const styles = StyleSheet.create({
   navBar: {
-    backgroundColor: 'lightblue'
+    backgroundColor: '#cce5ff'
   },
 
   container: {
