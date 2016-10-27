@@ -94,7 +94,7 @@ class BottomTabBar extends Component {
           <Tabbar show={true}
                disable={false}
                ref={(ref) => this.tabarRef = ref}
-               style={{backgroundColor: 'lightblue' }}>
+               style={{backgroundColor: '#cce5ff' }}>
           {this.renderTabs()}
          </Tabbar>
       </View>

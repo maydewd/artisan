@@ -127,15 +127,15 @@ class Discover extends Component {
         leftButton={this.leftButton()}
         rightButton={this.rightButton()}
         />
-        <View style ={{backgroundColor: '#f6f6f6', height: getUsableScreenHeight()}}>
+        <View style ={{backgroundColor: 'white', height: getUsableScreenHeight()}}>
           <View style = {styles.centered && {flexDirection: "row", paddingRight: 5, paddingTop: 15, paddingBottom: 2}}>
             <View style={{flex:1}} />
-            <Icon.Button name="info-circle"
-              size={usablePercent(6)}
+            <Icon name="info-circle"
+              size={usablePercent(6.5)}
               iconStyle={styles.discoverIconInfo}
-              backgroundColor="lightblue"
+              color= 'black'
               onPress={() => this._infoPressed()}>
-            </Icon.Button>
+            </Icon>
           </View>
           <Image
                style = {[styles.discoverImage, {width: getScreenWidth()}]}

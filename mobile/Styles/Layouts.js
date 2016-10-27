@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     },
 
     navBar: {
-      backgroundColor: 'lightblue',
+      backgroundColor: '#cce5ff',
       height: topNavBarHeight()
     },
 
