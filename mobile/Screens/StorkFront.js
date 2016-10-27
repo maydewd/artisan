@@ -63,7 +63,7 @@ class StorkFront extends Component {
             var posts = [];
             responseData.forEach((item) => {
               posts.push({
-                image: item.imagePath, price: item.price, likes: "5"
+                image: item.imagePath, price: item.price, likes: item.numLikes
               })
             })
             this.setState({
