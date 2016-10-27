@@ -28,7 +28,7 @@ class MyBundle extends Component {
   }
 
   componentDidMount() {
-  
+    this._fetchData()
   }
 
   _fetchData() {
