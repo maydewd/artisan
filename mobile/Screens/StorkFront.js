@@ -38,7 +38,6 @@ class StorkFront extends Component {
   }
 
   componentDidMount() {
-    console.log("Component did mount");
     this._fetchData()
   }
 
