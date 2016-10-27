@@ -174,9 +174,34 @@ class Discover extends Component {
     // TODO: other actions necessary
     this._nextListing()
   }
+
   _thumbsUpPressed() {
-    // TODO: other actions necessary
-    this._nextListing()
+    var currID = this.state.currentListing._id;
+    AsyncStorage.getItem('jwtToken', (err, result) => {
+      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/" + currID + "/like",
+        {method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': result
+          }
+        })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData);
+        if (responseData.success !== true) {
+          console.log('Failed to like')
+        }
+         return responseData;
+       })
+      .catch(function(err) {
+        console.log("Error in Login Fetch request");
+        console.log(err);
+      })
+      .done();
+  });
+
+    this._nextListing();
   }
 }
 
