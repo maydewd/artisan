@@ -12,6 +12,7 @@ import {
 var NavigationBar = require('react-native-navbar');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { SegmentedControls } from 'react-native-radio-buttons';
+import { Switch } from 'react-native-switch';
 
 class DiscoverSettings extends Component {
 
@@ -19,7 +20,9 @@ class DiscoverSettings extends Component {
     super(props);
     this.state = {
       distance: '0-5 miles',
-      cost: '$20-100'
+      cost: '$20-100',
+      myPosts: false,
+      downedPost: false
     };
   }
 
@@ -99,6 +102,36 @@ class DiscoverSettings extends Component {
               allowFontScaling={ false } // default: true
               onSelection={ setCost.bind(this) }
               selectedOption={ this.state.cost }
+              />
+            </View>
+            <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+              <Text> See my posts</Text>
+              <Switch
+                  value={this.state.myPosts}
+                  onValueChange={(val) => console.log(val)}
+                  disabled={false}
+                  activeText={'On'}
+                  inActiveText={'Off'}
+                  backgroundActive={'green'}
+                  backgroundInactive={'gray'}
+                  circleActiveColor={'#30a566'}
+                  circleInActiveColor={'#000000'}
+              />
+            </View>
+            <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+              <Text> See down voted posts</Text>
+              <Switch
+                  value={this.state.downedPost}
+                  onValueChange={(val) =>  this.setState({
+                     distance: val
+                   })}
+                  disabled={false}
+                  activeText={'On'}
+                  inActiveText={'Off'}
+                  backgroundActive={'green'}
+                  backgroundInactive={'gray'}
+                  circleActiveColor={'#30a566'}
+                  circleInActiveColor={'#000000'}
               />
             </View>
       </View>
