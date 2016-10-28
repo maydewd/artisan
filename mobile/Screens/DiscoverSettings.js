@@ -11,8 +11,17 @@ import {
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { SegmentedControls } from 'react-native-radio-buttons';
 
 class DiscoverSettings extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      distance: '0-5 miles',
+      cost: '$20-100'
+    };
+  }
 
   rightButton() {
     return (
@@ -32,13 +41,67 @@ class DiscoverSettings extends Component {
     handler: () => {this.pop()}
   };
 
+  const distanceOptions = [
+     "0-5 miles",
+     "5-10 miles",
+     "10-15 miles"
+   ];
+
+   const priceOptions = [
+      "$0-5",
+      "$5-20",
+      "$20-100",
+      "$100+"
+    ];
+
+
+   function setDistance(selectedOption){
+     this.setState({
+       distance: selectedOption
+     });
+   }
+
+   function setCost(selectedOption){
+     this.setState({
+       cost: selectedOption
+     });
+   }
     return (
-      <NavigationBar
-      style={styles.navBar}
-      title={titleConfig}
-      leftButton={leftButtonConfig}
-      rightButton={this.rightButton()}
-      />
+
+      <View>
+        <NavigationBar
+        style={styles.navBar}
+        title={titleConfig}
+        leftButton={leftButtonConfig}
+        rightButton={this.rightButton()}
+        />
+        <View style = {{justifyContent: 'center', alignItems: 'center'}} >
+          <Text>
+            Discover Distance
+          </Text>
+          <SegmentedControls
+            tint= {'#f80046'}
+            selectedTint= {'white'}
+            backTint= {'#1e2126'}
+            options={ distanceOptions }
+            allowFontScaling={ false } // default: true
+            onSelection={ setDistance.bind(this) }
+            selectedOption={ this.state.distance }
+            />
+            <Text>
+              Price Range
+            </Text>
+            <SegmentedControls
+              tint= {'#f80046'}
+              selectedTint= {'white'}
+              backTint= {'#1e2126'}
+              options={ priceOptions }
+              allowFontScaling={ false } // default: true
+              onSelection={ setCost.bind(this) }
+              selectedOption={ this.state.cost }
+              />
+            </View>
+      </View>
     );
   }
 
