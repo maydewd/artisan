@@ -29,8 +29,8 @@ class StorkFront extends Component {
     // TODO: hook up data source to server
     this.state = {
       dataSource: ds.cloneWithRows([
-        {image: require('../resources/Saddle-Billed_Stork.jpg'), price: "$10", likes: "5"},
-        {image: require('../resources/Logo1.png'), price: "$5", like: "0"}
+        {imagePath: require('../resources/Saddle-Billed_Stork.jpg'), price: "$10", likes: "5"},
+        {imagePath: require('../resources/Logo1.png'), price: "$5", like: "0"}
       ]),
       refreshing: false,
     };
@@ -62,9 +62,9 @@ class StorkFront extends Component {
 
             var posts = [];
             responseData.forEach((item) => {
-              posts.push({
-                image: item.imagePath, price: item.price, likes: item.numLikes
-              })
+              posts.push(
+                item
+              )
             })
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(posts)
@@ -109,7 +109,7 @@ class StorkFront extends Component {
    };
     // TODO: profile
     return (
-      <View>
+      <View style={styles.navScreen}>
         <NavigationBar
           style={styles.navBar}
           title={titleConfig}
@@ -145,7 +145,7 @@ class StorkFront extends Component {
     return (
       <TouchableOpacity style = {styles.container} onPress={() => this._postPressed(data)}>
         <Image style = {styles.storkfrontImage}
-         source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + data.image}}/>
+         source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + data.imagePath}}/>
         <View style = {styles.centered && {flexDirection: "row"}}>
           <Icon.Button
             name="thumbs-up"

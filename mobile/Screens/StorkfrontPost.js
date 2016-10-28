@@ -33,7 +33,7 @@ class StorkfrontPost extends Component {
 
   render() {
     var titleConfig = {
-      title: 'Discover Post',
+      title: 'Storkfront Post',
     };
     const leftButtonConfig = {
       title: 'Back',
