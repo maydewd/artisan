@@ -29,9 +29,14 @@ class DiscoverSettings extends Component {
   rightButton() {
     return (
       <View style = {styles.navIcon}>
-        <Icon name="save" size={25}/>
+        <Icon name="save" size={25} onPress={this._save.bind(this)}/>
       </View>
     )
+  }
+
+  _save() {
+    var state = this.state;
+    console.log(state);
   }
 
   render() {
@@ -69,6 +74,7 @@ class DiscoverSettings extends Component {
        cost: selectedOption
      });
    }
+
     return (
 
       <View>
@@ -78,61 +84,65 @@ class DiscoverSettings extends Component {
         leftButton={leftButtonConfig}
         rightButton={this.rightButton()}
         />
-        <View style = {{justifyContent: 'center', alignItems: 'center'}} >
-          <Text>
-            Discover Distance
-          </Text>
-          <SegmentedControls
-            tint= {'#f80046'}
-            selectedTint= {'white'}
-            backTint= {'#1e2126'}
-            options={ distanceOptions }
-            allowFontScaling={ false } // default: true
-            onSelection={ setDistance.bind(this) }
-            selectedOption={ this.state.distance }
-            />
+        <View>
+          <View>
             <Text>
-              Price Range
+              Discover Distance
             </Text>
             <SegmentedControls
-              tint= {'#f80046'}
+              tint= {'#24518D'}
               selectedTint= {'white'}
-              backTint= {'#1e2126'}
-              options={ priceOptions }
+              backTint= {'lightgray'}
+              options={ distanceOptions }
               allowFontScaling={ false } // default: true
-              onSelection={ setCost.bind(this) }
-              selectedOption={ this.state.cost }
+              onSelection={ setDistance.bind(this) }
+              selectedOption={ this.state.distance }
               />
-            </View>
-            <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-              <Text> See my posts</Text>
-              <Switch
-                  value={this.state.myPosts}
-                  onValueChange={(val) => console.log(val)}
-                  disabled={false}
-                  activeText={'On'}
-                  inActiveText={'Off'}
-                  backgroundActive={'green'}
-                  backgroundInactive={'gray'}
-                  circleActiveColor={'#30a566'}
-                  circleInActiveColor={'#000000'}
-              />
-            </View>
-            <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-              <Text> See down voted posts</Text>
-              <Switch
-                  value={this.state.downedPost}
-                  onValueChange={(val) =>  this.setState({
-                     distance: val
-                   })}
-                  disabled={false}
-                  activeText={'On'}
-                  inActiveText={'Off'}
-                  backgroundActive={'green'}
-                  backgroundInactive={'gray'}
-                  circleActiveColor={'#30a566'}
-                  circleInActiveColor={'#000000'}
-              />
+              <Text>
+                Price Range
+              </Text>
+              <SegmentedControls
+                tint= {'#24518D'}
+                selectedTint= {'white'}
+                backTint= {'lightgray'}
+                options={ priceOptions }
+                allowFontScaling={ false } // default: true
+                onSelection={ setCost.bind(this) }
+                selectedOption={ this.state.cost }
+                />
+              </View>
+              <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                <Text> See my posts</Text>
+                <Switch
+                    value={this.state.myPosts}
+                    onValueChange={(val) =>  this.setState({
+                         myPosts: val
+                    })}
+                    disabled={false}
+                    activeText={'On'}
+                    inActiveText={'Off'}
+                    backgroundActive={'#24518D'}
+                    backgroundInactive={'gray'}
+                    circleActiveColor={'white'}
+                    circleInActiveColor={'lightgray'}
+                />
+              </View>
+              <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                <Text> See down voted posts</Text>
+                <Switch
+                    value={this.state.downedPost}
+                    onValueChange={(val) =>  this.setState({
+                       downedPost: val
+                     })}
+                    disabled={false}
+                    activeText={'On'}
+                    inActiveText={'Off'}
+                    backgroundActive={'#24518D'}
+                    backgroundInactive={'gray'}
+                    circleActiveColor={'white'}
+                    circleInActiveColor={'lightgray'}
+                />
+              </View>
             </View>
       </View>
     );
