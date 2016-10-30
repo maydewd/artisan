@@ -24,8 +24,8 @@ class MyBundle extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    // TODO: hook up data source to server
     this.state = {
+      data: [],
       dataSource: ds.cloneWithRows([]),
     };
   }
@@ -47,12 +47,11 @@ class MyBundle extends Component {
         .then((responseData) => {
           console.log(responseData);
 
-            var posts = [];
             responseData.forEach((item) => {
-              posts.push(item)
+              this.state.data.push(item)
             })
             this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(posts)
+                dataSource: this.state.dataSource.cloneWithRows(this.state.data)
             });
             console.log("Successfully grabbed data");
          })
@@ -96,9 +95,9 @@ class MyBundle extends Component {
               </TouchableOpacity>
              </View>
           )}
-          renderHiddenRow = {(item) => (
+          renderHiddenRow = {(item, secId, rowId) => (
               <TouchableOpacity
-              onPress={() => this._delete(item)}
+              onPress={() => this._delete(item, rowId)}
               style = {{height: 80, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', backgroundColor: 'red', width: getScreenWidth()}}>
                 <Text style = {{color: 'white', paddingRight: 10}}>Remove</Text>
               </TouchableOpacity>
@@ -130,8 +129,18 @@ class MyBundle extends Component {
     )
   }
 
-  _delete(data) {
-    console.log("want to delete" + data._id)
+  _delete(item, index) {
+    console.log("first")
+    console.log(this.state.data)
+    console.log("want to delete " + item._id + " with " + index)
+    var dR = this.state.data.splice(index, 1);
+    console.log("deleted")
+    console.log(dR)
+    console.log("second")
+    console.log(this.state.data)
+    this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(this.state.data)
+    });
   }
 
   pop() {
