@@ -86,7 +86,16 @@ class MyBundle extends Component {
           disableRightSwipe={true}
           style = {{height: getScreenHeight() -topNavBarHeight()-20}}
           dataSource = {this.state.dataSource}
-          renderRow = {this.renderPost}
+          renderRow = {(item) => (
+            <View
+            style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: getScreenWidth(), backgroundColor: 'white',}}>
+              <Image style = {{height: 80, width: 80}}
+               source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + item.imagePath}}/>
+               <TouchableOpacity style = {{paddingRight: 10}}>
+                <Icon onPress= {() => this._mail(item)} name="envelope" size={20} color="black" />
+              </TouchableOpacity>
+             </View>
+          )}
           renderHiddenRow = {(item) => (
               <TouchableOpacity
               onPress={() => this._delete(item)}
@@ -100,13 +109,19 @@ class MyBundle extends Component {
     );
   }
 
+  _mail(data) {
+    this.props.navigator.push({
+        id: 'messages'
+    });
+  }
+
   renderPost(item) {
     return (
         <View
         style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: getScreenWidth(), backgroundColor: 'white',}}>
           <Image style = {{height: 80, width: 80}}
            source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + item.imagePath}}/>
-           <TouchableOpacity style = {{paddingRight: 10}}>
+           <TouchableOpacity style = {{paddingRight: 10}} onPress = {() => this.func()}>
             <Icon onPress= {console.log(item)} name="envelope" size={20} color="black" />
           </TouchableOpacity>
          </View>
