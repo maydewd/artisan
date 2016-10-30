@@ -17,6 +17,7 @@ var NavigationBar = require('react-native-navbar');
 import {getScreenHeight, topNavBarHeight, getScreenWidth} from '../helpers/dimension'
 import { SwipeListView } from 'react-native-swipe-list-view';
 styles = require('../Styles/Layouts');
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class MyBundle extends Component {
 
@@ -82,6 +83,7 @@ class MyBundle extends Component {
         leftButton={leftButtonConfig}
         />
         <SwipeListView
+          disableRightSwipe={true}
           style = {{height: getScreenHeight() -topNavBarHeight()-20}}
           dataSource = {this.state.dataSource}
           renderRow = {this.renderPost}
@@ -89,7 +91,7 @@ class MyBundle extends Component {
               <TouchableOpacity
               onPress={() => this._delete(item)}
               style = {{height: 80, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', backgroundColor: 'red', width: getScreenWidth()}}>
-                <Text>Remove</Text>
+                <Text style = {{color: 'white', paddingRight: 10}}>Remove</Text>
               </TouchableOpacity>
             )}
           rightOpenValue={-80}
@@ -104,7 +106,9 @@ class MyBundle extends Component {
         style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: getScreenWidth(), backgroundColor: 'white',}}>
           <Image style = {{height: 80, width: 80}}
            source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + item.imagePath}}/>
-           <Text> End</Text>
+           <TouchableOpacity style = {{paddingRight: 10}}>
+            <Icon onPress= {console.log(item)} name="envelope" size={20} color="black" />
+          </TouchableOpacity>
          </View>
     )
   }
