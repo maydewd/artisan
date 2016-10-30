@@ -110,8 +110,10 @@ class MyBundle extends Component {
   }
 
   _mail(data) {
+    console.log(data)
     this.props.navigator.push({
-        id: 'messages'
+        id: 'messages',
+        creator: data.creator
     });
   }
 

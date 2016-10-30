@@ -89,6 +89,7 @@ class Storkd extends Component {
       if (routeId === 'messages') {
         return (
           <Messages
+            creatorID = {route.creator}
             navigator={navigator} />
         );
       }

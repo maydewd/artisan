@@ -38,6 +38,9 @@ class Messages extends Component {
         title={titleConfig}
         leftButton={leftButtonConfig}
         />
+        <Text>
+        {this.props.creatorID}
+        </Text>
       </View>
     );
   }
