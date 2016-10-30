@@ -106,12 +106,15 @@ class LoginScreen extends Component {
         AsyncStorage.setItem('jwtToken', responseData.token, () =>
           this.props.navigator.push({id:'mainView'})
         );
+      } else {
+        alert('Incorrect username and password')
       }
        return responseData;
      })
     .catch(function(err) {
       console.log("Error in Login Fetch request");
       console.log(err);
+        alert('Something went wrong')
     })
     .done();
   }
