@@ -10,11 +10,13 @@ import {
   View,
   ListView,
   Image,
-  AsyncStorage
+  AsyncStorage,
+  TouchableOpacity
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
-import {getScreenHeight, topNavBarHeight} from '../helpers/dimension'
-
+import {getScreenHeight, topNavBarHeight, getScreenWidth} from '../helpers/dimension'
+import { SwipeListView } from 'react-native-swipe-list-view';
+styles = require('../Styles/Layouts');
 
 class MyBundle extends Component {
 
@@ -79,20 +81,36 @@ class MyBundle extends Component {
         title={titleConfig}
         leftButton={leftButtonConfig}
         />
-        <ListView
+        <SwipeListView
           style = {{height: getScreenHeight() -topNavBarHeight()-20}}
           dataSource = {this.state.dataSource}
-          renderRow = {this._renderPost}
+          renderRow = {this.renderPost}
+          renderHiddenRow = {(item) => (
+              <TouchableOpacity
+              onPress={() => this._delete(item)}
+              style = {{height: 80, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', backgroundColor: 'red', width: getScreenWidth()}}>
+                <Text>Remove</Text>
+              </TouchableOpacity>
+            )}
+          rightOpenValue={-80}
         />
       </View>
     );
   }
 
-  _renderPost(item) {
+  renderPost(item) {
     return (
-        <Image style = {styles.storkfrontImage}
-         source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + item.imagePath}}/>
+        <View
+        style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: getScreenWidth(), backgroundColor: 'white',}}>
+          <Image style = {{height: 80, width: 80}}
+           source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + item.imagePath}}/>
+           <Text> End</Text>
+         </View>
     )
+  }
+
+  _delete(data) {
+    console.log("want to delete" + data._id)
   }
 
   pop() {
