@@ -50,10 +50,7 @@ class MyBundle extends Component {
             responseData.forEach((item) => {
               this.state.data.push(item)
             })
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(this.state.data)
-            });
-            console.log("Successfully grabbed data");
+            this._updateList()
          })
         .catch(function(err) {
           alert("error");
@@ -61,6 +58,12 @@ class MyBundle extends Component {
           console.log(err);
         })
         .done();
+    });
+  }
+
+  _updateList() {
+    this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(this.state.data)
     });
   }
 
@@ -130,17 +133,9 @@ class MyBundle extends Component {
   }
 
   _delete(item, index) {
-    console.log("first")
-    console.log(this.state.data)
-    console.log("want to delete " + item._id + " with " + index)
-    var dR = this.state.data.splice(index, 1);
-    console.log("deleted")
-    console.log(dR)
-    console.log("second")
-    console.log(this.state.data)
-    this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(this.state.data)
-    });
+    //TODO delete on the backend
+    delete this.state.data[index];
+    this._updateList()
   }
 
   pop() {
