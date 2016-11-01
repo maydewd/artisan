@@ -110,19 +110,57 @@ const styles = StyleSheet.create({
       backgroundColor: '#ec7063'
     },
 
-
+    // TODO the stylings for the different post screens are nearly identical
     discoverPostContainer: {
-      width: 400,
-      height: 300,
+      // width: 400,
+      // height: 300,
       alignItems: 'center',
       justifyContent: "space-around",
     },
     discoverPostImage: {
       resizeMode: 'contain',
-      width: 400,
-      height: 300
+      width: getScreenWidth(),
+      height: usablePercent(50),
     },
-
+    discoverPostStory: {
+      flex: 3,
+      width: getScreenWidth(),
+      backgroundColor: 'white',
+      paddingTop: 10,
+      borderColor: 'gray',
+      borderTopWidth: 1
+    },
+    discoverPostLocation: {
+      flex: 1,
+      width: getScreenWidth(),
+      backgroundColor: 'white',
+      borderColor: 'gray',
+      borderTopWidth: 1
+    },
+    discoverPostPrice: {
+      flex: 1,
+      width: getScreenWidth(),
+      backgroundColor: 'white',
+      borderColor: 'gray',
+      borderTopWidth: 1
+    },
+    discoverPostType: {
+      width: getScreenWidth(),
+      borderColor: 'gray',
+      borderTopWidth: 1
+    },
+    contactButtonContainer: {
+      padding:10,
+      alignItems: "center",
+      overflow:'hidden',
+      maxHeight: 50,
+      backgroundColor: '#24518D',
+      borderRadius: 2
+    },
+    contactButton: {
+      fontSize: 20,
+      color: 'white'
+    },
 //==================================
 //  STORKFRONT
 
@@ -139,6 +177,7 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
       justifyContent: "flex-start",
       alignItems: "center",
+      height: getUsableScreenHeight(),
     },
 
     storkFrontBanner: {
