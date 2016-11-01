@@ -14,6 +14,11 @@ import {
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
+import {usableWithTop, usablePercent} from '../helpers/dimension';
+import { Kohana } from 'react-native-textinput-effects';
+import FA from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 styles = require('../Styles/Layouts');
 
@@ -30,7 +35,9 @@ class StorkfrontPost extends Component {
       type: this.props.item.type
     };
   }
-
+  _save() {
+    // TODO
+  }
   render() {
     var titleConfig = {
       title: 'Storkfront Post',
@@ -48,29 +55,64 @@ class StorkfrontPost extends Component {
           title={titleConfig}
           leftButton={leftButtonConfig}
         />
-        <ScrollView style = {{height: 600}}>
+        <ScrollView style = {{height: usableWithTop()}}>
           <View
             style = {styles.discoverPostContainer}>
             <Image style={styles.discoverPostImage} source={{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.imagePath}} />
           </View>
-          <Text
-            style={{height: 130, padding: 5, borderTopWidth: 1, borderBottomWidth: 1, borderColor: 'gray'}}
-            // multiline = {true}
-            numberOfLines = {3}>
-            {this.state.description}
-          </Text>
-          <Text
-            style={{height: 40, padding: 5, borderBottomWidth: 1, borderColor: 'gray'}}>
-            {this.state.location}
-          </Text>
-          <Text
-            style={{height: 40, padding: 5, borderBottomWidth: 1, borderColor: 'gray'}}>
-            {this.state.price}
-          </Text>
-          <Text
-            style={{height: 40}}>
-            {this.state.type}
-          </Text>
+          {/* Description */}
+          <Kohana
+            style={styles.discoverPostStory}
+            editable= {false}
+            label={'Story'}
+            iconClass={FA}
+            iconName={'book'}
+            iconColor={'#24518D'}
+            labelStyle={{ color: 'pink' }}
+            inputStyle={{ color: '#24518D' }}
+            multiline = {true}
+            numberOfLines = {2}
+            value = {this.state.description != null ? this.state.description.toString() : "N/A"}
+          />
+          <Kohana
+            style={styles.discoverPostLocation}
+            editable= {false}
+            label={'Location'}
+            iconClass={FA}
+            iconName={'globe'}
+            iconColor={'#24518D'}
+            labelStyle={{ color: 'pink' }}
+            inputStyle={{ color: '#24518D' }}
+            value = {this.state.location != null ? this.state.location.toString() : "N/A"}
+          />
+          <Kohana
+            style={styles.discoverPostPrice}
+            editable= {false}
+            label={'Asking Price'}
+            iconClass={MaterialIcons}
+            iconName={'payment'}
+            iconColor={'#24518D'}
+            labelStyle={{ color: 'pink' }}
+            inputStyle={{ color: '#24518D' }}
+            value = {this.state.price != null ? this.state.price.toString() : "N/A"}
+          />
+          <Kohana
+            style = {styles.discoverPostType}
+            editable= {false}
+            label={'Type'}
+            iconClass={MaterialIcons}
+            iconName={'subject'}
+            iconColor={'#24518D'}
+            labelStyle={{ color: 'pink' }}
+            inputStyle={{ color: '#24518D' }}
+            value={this.state.type != null ? this.state.type.toString() : "N/A"}
+          />
+          <Button
+            containerStyle={styles.contactButtonContainer}
+            style={styles.contactButton}
+            onPress={() => this._save()}>
+            Save
+          </Button>
         </ScrollView>
       </View>
     );
