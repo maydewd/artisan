@@ -10,19 +10,22 @@ import {
   View,
   ListView,
   Image,
-  AsyncStorage
+  AsyncStorage,
+  TouchableOpacity
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
-import {getScreenHeight, topNavBarHeight} from '../helpers/dimension'
-
+import {getScreenHeight, topNavBarHeight, getScreenWidth} from '../helpers/dimension'
+import { SwipeListView } from 'react-native-swipe-list-view';
+styles = require('../Styles/Layouts');
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class MyBundle extends Component {
 
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    // TODO: hook up data source to server
     this.state = {
+      data: [],
       dataSource: ds.cloneWithRows([]),
     };
   }
@@ -44,14 +47,10 @@ class MyBundle extends Component {
         .then((responseData) => {
           console.log(responseData);
 
-            var posts = [];
             responseData.forEach((item) => {
-              posts.push(item)
+              this.state.data.push(item)
             })
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(posts)
-            });
-            console.log("Successfully grabbed data");
+            this._updateList()
          })
         .catch(function(err) {
           alert("error");
@@ -59,6 +58,12 @@ class MyBundle extends Component {
           console.log(err);
         })
         .done();
+    });
+  }
+
+  _updateList() {
+    this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(this.state.data)
     });
   }
 
@@ -79,20 +84,58 @@ class MyBundle extends Component {
         title={titleConfig}
         leftButton={leftButtonConfig}
         />
-        <ListView
+        <SwipeListView
+          disableRightSwipe={true}
           style = {{height: getScreenHeight() -topNavBarHeight()-20}}
           dataSource = {this.state.dataSource}
-          renderRow = {this._renderPost}
+          renderRow = {(item) => (
+            <View
+            style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: getScreenWidth(), backgroundColor: 'white',}}>
+              <Image style = {{height: 80, width: 80}}
+               source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + item.imagePath}}/>
+               <TouchableOpacity style = {{paddingRight: 10}}>
+                <Icon onPress= {() => this._mail(item)} name="envelope" size={20} color="black" />
+              </TouchableOpacity>
+             </View>
+          )}
+          renderHiddenRow = {(item, secId, rowId) => (
+              <TouchableOpacity
+              onPress={() => this._delete(item, rowId)}
+              style = {{height: 80, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', backgroundColor: 'red', width: getScreenWidth()}}>
+                <Text style = {{color: 'white', paddingRight: 10}}>Remove</Text>
+              </TouchableOpacity>
+            )}
+          rightOpenValue={-80}
         />
       </View>
     );
   }
 
-  _renderPost(item) {
+  _mail(data) {
+    console.log(data)
+    this.props.navigator.push({
+        id: 'messages',
+        creator: data.creator
+    });
+  }
+
+  renderPost(item) {
     return (
-        <Image style = {styles.storkfrontImage}
-         source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + item.imagePath}}/>
+        <View
+        style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: getScreenWidth(), backgroundColor: 'white',}}>
+          <Image style = {{height: 80, width: 80}}
+           source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + item.imagePath}}/>
+           <TouchableOpacity style = {{paddingRight: 10}} onPress = {() => this.func()}>
+            <Icon onPress= {console.log(item)} name="envelope" size={20} color="black" />
+          </TouchableOpacity>
+         </View>
     )
+  }
+
+  _delete(item, index) {
+    //TODO delete on the backend
+    delete this.state.data[index];
+    this._updateList()
   }
 
   pop() {

@@ -22,6 +22,7 @@ import Discover from './Screens/Discover.js'
 import DiscoverSettings from './Screens/DiscoverSettings.js'
 import StorkFront from './Screens/StorkFront.js'
 import MyBundle from './Screens/MyBundle.js'
+import Messages from './Screens/Messages.js'
 import BottomTabBar from './Components/BottomTabBar.js'
 
 class Storkd extends Component {
@@ -82,6 +83,13 @@ class Storkd extends Component {
         return (
           <StorkfrontPost
             item={route.item}
+            navigator={navigator} />
+        );
+      }
+      if (routeId === 'messages') {
+        return (
+          <Messages
+            creatorID = {route.creator}
             navigator={navigator} />
         );
       }

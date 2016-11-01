@@ -127,15 +127,15 @@ class Discover extends Component {
         leftButton={this.leftButton()}
         rightButton={this.rightButton()}
         />
-        <View style ={{backgroundColor: '#f6f6f6', height: getUsableScreenHeight()}}>
+        <View style ={{backgroundColor: 'white', height: getUsableScreenHeight()}}>
           <View style = {styles.centered && {flexDirection: "row", paddingRight: 5, paddingTop: 15, paddingBottom: 2}}>
             <View style={{flex:1}} />
-            <Icon.Button name="info-circle"
-              size={usablePercent(6)}
+            <Icon name="info-circle"
+              size={usablePercent(6.5)}
               iconStyle={styles.discoverIconInfo}
-              backgroundColor="lightblue"
+              color= 'black'
               onPress={() => this._infoPressed()}>
-            </Icon.Button>
+            </Icon>
           </View>
           <Image
                style = {[styles.discoverImage, {width: getScreenWidth()}]}
@@ -174,9 +174,34 @@ class Discover extends Component {
     // TODO: other actions necessary
     this._nextListing()
   }
+
   _thumbsUpPressed() {
-    // TODO: other actions necessary
-    this._nextListing()
+    var currID = this.state.currentListing._id;
+    AsyncStorage.getItem('jwtToken', (err, result) => {
+      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/" + currID + "/like",
+        {method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': result
+          }
+        })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData);
+        if (responseData.success !== true) {
+          console.log('Failed to like')
+        }
+         return responseData;
+       })
+      .catch(function(err) {
+        console.log("Error in Login Fetch request");
+        console.log(err);
+      })
+      .done();
+  });
+
+    this._nextListing();
   }
 }
 

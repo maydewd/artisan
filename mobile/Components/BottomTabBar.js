@@ -94,7 +94,7 @@ class BottomTabBar extends Component {
           <Tabbar show={true}
                disable={false}
                ref={(ref) => this.tabarRef = ref}
-               style={{backgroundColor: 'lightblue' }}>
+               style={{backgroundColor: '#cce5ff' }}>
           {this.renderTabs()}
          </Tabbar>
       </View>
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
 
   tabTextActive: {
     fontSize: 10,
-    color: 'blue'
+    color: '#24518D'
   },
 
   tabText: {
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
 
   iconActive : {
-    color: 'blue'
+    color: '#24518D'
   },
 
   icon : {

@@ -11,7 +11,8 @@ const ListingSchema = new mongoose.Schema({
     required: true
   },
   type: {type: String, required: true},
-  imagePath: {type: String, required: true}
+  imagePath: {type: String, required: true},
+  numLikes: { type: Number, default: 0 }
 });
 
 module.exports = mongoose.model('Listing', ListingSchema);

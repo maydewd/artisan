@@ -40,8 +40,15 @@ module.exports = function (app, passport) {
 
   // API LISTING routes
   apiRoutes.post('/listings', [jwtAuth, upload.single('image')], listings.create);
+  apiRoutes.get('/listings', jwtAuth, listings.showAll); // should be changed/removed
+  apiRoutes.get('/listings/me', jwtAuth, listings.showMine);
+  apiRoutes.get('/listings/liked', jwtAuth, listings.showLiked);
   apiRoutes.get('/listings/:listingID', jwtAuth, listings.show);
-  apiRoutes.get('/listings', jwtAuth, listings.showAll); // should be removed
+  apiRoutes.post('/listings/:listingID/like', jwtAuth, listings.like);
+  //apiRoutes.post('/listings/:listingID/unlike', jwtAuth, listings.unlike);
+
+
+
 
   /**
    * Error handling
