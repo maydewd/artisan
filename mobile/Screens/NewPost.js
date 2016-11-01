@@ -196,6 +196,8 @@ class NewPost extends Component {
         console.log(body);
         console.log(request);
         console.log('request sent');
+        alert('Thanks!')
+        this.pop()
     });
   }
 
