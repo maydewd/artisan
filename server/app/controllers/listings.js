@@ -94,3 +94,28 @@ exports.like = function (req, res) {
     return res.status(400).json({ success: false, message: 'User already liked post'});
   }
 }
+
+exports.unlike = function (req, res) {
+  var User = req.user;
+  if (User.likes.some((like) => like.equals(req.params.listingID))) { // user has liked previously
+    // update user
+    User.likes.pull(mongoose.Types.ObjectId(req.params.listingID));
+    User.save(function(err, user) {
+      if (err) {
+        return res.status(500).json({ success: false, message: err});
+      }
+      // decrement number of likes on post by 1
+      Listing.findOneAndUpdate({_id: req.params.listingID}, {$inc: {numLikes:-1}}, function(err, listing) {
+        if (err) {
+          return res.status(500).json({ success: false, message: err});
+        }
+        res.json({
+          success: true,
+          message: 'Successfully unliked post'
+        });
+      });
+    });
+  } else {
+    return res.status(400).json({ success: false, message: 'User never liked this post'});
+  }
+}

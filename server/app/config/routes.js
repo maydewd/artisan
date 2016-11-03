@@ -45,7 +45,7 @@ module.exports = function (app, passport) {
   apiRoutes.get('/listings/liked', jwtAuth, listings.showLiked);
   apiRoutes.get('/listings/:listingID', jwtAuth, listings.show);
   apiRoutes.post('/listings/:listingID/like', jwtAuth, listings.like);
-  //apiRoutes.post('/listings/:listingID/unlike', jwtAuth, listings.unlike);
+  apiRoutes.post('/listings/:listingID/unlike', jwtAuth, listings.unlike);
 
 
 
