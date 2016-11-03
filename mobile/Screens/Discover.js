@@ -25,7 +25,6 @@ class Discover extends Component {
     super(props);
     // TODO: make this better
     this.state = {
-      storedListings: [],
       currentListing: {
         imagePath: 'public/uploads/listings/loading.jpg',
         description: 'N/A',
@@ -39,27 +38,35 @@ class Discover extends Component {
 
   componentDidMount() {
 
-    AsyncStorage.getItem("myKey").then((value) => {
+    AsyncStorage.removeItem("bundlePosts");
+    AsyncStorage.getItem("bundlePosts").then((value) => {
            if(value != null) {
-             console.log(value);
+             if (value.length === 0) {
+               this._fetchData(this._nextListing.bind(this))
+             }
            } else {
-           console.log("null value");
+               this._fetchData(this._nextListing.bind(this))
           }
        }).done();
-    if (this.state.storedListings.length === 0) {
-      this._fetchData(this._nextListing.bind(this))
-    }
   }
 
   _nextListing() {
-    if (this.state.storedListings.length === 0) {
-      alert("No more listings");
-      return;
-    }
-    const next = this.state.storedListings.shift();
-    this.setState( {
-      currentListing: next
-    });
+    AsyncStorage.getItem("bundlePosts").then((value) => {
+           if(value != null) {
+             var list = JSON.parse(value);
+             if (list.length === 0) {
+               alert("No more listings");
+               return;
+             }
+             const next = list.shift();
+             this.setState( {
+               currentListing: next
+             });
+             AsyncStorage.setItem("bundlePosts", JSON.stringify(list));
+           } else {
+               alert('this should not happen')
+          }
+       }).done();
   }
 
   _fetchData(callback) {
@@ -74,10 +81,11 @@ class Discover extends Component {
         .then((response) => response.json())
         .then((responseData) => {
           console.log(responseData);
-
+            var holder = [];
             responseData.forEach((item) => {
-              this.state.storedListings.push(item);
+              holder.push(item);
             })
+            AsyncStorage.setItem('bundlePosts', JSON.stringify(holder));
 
             console.log("Successfully grabbed data");
             callback()
