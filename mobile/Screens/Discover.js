@@ -23,22 +23,14 @@ import {getScreenWidth, getScreenHeight, getUsableScreenHeight, usablePercent} f
 class Discover extends Component {
   constructor(props) {
     super(props);
-    // TODO: make this better
     this.state = {
-      currentListing: {
-        imagePath: 'public/uploads/listings/loading.jpg',
-        description: 'N/A',
-        location: 0,
-        price: 0,
-        number: 0,
-        type: 'N/A'
-      }
+      currentListing: null
     };
   }
 
   componentDidMount() {
 
-    AsyncStorage.removeItem('bundlePosts')
+    //AsyncStorage.removeItem('bundlePosts')
     AsyncStorage.getItem("bundlePosts").then((value) => {
            if(value != null) {
              var list = JSON.parse(value)
@@ -143,15 +135,10 @@ class Discover extends Component {
       title: 'Discover',
     };
 
-    return (
-      <View>
-        <NavigationBar
-        style={styles.navBar}
-        title={titleConfig}
-        leftButton={this.leftButton()}
-        rightButton={this.rightButton()}
-        />
-        <View style ={{backgroundColor: 'white', height: getUsableScreenHeight()}}>
+    if (this.state.currentListing === null) {
+      var components = null
+    } else {
+      var components =   <View style ={{backgroundColor: 'white', height: getUsableScreenHeight()}}>
           <View style = {styles.centered && {flexDirection: "row", paddingRight: 5, paddingTop: 15, paddingBottom: 2}}>
             <View style={{flex:1}} />
             <Icon name="info-circle"
@@ -162,9 +149,9 @@ class Discover extends Component {
             </Icon>
           </View>
           <Image
-               style = {[styles.discoverImage, {width: getScreenWidth()}]}
-               source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.currentListing.imagePath}}
-          />
+                style = {[styles.discoverImage, {width: getScreenWidth()}]}
+                source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.currentListing.imagePath}}
+           />
           <View style = {styles.centered && {flexDirection: "row", paddingLeft: 30, paddingRight: 30, paddingBottom: 30, paddingTop: 2}}>
             <Button
               containerStyle={styles.discoverButtonContainerDown}
@@ -182,6 +169,17 @@ class Discover extends Component {
 
           </View>
         </View>
+    }
+
+    return (
+      <View>
+        <NavigationBar
+        style={styles.navBar}
+        title={titleConfig}
+        leftButton={this.leftButton()}
+        rightButton={this.rightButton()}
+        />
+        {components}
       </View>
     );
   }
