@@ -38,7 +38,7 @@ class Discover extends Component {
 
   componentDidMount() {
 
-    //AsyncStorage.removeItem('bundlePosts')
+    AsyncStorage.removeItem('bundlePosts')
     AsyncStorage.getItem("bundlePosts").then((value) => {
            if(value != null) {
              var list = JSON.parse(value)
@@ -59,15 +59,15 @@ class Discover extends Component {
     AsyncStorage.getItem("bundlePosts").then((value) => {
            if(value != null) {
              var list = JSON.parse(value);
+             list.shift();
+             AsyncStorage.setItem("bundlePosts", JSON.stringify(list));
              if (list.length === 0) {
                alert("No more listings");
                return;
              }
-             list.shift();
              this.setState( {
                currentListing: list[0]
              });
-             AsyncStorage.setItem("bundlePosts", JSON.stringify(list));
            } else {
                alert('this should not happen')
           }
@@ -76,7 +76,7 @@ class Discover extends Component {
 
   _fetchData() {
     AsyncStorage.getItem('jwtToken', (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings",
+      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings?limit=10&hideMine=false&radius=10",
         {method: "GET",
           headers: {
             'Accept': 'application/json',
@@ -91,9 +91,11 @@ class Discover extends Component {
               holder.push(item);
             })
             AsyncStorage.setItem('bundlePosts', JSON.stringify(holder));
-            this.setState({
-              currentListing: holder[0]
-            })
+            if (holder.length != 0) {
+              this.setState({
+                currentListing: holder[0]
+              })
+            }
             console.log("Successfully grabbed data");
          })
         .catch(function(err) {
