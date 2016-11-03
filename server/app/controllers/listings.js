@@ -32,13 +32,29 @@ exports.create = function (req, res) {
 
 exports.showPosts = function (req, res) {
   var query = {};
-  // Hide own posts
+  // Hide own posts?
   if (req.query.hideMine === 'true') {
     query['creator'] = {$ne: req.user._id};
   }
-  // Limit max posts
+  // Limit max posts?
   var maxPosts = parseInt(req.query.limit) || 10;
   maxPosts = Math.max(0, Math.min(maxPosts, 10));
+  // Max distance radius?
+  // if (!isNaN(parseInt(req.query.maxRadius)) {
+  //   query['price']['$lte'] = parseInt(req.query.maxRadius)
+  // }
+  // Max cost?
+  query['price'] = {$gte: 0} // hack to make sure object is initialized
+  if (!isNaN(parseInt(req.query.maxCost))) {
+    query['price']['$lte'] = Math.max(parseInt(req.query.maxCost), 0)
+  }
+  // Min cost?
+  if (!isNaN(parseInt(req.query.minCost))) {
+    query['price']['$gte'] = Math.max(parseInt(req.query.minCost), 0)
+  }
+  // Show disliked posts?
+  // TODO
+
   Listing
     .find(query)
     .limit(maxPosts)
