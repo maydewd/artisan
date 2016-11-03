@@ -38,6 +38,14 @@ class Discover extends Component {
   }
 
   componentDidMount() {
+
+    AsyncStorage.getItem("myKey").then((value) => {
+           if(value != null) {
+             console.log(value);
+           } else {
+           console.log("null value");
+          }
+       }).done();
     if (this.state.storedListings.length === 0) {
       this._fetchData(this._nextListing.bind(this))
     }
