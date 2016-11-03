@@ -7,12 +7,13 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  AsyncStorage,
+  Switch
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { SegmentedControls } from 'react-native-radio-buttons';
-import { Switch } from 'react-native-switch';
 
 class DiscoverSettings extends Component {
 
@@ -26,6 +27,34 @@ class DiscoverSettings extends Component {
     };
   }
 
+  componentDidMount() {
+    AsyncStorage.multiGet(['distance', 'cost', 'myPosts', 'downedPost'], (err, stores) => {
+           var d = '0-5 miles';
+           var c = '$20-100';
+           var mP = false;
+           var dP = false
+           if(stores[0][1] != null) {
+             var d = stores[0][1]
+           }
+           if(stores[1][1] != null) {
+             var c = stores[1][1]
+           }
+           if(stores[2][1] != null) {
+             var mP = JSON.parse(stores[2][1])
+           }
+           if(stores[3][1] != null) {
+             var dP = JSON.parse(stores[3][1])
+           }
+           this.setState({
+             distance: d,
+             cost: c,
+             myPosts: mP,
+             downedPost: dP
+           })
+           console.log(this.state)
+       });
+  }
+
   rightButton() {
     return (
       <View style = {styles.navIcon}>
@@ -37,6 +66,12 @@ class DiscoverSettings extends Component {
   _save() {
     var state = this.state;
     console.log(state);
+    AsyncStorage.setItem('distance', this.state.distance);
+    AsyncStorage.setItem('cost', this.state.cost);
+    AsyncStorage.setItem('myPosts', JSON.stringify(this.state.myPosts));
+    AsyncStorage.setItem('downedPost', JSON.stringify(this.state.downedPost));
+    console.log(AsyncStorage.getAllKeys())
+    alert('Saved!')
   }
 
   render() {
@@ -74,7 +109,6 @@ class DiscoverSettings extends Component {
        cost: selectedOption
      });
    }
-
     return (
 
       <View>
@@ -118,13 +152,6 @@ class DiscoverSettings extends Component {
                     onValueChange={(val) =>  this.setState({
                          myPosts: val
                     })}
-                    disabled={false}
-                    activeText={'On'}
-                    inActiveText={'Off'}
-                    backgroundActive={'#24518D'}
-                    backgroundInactive={'gray'}
-                    circleActiveColor={'white'}
-                    circleInActiveColor={'lightgray'}
                 />
               </View>
               <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -134,13 +161,6 @@ class DiscoverSettings extends Component {
                     onValueChange={(val) =>  this.setState({
                        downedPost: val
                      })}
-                    disabled={false}
-                    activeText={'On'}
-                    inActiveText={'Off'}
-                    backgroundActive={'#24518D'}
-                    backgroundInactive={'gray'}
-                    circleActiveColor={'white'}
-                    circleInActiveColor={'lightgray'}
                 />
               </View>
             </View>
