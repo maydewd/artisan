@@ -38,14 +38,19 @@ class Discover extends Component {
 
   componentDidMount() {
 
-    AsyncStorage.removeItem("bundlePosts");
+    //AsyncStorage.removeItem('bundlePosts')
     AsyncStorage.getItem("bundlePosts").then((value) => {
            if(value != null) {
-             if (value.length === 0) {
-               this._fetchData(this._nextListing.bind(this))
+             var list = JSON.parse(value)
+             if (list.length === 0) {
+               this._fetchData()
+             } else {
+               this.setState( {
+                 currentListing: list[0]
+               });
              }
            } else {
-               this._fetchData(this._nextListing.bind(this))
+               this._fetchData()
           }
        }).done();
   }
@@ -58,9 +63,9 @@ class Discover extends Component {
                alert("No more listings");
                return;
              }
-             const next = list.shift();
+             list.shift();
              this.setState( {
-               currentListing: next
+               currentListing: list[0]
              });
              AsyncStorage.setItem("bundlePosts", JSON.stringify(list));
            } else {
@@ -69,7 +74,7 @@ class Discover extends Component {
        }).done();
   }
 
-  _fetchData(callback) {
+  _fetchData() {
     AsyncStorage.getItem('jwtToken', (err, result) => {
       fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings",
         {method: "GET",
@@ -86,9 +91,10 @@ class Discover extends Component {
               holder.push(item);
             })
             AsyncStorage.setItem('bundlePosts', JSON.stringify(holder));
-
+            this.setState({
+              currentListing: holder[0]
+            })
             console.log("Successfully grabbed data");
-            callback()
          })
         .catch(function(err) {
           alert("error");
