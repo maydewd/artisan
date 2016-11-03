@@ -54,8 +54,9 @@ class Discover extends Component {
              list.shift();
              AsyncStorage.setItem("bundlePosts", JSON.stringify(list));
              if (list.length === 0) {
-               alert("No more listings");
-               return;
+               this._fetchData()
+               alert("Fetching");
+               return
              }
              this.setState( {
                currentListing: list[0]
@@ -89,7 +90,7 @@ class Discover extends Component {
           break;
       }
       const myPosts = JSON.parse(result[2][1]);
-      fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=10&hideMine=${!myPosts}&radius=10`,
+      fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=1&hideMine=${!myPosts}&radius=10`,
         {method: "GET",
           headers: {
             'Accept': 'application/json',
