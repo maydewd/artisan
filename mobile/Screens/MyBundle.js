@@ -133,7 +133,30 @@ class MyBundle extends Component {
   }
 
   _delete(item, index) {
-    //TODO delete on the backend
+    var currID = item._id;
+    AsyncStorage.getItem('jwtToken', (err, result) => {
+      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/" + currID + "/unlike",
+        {method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': result
+          }
+        })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData);
+        if (responseData.success !== true) {
+          console.log('Failed to unlike')
+        }
+         return responseData;
+       })
+      .catch(function(err) {
+        console.log("Error in Login Fetch request");
+        console.log(err);
+      })
+      .done();
+    });
     delete this.state.data[index];
     this._updateList()
   }

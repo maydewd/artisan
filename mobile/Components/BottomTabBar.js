@@ -31,13 +31,7 @@ class BottomTabBar extends Component {
   }
 
   onTabSelect(tab) {
-    if(tab === this.state.tab) {
-      return;
-    }
     this.setState({ tab: tab })
-    console.log('onTabSelect')
-    console.log(tab)
-    this.renderContent(tab)
   }
 
   renderTabs() {
@@ -67,30 +61,28 @@ class BottomTabBar extends Component {
     )
   }
 
-  renderContent(screen) {
-    console.log(screen);
-    switch(screen) {
+  renderContent() {
+    const {tab} = this.state
+    let content
+    switch(tab) {
       case 'discover':
-        this.nav.pop();
+        content =   <Discover
+             navigator={this.props.navigator} />
         break
       case 'storkFront':
-        this.nav.push({ id: screen});
+        content = <StorkFront
+           navigator={this.props.navigator} />
         break
     }
+    return content
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Navigator
-           initialRoute={{id: 'discover'}}
-           renderScene={this.renderScene.bind(this)}
-           configureScene={(route) => {
-             if (route.sceneConfig) {
-               return route.sceneConfig;
-             }
-             return Navigator.SceneConfigs.FadeAndroid;
-          }} />
+          <View>
+            {this.renderContent()}
+          </View>
           <Tabbar show={true}
                disable={false}
                ref={(ref) => this.tabarRef = ref}
@@ -99,23 +91,6 @@ class BottomTabBar extends Component {
          </Tabbar>
       </View>
     );
-  }
-
-  renderScene(route, navigator) {
-      this.nav = navigator
-      var routeId = route.id;
-      if (routeId === 'discover') {
-        return (
-          <Discover
-            navigator={this.props.navigator} />
-        );
-      }
-      if (routeId === 'storkFront') {
-        return (
-          <StorkFront
-            navigator={this.props.navigator} />
-        );
-      }
   }
 }
 
