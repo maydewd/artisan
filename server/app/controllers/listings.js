@@ -30,17 +30,24 @@ exports.create = function (req, res) {
   });
 }
 
-exports.showAll = function (req, res) {
+exports.showPosts = function (req, res) {
   var query = {};
+  // Hide own posts
   if (req.query.hideMine === 'true') {
     query['creator'] = {$ne: req.user._id};
   }
-  Listing.find(query, function(err, listings) {
-    if (err) {
-      return res.status(400).send(err);
-    }
-    res.json(listings);
-  });
+  // Limit max posts
+  var maxPosts = parseInt(req.query.limit) || 10;
+  maxPosts = Math.max(0, Math.min(maxPosts, 10));
+  Listing
+    .find(query)
+    .limit(maxPosts)
+    .exec(function(err, listings) {
+      if (err) {
+        return res.status(400).send(err);
+      }
+      res.json(listings);
+    });
 }
 
 exports.showMine = function (req, res) {
