@@ -65,7 +65,6 @@ class DiscoverSettings extends Component {
 
   _save() {
     var state = this.state;
-    console.log(state);
     AsyncStorage.setItem('distance', this.state.distance);
     AsyncStorage.setItem('cost', this.state.cost);
     AsyncStorage.setItem('myPosts', JSON.stringify(this.state.myPosts));
@@ -105,6 +104,7 @@ class DiscoverSettings extends Component {
    }
 
    function setCost(selectedOption){
+     console.log(selectedOption)
      this.setState({
        cost: selectedOption
      });
