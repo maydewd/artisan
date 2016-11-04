@@ -30,7 +30,7 @@ class Storkd extends Component {
   render() {
     return (
       <Navigator
-         initialRoute={{id: 'login', name: 'Index'}}
+         initialRoute={{id: 'login'}}
          renderScene={this.renderScene.bind(this)}
          configureScene={(route) => {
            if (route.sceneConfig) {
