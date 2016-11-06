@@ -10,6 +10,7 @@ import StorkFront from '../Screens/StorkFront.js'
 import MyBundle from '../Screens/MyBundle.js'
 import Messages from '../Screens/Messages.js'
 import BottomTabBar from '../Components/BottomTabBar.js'
+import Chat from '../Screens/Chat.js'
 
 export function render(route, navigator) {
   var routeId = route.id;
@@ -60,6 +61,13 @@ export function render(route, navigator) {
   if (routeId === 'messages') {
     return (
       <Messages
+        creatorID = {route.creator}
+        navigator={navigator} />
+    );
+  }
+  if (routeId === 'chat') {
+    return (
+      <Chat
         creatorID = {route.creator}
         navigator={navigator} />
     );
