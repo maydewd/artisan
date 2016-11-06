@@ -72,6 +72,10 @@ exports.showAll = function (req, res) {
   });
 }
 
+exports.showMe = function (req, res) {
+  res.json(req.user);
+}
+
 // /**
 //  *  Show profile
 //  */

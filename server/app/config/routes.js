@@ -30,12 +30,12 @@ module.exports = function (app, passport) {
 
   // API AUTH routes
   apiRoutes.post('/login', users.login);
-  apiRoutes.post('/register', users.register);
+  apiRoutes.post('/register', upload.single('image'), users.register);
   // apiRoutes.post('/logout', users.logout);
 
   // API USER routes
   apiRoutes.get('/users', jwtAuth, users.showAll);
-  // apiRoutes.get('/users/:userId', users.show);
+  apiRoutes.get('/users/me', jwtAuth, users.showMe);
   // apiRoutes.get('/users/:userId/posts', users.posts);
 
   // API LISTING routes

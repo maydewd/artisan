@@ -103,10 +103,12 @@ exports.edit = function (req, res) {
       return res.status(400).send("You can only edit your own posts");
     }
     // TODO move old image to deleted
-    listing.description = req.body.description
-    listing.price = req.body.price
-    listing.type = req.body.type
-    listing.imagePath = req.file.path || ""
+    listing.description = req.body.description;
+    listing.price = req.body.price;
+    listing.type = req.body.type;
+    if (req.file) {
+      listing.imagePath = req.file.path;
+    }
     listing.save(function(err, user) {
       if (err) {
         return res.status(500).json({ success: false, message: err});
@@ -129,6 +131,8 @@ exports.delete = function (req, res) {
     if (!User._id.equals(listing.creator)) {
       return res.status(400).send("You can only delete your own posts");
     }
+    // TODO move image to deleted
+    // TODO remove item from liked posts?
     listing.remove(function(err, user) {
       if (err) {
         return res.status(500).json({ success: false, message: err});
