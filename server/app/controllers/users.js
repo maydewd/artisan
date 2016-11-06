@@ -44,12 +44,13 @@ exports.login = function (req, res) {
  */
 
 exports.register = function (req, res) {
-  if(!req.body.username || !req.body.password) {
-    return res.status(400).json({ success: false, message: 'Please enter username and password.' });
+  if(!req.body.username || !req.body.password || !req.file) {
+    return res.status(400).json({ success: false, message: 'Please enter username and password and image.' });
   } else {
     var newUser = new User({
       username: req.body.username,
-      password: req.body.password
+      password: req.body.password,
+      imagePath: req.file.path
     });
 
     // Attempt to save the user
