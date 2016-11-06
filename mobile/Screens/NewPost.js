@@ -21,7 +21,8 @@ var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
 var ImagePicker = require('react-native-image-picker');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
+import {getScreenWidth, getScreenHeight, usablePercent, usableWithTop} from '../helpers/dimension'
+import {grabArtTypes} from '../resources/Types'
 import { Kohana } from 'react-native-textinput-effects';
 import ModalPicker from 'react-native-modal-picker';
 import FA from 'react-native-vector-icons/FontAwesome';
@@ -47,17 +48,6 @@ class NewPost extends Component {
     title: 'Back',
     handler: () => {this.pop()}
   };
-  let index = 0;
-    const data = [
-        { key: index++, section: true, label: 'Types' },
-        { key: index++, label: 'Ceramics' },
-        { key: index++, label: 'Painting' },
-        { key: index++, label: 'Photograph' },
-        { key: index++, label: 'Drawing' },
-        { key: index++, label: 'Jewelry' },
-        { key: index++, label: 'Sculpture' },
-        { key: index++, label: 'Metal Work' },
-    ];
 
     return (
       <View>
@@ -66,7 +56,7 @@ class NewPost extends Component {
         title={titleConfig}
         leftButton={leftButtonConfig}
         />
-        <View style= {{height:604}}>
+        <View style= {{height: usableWithTop()}}>
           <TouchableOpacity style = {styles.container} onPress={this.selectPhotoTapped.bind(this)}>
               <View>
                 { this.state.photoSource === null ? <MaterialIcons name="add-a-photo" size= {50}/>:
@@ -100,7 +90,7 @@ class NewPost extends Component {
               onChangeText={(price) => this.setState({price})}
             />
             <ModalPicker
-                   data={data}
+                   data={grabArtTypes()}
                    style = {{flex:1, width: getScreenWidth()}}
                    initValue="Select a type"
                    onChange={(option)=> this.setState({type:option.label})}
