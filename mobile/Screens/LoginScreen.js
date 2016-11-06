@@ -46,6 +46,7 @@ class LoginScreen extends Component {
             iconColor={'#24518D'}
             labelStyle={{ color: 'pink' }}
             inputStyle={{ color: 'pink' }}
+            autoCorrect={false}
           />
           <Kohana
             style={{ width: getScreenWidth() * .9, backgroundColor: 'white', borderBottomRightRadius:10, borderBottomLeftRadius:10}}
