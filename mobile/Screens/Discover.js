@@ -30,7 +30,7 @@ class Discover extends Component {
 
   componentDidMount() {
 
-    //AsyncStorage.removeItem('bundlePosts')
+    AsyncStorage.removeItem('bundlePosts')
     AsyncStorage.getItem("bundlePosts").then((value) => {
            if(value != null) {
              var list = JSON.parse(value)
@@ -54,8 +54,9 @@ class Discover extends Component {
              list.shift();
              AsyncStorage.setItem("bundlePosts", JSON.stringify(list));
              if (list.length === 0) {
-               alert("No more listings");
-               return;
+               this._fetchData()
+               alert("Fetching");
+               return
              }
              this.setState( {
                currentListing: list[0]
@@ -67,13 +68,34 @@ class Discover extends Component {
   }
 
   _fetchData() {
-    AsyncStorage.getItem('jwtToken', (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings?limit=10&hideMine=false&radius=10",
+    AsyncStorage.multiGet(['jwtToken', 'cost', 'myPosts'], (err, result) => {
+      const jwt = result[0][1];
+      const cost = result[1][1];
+      let minCost, maxCost= null;
+      switch(cost) {
+        case '$0-5':
+          minCost = 0;
+          maxCost = 5;
+          break;
+        case '$5-20':
+          minCost = 5;
+          maxCost = 20;
+          break;
+        case '$20-100':
+          minCost = 20;
+          maxCost = 100;
+          break;
+        case '$100+':
+          minCost = 100;
+          break;
+      }
+      const myPosts = JSON.parse(result[2][1]);
+      fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=1&hideMine=${!myPosts}&radius=10`,
         {method: "GET",
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': result
+            'Authorization': jwt
           }})
         .then((response) => response.json())
         .then((responseData) => {

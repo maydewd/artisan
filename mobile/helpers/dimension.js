@@ -31,5 +31,5 @@ export function usablePercent(perc) {
 }
 
 export function usableWithTop() {
-  return (getScreenHeight() - topNavBarHeight - topPadding);
+  return (getScreenHeight() - NavBarTopHeight - topPadding);
 }
