@@ -93,6 +93,58 @@ exports.showLiked = function(req, res) {
   });
 }
 
+exports.edit = function (req, res) {
+  var User = req.user;
+  Listing.findOne({_id: req.params.listingID}, function(err, listing) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    if (!User._id.equals(listing.creator)) {
+      return res.status(400).send("You can only edit your own posts");
+    }
+    // TODO move old image to deleted
+    listing.description = req.body.description;
+    listing.price = req.body.price;
+    listing.type = req.body.type;
+    if (req.file) {
+      listing.imagePath = req.file.path;
+    }
+    listing.save(function(err, user) {
+      if (err) {
+        return res.status(500).json({ success: false, message: err});
+      }
+      res.json({
+        success: true,
+        message: 'Successfully edited post'
+      });
+    });
+
+  });
+}
+
+exports.delete = function (req, res) {
+  var User = req.user;
+  Listing.findOne({_id: req.params.listingID}, function(err, listing) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    if (!User._id.equals(listing.creator)) {
+      return res.status(400).send("You can only delete your own posts");
+    }
+    // TODO move image to deleted
+    // TODO remove item from liked posts?
+    listing.remove(function(err, user) {
+      if (err) {
+        return res.status(500).json({ success: false, message: err});
+      }
+      res.json({
+        success: true,
+        message: 'Successfully deleted post'
+      });
+    });
+  });
+}
+
 exports.like = function (req, res) {
   var User = req.user;
   if (!User.likes.some((like) => like.equals(req.params.listingID))) { // first time liking
