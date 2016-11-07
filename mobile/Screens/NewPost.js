@@ -170,11 +170,12 @@ class NewPost extends Component {
     });
   }
   _post() {
-    const {description, type, price, photoSource, position, location} = this.state;
+    const {description, type, price, photoSource, lat, lng, location} = this.state;
     console.log("description: " + description)
     console.log("type: " + type)
     console.log("photoSource: " + photoSource)
-    console.log("position: " + JSON.stringify(position))
+    console.log("lat: " + lat)
+    console.log("lng: " + lng)
     console.log("location: " + location)
     console.log(AsyncStorage.getItem('jwtToken'));
     var request = new XMLHttpRequest();
@@ -185,7 +186,8 @@ class NewPost extends Component {
     body.append('description', description);
     body.append('type', type);
     body.append('price', price);
-    body.append('position', position);
+    body.append('lat', lat);
+    body.append('lng', lng);
     body.append('location', location);
     var photo;
     if (Platform.OS === 'android') {
@@ -216,7 +218,10 @@ class NewPost extends Component {
 
     navigator.geolocation.getCurrentPosition (
       (position) => {
-        this.setState({position});
+        this.setState({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
         var loc = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
