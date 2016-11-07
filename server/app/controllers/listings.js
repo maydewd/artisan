@@ -9,7 +9,9 @@ exports.create = function (req, res) {
     description: req.body.description,
     price: req.body.price,
     type: req.body.type,
-    imagePath: filePath
+    imagePath: filePath,
+    coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)],
+    locality: req.body.location
   });
 
   newListing.save(function(err, listing) {
