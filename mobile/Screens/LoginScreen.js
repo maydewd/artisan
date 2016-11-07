@@ -19,19 +19,45 @@ styles = require('../Styles/Layouts');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
 import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
+const {Keyboard} = require('react-native')
+
 
 class LoginScreen extends Component {
 
     componentDidMount() {
-        console.log(getScreenWidth());
-        console.log(getScreenHeight());
-        this.setState({username: 'devuser'});
-        this.setState({password: 'securetest'});
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow.bind(this))
+        this.setState({
+          username: 'devuser',
+          password: 'securetest',
+          screenHeight: getScreenHeight()
+        });
+    }
+
+    keyboardDidShow(e) {
+        console.log('showing')
+        let newSize = Dimensions.get('window').height - e.endCoordinates.height
+        this.setState({
+          screenHeight: newSize,
+        })
     }
 
   render() {
+    var height = getScreenHeight();
+    if (this.state !==null) {
+      if (this.state.screenHeight !== null) {
+        height = this.state.screenHeight;
+      }
+    }
     return (
-      <View style={styles.loginScreenView}>
+      <View style = {{
+                flexDirection: "column",
+                justifyContent: "space-around",
+                alignItems: "center",
+                paddingTop: 40,
+                backgroundColor: '#e6f2ff',
+                height: height
+              }}
+      >
         <Image source = {require("../resources/storkdLogo.png")} style = {styles.logo} />
         <Icon.Button name="facebook" backgroundColor="#3b5998" width = {180} onPress={() => this._loginPressed()}>
             Login with Facebook
