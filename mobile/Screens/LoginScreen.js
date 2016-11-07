@@ -11,7 +11,9 @@ import {
   Image,
   TextInput,
   AsyncStorage,
-  Dimensions
+  Dimensions,
+  Keyboard,
+  LayoutAnimation
 } from 'react-native';
 import Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,33 +21,56 @@ styles = require('../Styles/Layouts');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
 import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
-const {Keyboard} = require('react-native')
-
 
 class LoginScreen extends Component {
 
     componentDidMount() {
         this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow.bind(this))
+          this.keyboardDidShowListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this))
         this.setState({
           username: 'devuser',
           password: 'securetest',
-          screenHeight: getScreenHeight()
+          screenHeight: getScreenHeight(),
+          logoWidth: usablePercent(30),
+          logoHeight: usablePercent(30)
         });
     }
 
     keyboardDidShow(e) {
-        console.log('showing')
         let newSize = Dimensions.get('window').height - e.endCoordinates.height
         this.setState({
           screenHeight: newSize,
+          logoWidth: newSize * .3,
+          logoHeight: newSize * .3,
+        })
+    }
+
+    componentWillUpdate() {
+        LayoutAnimation.easeInEaseOut();
+    }
+
+    keyboardDidHide(e) {
+        let newSize = Dimensions.get('window').height
+        this.setState({
+          screenHeight: newSize,
+          logoWidth: usablePercent(30),
+          logoHeight: usablePercent(30)
         })
     }
 
   render() {
     var height = getScreenHeight();
+    var logoWidth = usablePercent(30);
+    var logoHeight = usablePercent(30);
     if (this.state !==null) {
       if (this.state.screenHeight !== null) {
         height = this.state.screenHeight;
+      }
+      if (this.state.logoWidth !== null) {
+        logoWidth = this.state.logoWidth;
+      }
+      if (this.state.logoHeight !== null) {
+         logoHeight = this.state.logoHeight;
       }
     }
     return (
@@ -58,7 +83,9 @@ class LoginScreen extends Component {
                 height: height
               }}
       >
-        <Image source = {require("../resources/storkdLogo.png")} style = {styles.logo} />
+        <Image source = {require("../resources/storkdLogo.png")}
+          style = {{width: logoWidth, height: logoHeight}}
+        />
         <Icon.Button name="facebook" backgroundColor="#3b5998" width = {180} onPress={() => this._loginPressed()}>
             Login with Facebook
         </Icon.Button>

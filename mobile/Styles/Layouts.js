@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
     },
 
     loginScreenView: {
-      flex: 1,
       flexDirection: "column",
       justifyContent: "space-around",
       alignItems: "center",
