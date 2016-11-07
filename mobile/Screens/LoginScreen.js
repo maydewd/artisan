@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
+  KeyboardAvoidingView,
   Text,
   View,
   Image,
@@ -25,56 +26,21 @@ import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimensi
 class LoginScreen extends Component {
 
     componentDidMount() {
-        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow.bind(this))
-          this.keyboardDidShowListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this))
         this.setState({
           username: 'devuser',
           password: 'securetest',
-          screenHeight: getScreenHeight(),
-          logoWidth: usablePercent(30),
-          logoHeight: usablePercent(30)
         });
-    }
-
-    keyboardDidShow(e) {
-        let newSize = Dimensions.get('window').height - e.endCoordinates.height
-        this.setState({
-          screenHeight: newSize,
-          logoWidth: newSize * .3,
-          logoHeight: newSize * .3,
-        })
-    }
-
-    componentWillUpdate() {
-        LayoutAnimation.easeInEaseOut();
-    }
-
-    keyboardDidHide(e) {
-        let newSize = Dimensions.get('window').height
-        this.setState({
-          screenHeight: newSize,
-          logoWidth: usablePercent(30),
-          logoHeight: usablePercent(30)
-        })
     }
 
   render() {
     var height = getScreenHeight();
     var logoWidth = usablePercent(30);
     var logoHeight = usablePercent(30);
-    if (this.state !==null) {
-      if (this.state.screenHeight !== null) {
-        height = this.state.screenHeight;
-      }
-      if (this.state.logoWidth !== null) {
-        logoWidth = this.state.logoWidth;
-      }
-      if (this.state.logoHeight !== null) {
-         logoHeight = this.state.logoHeight;
-      }
-    }
     return (
-      <View style = {{
+
+      <KeyboardAvoidingView behavior = 'position'>
+      <View
+              style = {{
                 flexDirection: "column",
                 justifyContent: "space-around",
                 alignItems: "center",
@@ -82,7 +48,7 @@ class LoginScreen extends Component {
                 backgroundColor: '#e6f2ff',
                 height: height
               }}
-      >
+          >
         <Image source = {require("../resources/storkdLogo.png")}
           style = {{width: logoWidth, height: logoHeight}}
         />
@@ -128,6 +94,7 @@ class LoginScreen extends Component {
           Sign Up
         </Text>
       </View>
+      </KeyboardAvoidingView>
     );
   }
 
