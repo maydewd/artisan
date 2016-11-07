@@ -218,9 +218,47 @@ const styles = StyleSheet.create({
       width: getScreenWidth()
     },
 
+    sPostImageContainer: {
+      width:  getScreenWidth(),
+      height: usablePercent(50),
+      alignItems: 'center',
+      justifyContent: "space-around",
+      backgroundColor: '#f6f6f6'
+    },
+    sPostAvatar: {
+      resizeMode: 'contain',
+      width: getScreenWidth(),
+      height: usablePercent(50)
+    },
     storkfrontPostText: {
       fontSize: 14,
 
+    },
+    saveButtonContainer: {
+      flex: 1,
+      padding:10,
+      alignItems: "center",
+      overflow:'hidden',
+      maxHeight: 50,
+      backgroundColor: '#24518D',
+      borderRadius: 2
+    },
+    saveButton: {
+      fontSize: 20,
+      color: 'white'
+    },
+    deleteButtonContainer: {
+      flex: 1,
+      padding:10,
+      alignItems: "center",
+      overflow:'hidden',
+      maxHeight: 50,
+      backgroundColor: '#ec7063',
+      borderRadius: 2
+    },
+    deleteButton: {
+      fontSize: 20,
+      color: 'white'
     },
 });
 

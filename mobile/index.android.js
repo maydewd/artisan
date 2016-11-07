@@ -16,7 +16,6 @@ import LoginScreen from './Screens/LoginScreen.js'
 import NewPost from './Screens/NewPost.js'
 import DiscoverPost from './Screens/DiscoverPost.js'
 import StorkfrontPost from './Screens/StorkfrontPost.js'
-import MainNavBar from './Components/MainNavBar.js'
 import Discover from './Screens/Discover.js'
 import DiscoverSettings from './Screens/DiscoverSettings.js'
 import StorkFront from './Screens/StorkFront.js'
@@ -87,27 +86,5 @@ class Storkd extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  logo: {
-    width: 40,
-    height: 40
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('Storkd', () => Storkd);

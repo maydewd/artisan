@@ -21,10 +21,15 @@ var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
 var ImagePicker = require('react-native-image-picker');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
+import {usableWithTop,getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
 import { Kohana } from 'react-native-textinput-effects';
 import ModalPicker from 'react-native-modal-picker';
 import FA from 'react-native-vector-icons/FontAwesome';
+
+import Geocoder from 'react-native-geocoder';
+// TODO:
+var MY_KEY = 'AIzaSyB4Wup3-phaP5kaiLHUOELxdtMKzm1GuxI';
+Geocoder.fallbackToGoogle(MY_KEY);
 
 class NewPost extends Component {
 
@@ -34,29 +39,31 @@ class NewPost extends Component {
       description: '',
       price: null,
       photoSource: null,
-      type: ''
+      type: null,
+      position: null,
+      geocoded: null,
     };
   }
 
   render() {
     var titleConfig = {
-     title: 'New Post',
-   };
+      title: 'New Post',
+    };
 
-   const leftButtonConfig = {
-    title: 'Back',
-    handler: () => {this.pop()}
-  };
-  let index = 0;
+    const leftButtonConfig = {
+      title: 'Back',
+      handler: () => {this.pop()}
+    };
+    let index = 0;
     const data = [
-        { key: index++, section: true, label: 'Types' },
-        { key: index++, label: 'Ceramics' },
-        { key: index++, label: 'Painting' },
-        { key: index++, label: 'Photograph' },
-        { key: index++, label: 'Drawing' },
-        { key: index++, label: 'Jewelry' },
-        { key: index++, label: 'Sculpture' },
-        { key: index++, label: 'Metal Work' },
+      { key: index++, section: true, label: 'Types' },
+      { key: index++, label: 'Ceramics' },
+      { key: index++, label: 'Painting' },
+      { key: index++, label: 'Photograph' },
+      { key: index++, label: 'Drawing' },
+      { key: index++, label: 'Jewelry' },
+      { key: index++, label: 'Sculpture' },
+      { key: index++, label: 'Metal Work' },
     ];
 
     return (
@@ -66,7 +73,7 @@ class NewPost extends Component {
         title={titleConfig}
         leftButton={leftButtonConfig}
         />
-        <View style= {{height:604}}>
+        <View style= {{height:usableWithTop()}}>
           <TouchableOpacity style = {styles.container} onPress={this.selectPhotoTapped.bind(this)}>
               <View>
                 { this.state.photoSource === null ? <MaterialIcons name="add-a-photo" size= {50}/>:
@@ -120,7 +127,7 @@ class NewPost extends Component {
             <Button
               containerStyle={{padding:10, overflow:'hidden', maxHeight: 50, backgroundColor: '#24518D', borderRadius: 2}}
               style={{fontSize: 20, color: 'white'}}
-              onPress={() => this._post()}>
+              onPress={() => this._postPressed()}>
               Post
             </Button>
         </View>
@@ -169,9 +176,8 @@ class NewPost extends Component {
      }
     });
   }
-
   _post() {
-    const {description, type, price, photoSource} = this.state;
+    const {description, type, price, photoSource, position, geocoded} = this.state;
     console.log("description: " + description)
     console.log("type: " + type)
     console.log("photoSource: " + photoSource)
@@ -184,11 +190,20 @@ class NewPost extends Component {
     body.append('description', description);
     body.append('type', type);
     body.append('price', price);
-    var photo = {
-      uri: photoSource,
-      type: 'image/jpeg',
-      name: 'photo.jpg',
-    };
+    var photo;
+    if (Platform.OS === 'android') {
+      photo = {
+        uri: photoSource.uri,
+        type: 'image/jpeg',
+        name: 'photo.jpg',
+      };
+    } else {
+      photo = {
+        uri: photoSource,
+        type: 'image/jpeg',
+        name: 'photo.jpg',
+      };
+    }
     body.append('image', photo);
     AsyncStorage.getItem('jwtToken', (err, result) => {
         request.setRequestHeader('Authorization', result);
@@ -200,7 +215,30 @@ class NewPost extends Component {
         this.pop()
     });
   }
+  _getLocation() {
 
+    navigator.geolocation.getCurrentPosition (
+      (position) => {
+        this.setState({position});
+        var loc = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+        Geocoder.geocodePosition(loc).then(res => {
+          console.log(res)
+          // TODO: res is an array of geocoding objects, and the information is not guaranteed to be there
+          this.setState({geocoded: res[0].postalCode})
+        })
+        .catch(err => alert(JSON.stringify(err)))
+      },
+      (error) => alert(JSON.stringify(error)),
+      {enableHighAccuracy: true, timeout: 2000, maximumAge: 1000}
+    );
+  }
+  _postPressed() {
+    this._getLocation();
+    this._post();
+  }
   pop() {
     this.props.navigator.pop()
   }
