@@ -26,19 +26,42 @@ class StorkFront extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    // TODO: hook up data source to server
     this.state = {
       dataSource: ds.cloneWithRows([
         {imagePath: require('../resources/Saddle-Billed_Stork.jpg'), price: "$10", likes: "5"},
         {imagePath: require('../resources/Logo1.png'), price: "$5", like: "0"}
       ]),
       refreshing: false,
+      profile: null
     };
     this._renderPost = this._renderPost.bind(this);
   }
 
   componentDidMount() {
+    this._fetchProfile()
     this._fetchData()
+  }
+
+  _fetchProfile() {
+    AsyncStorage.getItem('jwtToken', (err, result) => {
+      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/users/me",
+        {method: "GET",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': result
+          }})
+        .then((response) => response.json())
+        .then((responseData) => {
+            this.setState({
+              profile: responseData,
+            })
+         })
+        .catch(function(err) {
+          alert("error");
+        })
+        .done();
+    });
   }
 
   _onRefresh() {
@@ -49,7 +72,7 @@ class StorkFront extends Component {
 
   _fetchData() {
     AsyncStorage.getItem('jwtToken', (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings",
+      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/me",
         {method: "GET",
           headers: {
             'Accept': 'application/json',
@@ -106,8 +129,15 @@ class StorkFront extends Component {
 
     var titleConfig = {
      title: 'StorkFront',
-   };
-    // TODO: profile
+    };
+
+    var username = "";
+    if(this.state.profile === null) {
+      var imageSource={DefaultProfileImage};
+    } else {
+      var imageSource= {uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.profile.imagePath};
+        username = this.state.profile.username
+    }
     return (
       <View style={styles.navScreen}>
         <NavigationBar
@@ -118,8 +148,8 @@ class StorkFront extends Component {
         />
         <View style={styles.storkFront}>
           <View style = {styles.storkFrontBanner}>
-            <Image style = {styles.storkfrontProfileImage} source={DefaultProfileImage} />
-            <Text style = {styles.storkfrontProfileText}>Username</Text>
+            <Image style = {styles.storkfrontProfileImage} source={imageSource} />
+            <Text style = {styles.storkfrontProfileText}>{username}</Text>
           </View>
           <View style = {{flex:1}}>
           <ListView
