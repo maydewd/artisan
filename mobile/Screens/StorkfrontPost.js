@@ -89,8 +89,6 @@ class StorkfrontPost extends Component {
     ] )
   }
   _deletePost() {
-    // TODO
-    return
     var currID = this.state._id;
     AsyncStorage.getItem('jwtToken', (err, result) => {
       fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/" + currID,
@@ -106,9 +104,12 @@ class StorkfrontPost extends Component {
         console.log(responseData);
         if (responseData.success !== true) {
           console.log('Failed to delete')
+        } else {
+          console.log('deleted');
+          alert('Thanks!')
+          this.pop()
         }
-         return responseData;
-       })
+      })
       .catch(function(err) {
         console.log("Error in delete request");
         console.log(err);
