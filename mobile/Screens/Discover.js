@@ -29,11 +29,7 @@ class Discover extends Component {
   }
 
   componentDidMount() {
-    // TODO: check if location services are on!
-    if (this.state.storedListings.length === 0) {
-      this._fetchData(this._nextListing.bind(this))
-    }
-
+  
     AsyncStorage.removeItem('bundlePosts')
     AsyncStorage.getItem("bundlePosts").then((value) => {
            if(value != null) {
