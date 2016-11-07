@@ -15,7 +15,8 @@ import {
   Picker,
   Platform,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
+  KeyboardAvoidingView
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
@@ -63,7 +64,8 @@ class NewPost extends Component {
         title={titleConfig}
         leftButton={leftButtonConfig}
         />
-        <View style= {{height: usableWithTop()}}>
+        <KeyboardAvoidingView behavior='position'>
+          <View style= {{height: usableWithTop()}}>
           <TouchableOpacity style = {styles.container} onPress={this.selectPhotoTapped.bind(this)}>
               <View>
                 { this.state.photoSource === null ? <MaterialIcons name="add-a-photo" size= {50}/>:
@@ -120,7 +122,8 @@ class NewPost extends Component {
               onPress={() => this._postPressed()}>
               Post
             </Button>
-        </View>
+            </View>
+        </KeyboardAvoidingView>
       </View>
     );
   }

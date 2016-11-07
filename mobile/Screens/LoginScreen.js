@@ -99,7 +99,9 @@ class LoginScreen extends Component {
             iconColor={'#24518D'}
             labelStyle={{ color: 'pink' }}
             inputStyle={{ color: 'pink' }}
+            autoCapitalize={'none'}
             autoCorrect={false}
+            returnKeyType = {'done'}
           />
           <Kohana
             style={{ width: getScreenWidth() * .9, backgroundColor: 'white', borderBottomRightRadius:10, borderBottomLeftRadius:10}}
@@ -112,6 +114,7 @@ class LoginScreen extends Component {
             inputStyle={{ color: 'pink' }}
             password = {true}
             secureTextEntry = {true}
+            returnKeyType = {'done'}
           />
           <View style = {{height: 10}} />
           <Button
