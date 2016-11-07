@@ -23,17 +23,8 @@ import {getScreenWidth, getScreenHeight, getUsableScreenHeight, usablePercent} f
 class Discover extends Component {
   constructor(props) {
     super(props);
-    // TODO: make this better
     this.state = {
-      storedListings: [],
-      currentListing: {
-        imagePath: 'public/uploads/listings/loading.jpg',
-        description: 'N/A',
-        location: 0,
-        price: 0,
-        number: 0,
-        type: 'N/A'
-      }
+      currentListing: null
     };
   }
 
@@ -42,38 +33,88 @@ class Discover extends Component {
     if (this.state.storedListings.length === 0) {
       this._fetchData(this._nextListing.bind(this))
     }
+
+    AsyncStorage.removeItem('bundlePosts')
+    AsyncStorage.getItem("bundlePosts").then((value) => {
+           if(value != null) {
+             var list = JSON.parse(value)
+             if (list.length === 0) {
+               this._fetchData()
+             } else {
+               this.setState( {
+                 currentListing: list[0]
+               });
+             }
+           } else {
+               this._fetchData()
+          }
+       }).done();
   }
 
   _nextListing() {
-    if (this.state.storedListings.length === 0) {
-      alert("No more listings");
-      return;
-    }
-    const next = this.state.storedListings.shift();
-    this.setState( {
-      currentListing: next
-    });
+    AsyncStorage.getItem("bundlePosts").then((value) => {
+           if(value != null) {
+             var list = JSON.parse(value);
+             list.shift();
+             AsyncStorage.setItem("bundlePosts", JSON.stringify(list));
+             if (list.length === 0) {
+               this._fetchData()
+               alert("Fetching");
+               return
+             }
+             this.setState( {
+               currentListing: list[0]
+             });
+           } else {
+               alert('this should not happen')
+          }
+       }).done();
   }
 
-  _fetchData(callback) {
-    AsyncStorage.getItem('jwtToken', (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings",
+  _fetchData() {
+    AsyncStorage.multiGet(['jwtToken', 'cost', 'myPosts'], (err, result) => {
+      const jwt = result[0][1];
+      const cost = result[1][1];
+      let minCost, maxCost= null;
+      switch(cost) {
+        case '$0-5':
+          minCost = 0;
+          maxCost = 5;
+          break;
+        case '$5-20':
+          minCost = 5;
+          maxCost = 20;
+          break;
+        case '$20-100':
+          minCost = 20;
+          maxCost = 100;
+          break;
+        case '$100+':
+          minCost = 100;
+          break;
+      }
+      const myPosts = JSON.parse(result[2][1]);
+      fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=1&hideMine=${!myPosts}&radius=10`,
         {method: "GET",
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': result
+            'Authorization': jwt
           }})
         .then((response) => response.json())
         .then((responseData) => {
           console.log(responseData);
-
+            var holder = [];
             responseData.forEach((item) => {
-              this.state.storedListings.push(item);
+              holder.push(item);
             })
-
+            AsyncStorage.setItem('bundlePosts', JSON.stringify(holder));
+            if (holder.length != 0) {
+              this.setState({
+                currentListing: holder[0]
+              })
+            }
             console.log("Successfully grabbed data");
-            callback()
          })
         .catch(function(err) {
           alert("error");
@@ -120,15 +161,10 @@ class Discover extends Component {
       title: 'Discover',
     };
 
-    return (
-      <View>
-        <NavigationBar
-        style={styles.navBar}
-        title={titleConfig}
-        leftButton={this.leftButton()}
-        rightButton={this.rightButton()}
-        />
-        <View style ={{backgroundColor: 'white', height: getUsableScreenHeight()}}>
+    if (this.state.currentListing === null) {
+      var components = null
+    } else {
+      var components =   <View style ={{backgroundColor: 'white', height: getUsableScreenHeight()}}>
           <View style = {styles.centered && {flexDirection: "row", paddingRight: 5, paddingTop: 15, paddingBottom: 2}}>
             <View style={{flex:1}} />
             <Icon name="info-circle"
@@ -139,9 +175,9 @@ class Discover extends Component {
             </Icon>
           </View>
           <Image
-               style = {[styles.discoverImage, {width: getScreenWidth()}]}
-               source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.currentListing.imagePath}}
-          />
+                style = {[styles.discoverImage, {width: getScreenWidth()}]}
+                source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.currentListing.imagePath}}
+           />
           <View style = {styles.centered && {flexDirection: "row", paddingLeft: 30, paddingRight: 30, paddingBottom: 30, paddingTop: 2}}>
             <Button
               containerStyle={styles.discoverButtonContainerDown}
@@ -159,6 +195,17 @@ class Discover extends Component {
 
           </View>
         </View>
+    }
+
+    return (
+      <View>
+        <NavigationBar
+        style={styles.navBar}
+        title={titleConfig}
+        leftButton={this.leftButton()}
+        rightButton={this.rightButton()}
+        />
+        {components}
       </View>
     );
   }

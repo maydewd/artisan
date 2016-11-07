@@ -90,6 +90,11 @@ const styles = StyleSheet.create({
       height: usablePercent(60),
     },
 
+    discoverBlankImage: {
+      flex: 1,
+      height: usablePercent(60),
+    },
+
     discoverIconInfo: {
       marginRight: 0
     },

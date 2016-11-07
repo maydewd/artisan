@@ -30,17 +30,40 @@ exports.create = function (req, res) {
   });
 }
 
-exports.showAll = function (req, res) {
+exports.showPosts = function (req, res) {
   var query = {};
+  // Hide own posts?
   if (req.query.hideMine === 'true') {
     query['creator'] = {$ne: req.user._id};
   }
-  Listing.find(query, function(err, listings) {
-    if (err) {
-      return res.status(400).send(err);
-    }
-    res.json(listings);
-  });
+  // Limit max posts?
+  var maxPosts = parseInt(req.query.limit) || 10;
+  maxPosts = Math.max(0, Math.min(maxPosts, 10));
+  // Max distance radius?
+  // if (!isNaN(parseInt(req.query.maxRadius)) {
+  //   query['price']['$lte'] = parseInt(req.query.maxRadius)
+  // }
+  // Max cost?
+  query['price'] = {$gte: 0} // hack to make sure object is initialized
+  if (!isNaN(parseInt(req.query.maxCost))) {
+    query['price']['$lte'] = Math.max(parseInt(req.query.maxCost), 0)
+  }
+  // Min cost?
+  if (!isNaN(parseInt(req.query.minCost))) {
+    query['price']['$gte'] = Math.max(parseInt(req.query.minCost), 0)
+  }
+  // Show disliked posts?
+  // TODO
+
+  Listing
+    .find(query)
+    .limit(maxPosts)
+    .exec(function(err, listings) {
+      if (err) {
+        return res.status(400).send(err);
+      }
+      res.json(listings);
+    });
 }
 
 exports.showMine = function (req, res) {
@@ -70,6 +93,58 @@ exports.showLiked = function(req, res) {
   });
 }
 
+exports.edit = function (req, res) {
+  var User = req.user;
+  Listing.findOne({_id: req.params.listingID}, function(err, listing) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    if (!User._id.equals(listing.creator)) {
+      return res.status(400).send("You can only edit your own posts");
+    }
+    // TODO move old image to deleted
+    listing.description = req.body.description;
+    listing.price = req.body.price;
+    listing.type = req.body.type;
+    if (req.file) {
+      listing.imagePath = req.file.path;
+    }
+    listing.save(function(err, user) {
+      if (err) {
+        return res.status(500).json({ success: false, message: err});
+      }
+      res.json({
+        success: true,
+        message: 'Successfully edited post'
+      });
+    });
+
+  });
+}
+
+exports.delete = function (req, res) {
+  var User = req.user;
+  Listing.findOne({_id: req.params.listingID}, function(err, listing) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    if (!User._id.equals(listing.creator)) {
+      return res.status(400).send("You can only delete your own posts");
+    }
+    // TODO move image to deleted
+    // TODO remove item from liked posts?
+    listing.remove(function(err, user) {
+      if (err) {
+        return res.status(500).json({ success: false, message: err});
+      }
+      res.json({
+        success: true,
+        message: 'Successfully deleted post'
+      });
+    });
+  });
+}
+
 exports.like = function (req, res) {
   var User = req.user;
   if (!User.likes.some((like) => like.equals(req.params.listingID))) { // first time liking
@@ -92,5 +167,30 @@ exports.like = function (req, res) {
     });
   } else {
     return res.status(400).json({ success: false, message: 'User already liked post'});
+  }
+}
+
+exports.unlike = function (req, res) {
+  var User = req.user;
+  if (User.likes.some((like) => like.equals(req.params.listingID))) { // user has liked previously
+    // update user
+    User.likes.pull(mongoose.Types.ObjectId(req.params.listingID));
+    User.save(function(err, user) {
+      if (err) {
+        return res.status(500).json({ success: false, message: err});
+      }
+      // decrement number of likes on post by 1
+      Listing.findOneAndUpdate({_id: req.params.listingID}, {$inc: {numLikes:-1}}, function(err, listing) {
+        if (err) {
+          return res.status(500).json({ success: false, message: err});
+        }
+        res.json({
+          success: true,
+          message: 'Successfully unliked post'
+        });
+      });
+    });
+  } else {
+    return res.status(400).json({ success: false, message: 'User never liked this post'});
   }
 }

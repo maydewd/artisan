@@ -14,6 +14,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  imagePath: {type: String, required: true},
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Listing' }],
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Listing' }]
 });
