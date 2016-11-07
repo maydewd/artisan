@@ -6,12 +6,15 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
+  KeyboardAvoidingView,
   Text,
   View,
   Image,
   TextInput,
   AsyncStorage,
-  Dimensions
+  Dimensions,
+  Keyboard,
+  LayoutAnimation
 } from 'react-native';
 import Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -23,16 +26,32 @@ import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimensi
 class LoginScreen extends Component {
 
     componentDidMount() {
-        console.log(getScreenWidth());
-        console.log(getScreenHeight());
-        this.setState({username: 'devuser'});
-        this.setState({password: 'securetest'});
+        this.setState({
+          username: 'devuser',
+          password: 'securetest',
+        });
     }
 
   render() {
+    var height = getScreenHeight();
+    var logoWidth = usablePercent(30);
+    var logoHeight = usablePercent(30);
     return (
-      <View style={styles.loginScreenView}>
-        <Image source = {require("../resources/storkdLogo.png")} style = {styles.logo} />
+
+      <KeyboardAvoidingView behavior = 'position'>
+      <View
+              style = {{
+                flexDirection: "column",
+                justifyContent: "space-around",
+                alignItems: "center",
+                paddingTop: 40,
+                backgroundColor: '#e6f2ff',
+                height: height
+              }}
+          >
+        <Image source = {require("../resources/storkdLogo.png")}
+          style = {{width: logoWidth, height: logoHeight}}
+        />
         <Icon.Button name="facebook" backgroundColor="#3b5998" width = {180} onPress={() => this._loginPressed()}>
             Login with Facebook
         </Icon.Button>
@@ -46,7 +65,9 @@ class LoginScreen extends Component {
             iconColor={'#24518D'}
             labelStyle={{ color: 'pink' }}
             inputStyle={{ color: 'pink' }}
+            autoCapitalize={'none'}
             autoCorrect={false}
+            returnKeyType = {'done'}
           />
           <Kohana
             style={{ width: getScreenWidth() * .9, backgroundColor: 'white', borderBottomRightRadius:10, borderBottomLeftRadius:10}}
@@ -59,6 +80,7 @@ class LoginScreen extends Component {
             inputStyle={{ color: 'pink' }}
             password = {true}
             secureTextEntry = {true}
+            returnKeyType = {'done'}
           />
           <View style = {{height: 10}} />
           <Button
@@ -72,6 +94,7 @@ class LoginScreen extends Component {
           Sign Up
         </Text>
       </View>
+      </KeyboardAvoidingView>
     );
   }
 
