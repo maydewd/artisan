@@ -29,7 +29,7 @@ class Discover extends Component {
   }
 
   componentDidMount() {
-  
+
     AsyncStorage.removeItem('bundlePosts')
     AsyncStorage.getItem("bundlePosts").then((value) => {
            if(value != null) {
@@ -90,34 +90,40 @@ class Discover extends Component {
           break;
       }
       const myPosts = JSON.parse(result[2][1]);
-      fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=1&hideMine=${!myPosts}&radius=10`,
-        {method: "GET",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': jwt
-          }})
-        .then((response) => response.json())
-        .then((responseData) => {
-          console.log(responseData);
-            var holder = [];
-            responseData.forEach((item) => {
-              holder.push(item);
+      navigator.geolocation.getCurrentPosition (
+        (position) => {
+          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=1&hideMine=${!myPosts}&radius=10&lat=${position.coords.latitude}&lng=${position.coords.longitude}`,
+            {method: "GET",
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': jwt
+              }})
+            .then((response) => response.json())
+            .then((responseData) => {
+              console.log(responseData);
+                var holder = [];
+                responseData.forEach((item) => {
+                  holder.push(item);
+                })
+                AsyncStorage.setItem('bundlePosts', JSON.stringify(holder));
+                if (holder.length != 0) {
+                  this.setState({
+                    currentListing: holder[0]
+                  })
+                }
+                console.log("Successfully grabbed data");
+             })
+            .catch(function(err) {
+              alert("error");
+              console.log("Error in Posting");
+              console.log(err);
             })
-            AsyncStorage.setItem('bundlePosts', JSON.stringify(holder));
-            if (holder.length != 0) {
-              this.setState({
-                currentListing: holder[0]
-              })
-            }
-            console.log("Successfully grabbed data");
-         })
-        .catch(function(err) {
-          alert("error");
-          console.log("Error in Posting");
-          console.log(err);
-        })
-        .done();
+            .done();
+        },
+        (error) => alert(JSON.stringify(error)),
+        {enableHighAccuracy: true, timeout: 2000, maximumAge: 1000}
+      );
     });
     console.log(this.state.storedListings)
   }
