@@ -82,7 +82,10 @@ const styles = StyleSheet.create({
 
 //==================================
 //  DISCOVER
-
+    discover: {
+      backgroundColor: 'white',
+      height: getUsableScreenHeight(),
+    },
     discoverImage: {
       flex: 1,
       resizeMode: 'contain',

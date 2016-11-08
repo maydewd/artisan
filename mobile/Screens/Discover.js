@@ -166,7 +166,7 @@ class Discover extends Component {
     if (this.state.currentListing === null) {
       var components = null
     } else {
-      var components =   <View style ={{backgroundColor: 'white', height: getUsableScreenHeight()}}>
+      var components =  <View>
           <View style = {styles.centered && {flexDirection: "row", paddingRight: 5, paddingTop: 15, paddingBottom: 2}}>
             <View style={{flex:1}} />
             <Icon name="info-circle"
@@ -207,7 +207,9 @@ class Discover extends Component {
         leftButton={this.leftButton()}
         rightButton={this.rightButton()}
         />
-        {components}
+        <View style={styles.discover}>
+          {components}
+        </View>
       </View>
     );
   }

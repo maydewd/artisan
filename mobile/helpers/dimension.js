@@ -1,5 +1,7 @@
 import {
   Dimensions,
+  Platform,
+  StatusBar,
 } from 'react-native';
 
 const NavBarTopHeight = 45;
@@ -15,7 +17,11 @@ export function bottomNavBarHeight() {
 }
 
 export function getUsableScreenHeight() {
-  return (Dimensions.get('window').height-bottomNavBarHeight()-topNavBarHeight() - topPadding);
+  if (Platform.OS === 'android') {
+    return (Dimensions.get('window').height - bottomNavBarHeight() - topNavBarHeight() - StatusBar.currentHeight);
+  } else {
+    return (Dimensions.get('window').height-bottomNavBarHeight()-topNavBarHeight() - topPadding);
+  }
 }
 
 export function getScreenWidth() {
@@ -23,7 +29,11 @@ export function getScreenWidth() {
 }
 
 export function getScreenHeight() {
-  return Dimensions.get('window').height;
+  if (Platform.OS === 'android') {
+    return (Dimensions.get('window').height - StatusBar.currentHeight);
+  } else {
+    return Dimensions.get('window').height;
+  }
 }
 
 export function usablePercent(perc) {
@@ -31,5 +41,9 @@ export function usablePercent(perc) {
 }
 
 export function usableWithTop() {
-  return (getScreenHeight() - NavBarTopHeight - topPadding);
+  if (Platform.OS === 'android') {
+    return (getScreenHeight() - topNavBarHeight());
+  } else {
+    return (getScreenHeight() - topNavBarHeight() - topPadding);
+  }
 }

@@ -36,7 +36,7 @@ class BottomTabBar extends Component {
 
   renderTabs() {
     return (
-      <View style={{ height: bottomNavBarHeight(), flexDirection: 'row', borderTopWidth: 3, borderTopColor: 'pink' }}>
+      <View style={{ flexDirection: 'row', borderTopWidth: 3, borderTopColor: 'pink' }}>
         <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('discover')}>
           <Icon
             style = {(this.state.tab == 'discover') ? styles.iconActive : styles.icon}
@@ -84,9 +84,9 @@ class BottomTabBar extends Component {
             {this.renderContent()}
           </View>
           <Tabbar show={true}
-               disable={false}
+               disable={true}
                ref={(ref) => this.tabarRef = ref}
-               style={{backgroundColor: '#cce5ff' }}>
+               style={{backgroundColor: '#cce5ff', height: bottomNavBarHeight() }}>
           {this.renderTabs()}
          </Tabbar>
       </View>

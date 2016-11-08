@@ -3,6 +3,7 @@ import {
   AsyncStorage
 } from 'react-native';
 import Geocoder from 'react-native-geocoder';
+// TODO: get yer own key
 const google_API_key = 'AIzaSyB4Wup3-phaP5kaiLHUOELxdtMKzm1GuxI';
 
 Geocoder.fallbackToGoogle(google_API_key);
