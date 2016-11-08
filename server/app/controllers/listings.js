@@ -42,9 +42,17 @@ exports.showPosts = function (req, res) {
   var maxPosts = parseInt(req.query.limit) || 10;
   maxPosts = Math.max(0, Math.min(maxPosts, 10));
   // Max distance radius?
-  // if (!isNaN(parseInt(req.query.maxRadius)) {
-  //   query['price']['$lte'] = parseInt(req.query.maxRadius)
-  // }
+  if (!isNaN(parseFloat(req.query.radius))) {
+    query['coordinates'] = {
+      $near: {
+        $geometry: {
+          coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)],
+          type: "Point"
+        },
+        $maxDistance: parseFloat(req.query.radius)/.00062137 // miles to meters conversion
+      }
+    }
+  }
   // Max cost?
   query['price'] = {$gte: 0} // hack to make sure object is initialized
   if (!isNaN(parseInt(req.query.maxCost))) {
@@ -59,6 +67,7 @@ exports.showPosts = function (req, res) {
 
   Listing
     .find(query)
+    .select('-coordinates')
     .limit(maxPosts)
     .exec(function(err, listings) {
       if (err) {
@@ -87,7 +96,7 @@ exports.show = function (req, res) {
 }
 
 exports.showLiked = function(req, res) {
-  req.user.populate('likes', function (err, user) {
+  req.user.populate('likes', '-coordinates', function (err, user) {
     if (err) {
       return res.status(500).send(err);
     }
