@@ -29,7 +29,7 @@ class Discover extends Component {
   }
 
   componentDidMount() {
-  
+
     AsyncStorage.removeItem('bundlePosts')
     AsyncStorage.getItem("bundlePosts").then((value) => {
            if(value != null) {
@@ -239,7 +239,6 @@ class Discover extends Component {
          return responseData;
        })
       .catch(function(err) {
-        console.log("Error in Login Fetch request");
         console.log(err);
       })
       .done();
