@@ -41,3 +41,5 @@ function listen () {
 function connect () {
   return mongoose.connect(config.database).connection;
 }
+
+module.exports = app; // for testing
