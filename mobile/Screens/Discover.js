@@ -92,7 +92,7 @@ class Discover extends Component {
       const myPosts = JSON.parse(result[2][1]);
       navigator.geolocation.getCurrentPosition (
         (position) => {
-          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=1&hideMine=${!myPosts}&radius=10&lat=${position.coords.latitude}&lng=${position.coords.longitude}`,
+          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=1&hideMine=${!myPosts}&radius=10&lng=${position.coords.longitude}&lat=${position.coords.latitude}`,
             {method: "GET",
               headers: {
                 'Accept': 'application/json',
