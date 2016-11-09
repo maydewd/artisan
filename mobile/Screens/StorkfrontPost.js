@@ -13,7 +13,8 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
+  KeyboardAvoidingView
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
@@ -134,7 +135,8 @@ class StorkfrontPost extends Component {
           title={titleConfig}
           leftButton={leftButtonConfig}
         />
-        <ScrollView style = {{height: usableWithTop()}}>
+        <KeyboardAvoidingView behavior='position'>
+        <View style = {{height: usableWithTop()}}>
           <TouchableOpacity style = {styles.sPostImageContainer} onPress={this.selectPhotoTapped.bind(this)}>
             <View>
               {
@@ -213,7 +215,8 @@ class StorkfrontPost extends Component {
               Delete
             </Button>
           </View>
-        </ScrollView>
+        </View>
+        </KeyboardAvoidingView>
       </View>
     );
   }
