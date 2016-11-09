@@ -185,7 +185,7 @@ class StorkFront extends Component {
             backgroundColor= 'rgba(0,0,0,0)'
             >
           </Icon.Button>
-          <Text style={styles.storkfrontPostText}>{data.likes}</Text>
+          <Text style={styles.storkfrontPostText}>{data.numLikes}</Text>
           <View style={{flex:1}}></View>
           <Text style = {styles.storkfrontPostText}>
             {'$' + data.price}

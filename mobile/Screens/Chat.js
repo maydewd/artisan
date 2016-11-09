@@ -34,7 +34,7 @@ class Chat extends Component {
       messages: [
         {
           _id: 1,
-          text: 'Hello developer',
+          text: 'Hello!',
           createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
           user: {
             _id: 2,

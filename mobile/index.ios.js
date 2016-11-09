@@ -26,8 +26,10 @@ import Messages from './Screens/Messages.js'
 import BottomTabBar from './Components/BottomTabBar.js'
 import {render} from './helpers/Navigation.js'
 
+
 class Storkd extends Component {
   render() {
+    console.ingnoredYellowBox = true;
     return (
       <Navigator
          initialRoute={{id: 'login'}}
