@@ -25,7 +25,7 @@ exports.login = function (req, res) {
         user.comparePassword(req.body.password, function(err, isMatch) {
           if (isMatch && !err) {
             // Create token if the password matched and no error was thrown
-            var token = jwt.sign(user, config.secret, {
+            var token = jwt.sign({_id:user._id.toString()}, config.secret, {
               expiresIn: 10080 // 3 hours in seconds
             });
             res.json({ success: true, token: 'JWT ' + token });

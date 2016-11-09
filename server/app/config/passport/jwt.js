@@ -10,7 +10,7 @@ const opts = {
 };
 
 module.exports = new JwtStrategy(opts, function(jwt_payload, done) {
-  User.findOne({id: jwt_payload.id}, '-password', function(err, user) {
+  User.findOne({_id: jwt_payload._id}, '-password', function(err, user) {
     if (err) {
       return done(err, false);
     }
