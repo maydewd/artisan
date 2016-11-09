@@ -20,6 +20,11 @@ export function render(route, navigator) {
         navigator={navigator} />
     );
   }
+  if (routeId === 'discover') {
+    return (<BottomTabBar
+      navigator={navigator} />
+    );
+  }
   if (routeId === 'mainView') {
     return (
       <BottomTabBar

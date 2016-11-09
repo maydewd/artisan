@@ -65,11 +65,11 @@ class DiscoverSettings extends Component {
 
   _save() {
     var state = this.state;
+    AsyncStorage.removeItem('bundlePosts')
     AsyncStorage.setItem('distance', this.state.distance);
     AsyncStorage.setItem('cost', this.state.cost);
     AsyncStorage.setItem('myPosts', JSON.stringify(this.state.myPosts));
     AsyncStorage.setItem('downedPost', JSON.stringify(this.state.downedPost));
-    console.log(AsyncStorage.getAllKeys())
     alert('Saved!')
   }
 
@@ -169,7 +169,9 @@ class DiscoverSettings extends Component {
   }
 
   pop() {
-    this.props.navigator.pop()
+    this.props.navigator.push({
+      id: 'discover',
+    });
   }
 }
 
