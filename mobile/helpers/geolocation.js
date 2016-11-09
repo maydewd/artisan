@@ -21,7 +21,7 @@ export function reverseGeocode() {
     Geocoder.geocodePosition(loc).then(res => {
       console.log(res)
       // TODO: res is an array of geocoding objects, and the information is not guaranteed to be there
-      AsyncStorage.setItem('location', res[0].locality)
+      AsyncStorage.setItem('locality', res[0].locality)
     })
     .catch(err => alert(JSON.stringify(err)))
   })

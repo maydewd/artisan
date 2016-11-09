@@ -38,7 +38,7 @@ class StorkfrontPost extends Component {
       price: this.props.item.price,
       number: 0,  // TODO
       imagePath: this.props.item.imagePath,
-      location: this.props.item.location,
+      locality: this.props.item.locality,
       type: this.props.item.type,
       photoSource: null,
     };
@@ -167,7 +167,7 @@ class StorkfrontPost extends Component {
             iconColor={'#24518D'}
             labelStyle={{ color: 'pink' }}
             inputStyle={{ color: '#24518D' }}
-            value = {this.state.location != null ? this.state.location.toString() : "N/A"}
+            value = {this.state.locality != null ? this.state.locality.toString() : "N/A"}
           />
           <Kohana
             style={styles.discoverPostPrice}
