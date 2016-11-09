@@ -135,5 +135,12 @@ exports[`test Discover renders correctly 1`] = `
       </View>
     </View>
   </View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "white",
+        "height": 552,
+      }
+    } />
 </View>
 `;

@@ -225,6 +225,7 @@ exports[`test DiscoverPost renders correctly 1`] = `
             "borderColor": "gray",
             "borderTopWidth": 1,
             "flex": 3,
+            "minHeight": 110.4,
             "paddingTop": 10,
             "width": 375,
           },
@@ -366,6 +367,7 @@ exports[`test DiscoverPost renders correctly 1`] = `
             "borderColor": "gray",
             "borderTopWidth": 1,
             "flex": 1,
+            "minHeight": 55.2,
             "width": 375,
           },
         ]
@@ -504,6 +506,7 @@ exports[`test DiscoverPost renders correctly 1`] = `
             "borderColor": "gray",
             "borderTopWidth": 1,
             "flex": 1,
+            "minHeight": 55.2,
             "width": 375,
           },
         ]
@@ -640,6 +643,7 @@ exports[`test DiscoverPost renders correctly 1`] = `
           Object {
             "borderColor": "gray",
             "borderTopWidth": 1,
+            "minHeight": 55.2,
             "width": 375,
           },
         ]
