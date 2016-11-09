@@ -13,7 +13,8 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
+  KeyboardAvoidingView
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
@@ -38,7 +39,7 @@ class StorkfrontPost extends Component {
       price: this.props.item.price,
       number: 0,  // TODO
       imagePath: this.props.item.imagePath,
-      location: this.props.item.location,
+      locality: this.props.item.locality,
       type: this.props.item.type,
       photoSource: null,
     };
@@ -134,7 +135,8 @@ class StorkfrontPost extends Component {
           title={titleConfig}
           leftButton={leftButtonConfig}
         />
-        <ScrollView style = {{height: usableWithTop()}}>
+        <KeyboardAvoidingView behavior='position'>
+        <View style = {{height: usableWithTop()}}>
           <TouchableOpacity style = {styles.sPostImageContainer} onPress={this.selectPhotoTapped.bind(this)}>
             <View>
               {
@@ -167,7 +169,7 @@ class StorkfrontPost extends Component {
             iconColor={'#24518D'}
             labelStyle={{ color: 'pink' }}
             inputStyle={{ color: '#24518D' }}
-            value = {this.state.location != null ? this.state.location.toString() : "N/A"}
+            value = {this.state.locality != null ? this.state.locality.toString() : "N/A"}
           />
           <Kohana
             style={styles.discoverPostPrice}
@@ -213,7 +215,8 @@ class StorkfrontPost extends Component {
               Delete
             </Button>
           </View>
-        </ScrollView>
+        </View>
+        </KeyboardAvoidingView>
       </View>
     );
   }
