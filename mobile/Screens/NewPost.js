@@ -43,7 +43,7 @@ class NewPost extends Component {
       photoSource: null,
       type: null,
       position: null,
-      geocoded: null,
+      location: null,
     };
   }
 
@@ -170,10 +170,13 @@ class NewPost extends Component {
     });
   }
   _post() {
-    const {description, type, price, photoSource, position, geocoded} = this.state;
+    const {description, type, price, photoSource, lat, lng, location} = this.state;
     console.log("description: " + description)
     console.log("type: " + type)
     console.log("photoSource: " + photoSource)
+    console.log("lat: " + lat)
+    console.log("lng: " + lng)
+    console.log("location: " + location)
     console.log(AsyncStorage.getItem('jwtToken'));
     var request = new XMLHttpRequest();
     request.open("POST", "http://colab-sbx-137.oit.duke.edu:3000/api/listings");
@@ -183,6 +186,9 @@ class NewPost extends Component {
     body.append('description', description);
     body.append('type', type);
     body.append('price', price);
+    body.append('lat', lat);
+    body.append('lng', lng);
+    body.append('location', location);
     var photo;
     if (Platform.OS === 'android') {
       photo = {
@@ -212,7 +218,10 @@ class NewPost extends Component {
 
     navigator.geolocation.getCurrentPosition (
       (position) => {
-        this.setState({position});
+        this.setState({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
         var loc = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
@@ -220,7 +229,8 @@ class NewPost extends Component {
         Geocoder.geocodePosition(loc).then(res => {
           console.log(res)
           // TODO: res is an array of geocoding objects, and the information is not guaranteed to be there
-          this.setState({geocoded: res[0].postalCode})
+          this.setState({location: res[0].locality})
+          this._post();
         })
         .catch(err => alert(JSON.stringify(err)))
       },
@@ -230,7 +240,6 @@ class NewPost extends Component {
   }
   _postPressed() {
     this._getLocation();
-    this._post();
   }
   pop() {
     this.props.navigator.pop()

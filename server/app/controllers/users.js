@@ -19,7 +19,7 @@ exports.login = function (req, res) {
       if (err) throw err;
 
       if (!user) {
-        return res.status(400).send({ success: false, message: 'Authentication failed.' });
+        return res.status(401).send({ success: false, message: 'Authentication failed.' });
       } else {
         // Check if password matches
         user.comparePassword(req.body.password, function(err, isMatch) {
@@ -30,7 +30,7 @@ exports.login = function (req, res) {
             });
             res.json({ success: true, token: 'JWT ' + token });
           } else {
-            res.send({ success: false, message: 'Authentication failed.' });
+            res.status(401).send({ success: false, message: 'Authentication failed.' });
           }
         });
       }

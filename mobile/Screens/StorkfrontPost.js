@@ -18,6 +18,7 @@ import {
 var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
 import {usableWithTop, usablePercent, getScreenWidth} from '../helpers/dimension';
+import {grabArtTypes} from '../resources/Types'
 import { Kohana } from 'react-native-textinput-effects';
 import FA from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -125,18 +126,6 @@ class StorkfrontPost extends Component {
       title: 'Back',
       handler: () => {this.pop()}
     };
-    // TODO: move this data somewhere else
-    let index = 0;
-    const data = [
-      { key: index++, section: true, label: 'Types' },
-      { key: index++, label: 'Ceramics' },
-      { key: index++, label: 'Painting' },
-      { key: index++, label: 'Photograph' },
-      { key: index++, label: 'Drawing' },
-      { key: index++, label: 'Jewelry' },
-      { key: index++, label: 'Sculpture' },
-      { key: index++, label: 'Metal Work' },
-    ];
     // TODO: put uri somewhere else
     return (
       <View>
@@ -193,7 +182,7 @@ class StorkfrontPost extends Component {
             onChangeText={(price) => this.setState({price})}
           />
           <ModalPicker
-          data={data}
+          data={grabArtTypes()}
           style = {{flex:1, width: getScreenWidth()}}
           initValue="Select a type"
           onChange={(option)=> this.setState({type:option.label})}

@@ -90,34 +90,40 @@ class Discover extends Component {
           break;
       }
       const myPosts = JSON.parse(result[2][1]);
-      fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=1&hideMine=${!myPosts}&radius=10`,
-        {method: "GET",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': jwt
-          }})
-        .then((response) => response.json())
-        .then((responseData) => {
-          console.log(responseData);
-            var holder = [];
-            responseData.forEach((item) => {
-              holder.push(item);
+      navigator.geolocation.getCurrentPosition (
+        (position) => {
+          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=1&hideMine=${!myPosts}&radius=10&lng=${position.coords.longitude}&lat=${position.coords.latitude}`,
+            {method: "GET",
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': jwt
+              }})
+            .then((response) => response.json())
+            .then((responseData) => {
+              console.log(responseData);
+                var holder = [];
+                responseData.forEach((item) => {
+                  holder.push(item);
+                })
+                AsyncStorage.setItem('bundlePosts', JSON.stringify(holder));
+                if (holder.length != 0) {
+                  this.setState({
+                    currentListing: holder[0]
+                  })
+                }
+                console.log("Successfully grabbed data");
+             })
+            .catch(function(err) {
+              alert("error");
+              console.log("Error in Posting");
+              console.log(err);
             })
-            AsyncStorage.setItem('bundlePosts', JSON.stringify(holder));
-            if (holder.length != 0) {
-              this.setState({
-                currentListing: holder[0]
-              })
-            }
-            console.log("Successfully grabbed data");
-         })
-        .catch(function(err) {
-          alert("error");
-          console.log("Error in Posting");
-          console.log(err);
-        })
-        .done();
+            .done();
+        },
+        (error) => alert(JSON.stringify(error)),
+        {enableHighAccuracy: true, timeout: 2000, maximumAge: 1000}
+      );
     });
     console.log(this.state.storedListings)
   }
@@ -160,7 +166,7 @@ class Discover extends Component {
     if (this.state.currentListing === null) {
       var components = null
     } else {
-      var components =   <View style ={{backgroundColor: 'white', height: getUsableScreenHeight()}}>
+      var components =  <View>
           <View style = {styles.centered && {flexDirection: "row", paddingRight: 5, paddingTop: 15, paddingBottom: 2}}>
             <View style={{flex:1}} />
             <Icon name="info-circle"
@@ -201,7 +207,9 @@ class Discover extends Component {
         leftButton={this.leftButton()}
         rightButton={this.rightButton()}
         />
-        {components}
+        <View style={styles.discover}>
+          {components}
+        </View>
       </View>
     );
   }
