@@ -177,15 +177,16 @@ class StorkFront extends Component {
         <Image style = {styles.storkfrontImage}
          source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + data.imagePath}}/>
         <View style = {styles.centered && {flexDirection: "row"}}>
-          <Icon.Button
+          <Text style={styles.storkfrontPostText}>
+            <Icon
             name="thumbs-up"
             size={25}
             color = 'black'
             padding = {2}
             backgroundColor= 'rgba(0,0,0,0)'
-            >
-          </Icon.Button>
-          <Text style={styles.storkfrontPostText}>{data.numLikes}</Text>
+            />
+            {" "}{data.numLikes}<
+          /Text>
           <View style={{flex:1}}></View>
           <Text style = {styles.storkfrontPostText}>
             {'$' + data.price}

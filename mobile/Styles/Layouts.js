@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
     },
     storkfrontPostText: {
       fontSize: 14,
-
+      padding: 10,
     },
     saveButtonContainer: {
       flex: 1,
