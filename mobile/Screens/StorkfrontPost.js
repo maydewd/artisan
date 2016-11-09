@@ -59,21 +59,23 @@ class StorkfrontPost extends Component {
     body.append('description', description);
     body.append('type', type);
     body.append('price', price);
-    var photo;
-    if (Platform.OS === 'android') {
-      photo = {
-        uri: photoSource.uri,
-        type: 'image/jpeg',
-        name: 'photo.jpg',
-      };
-    } else {
-      photo = {
-        uri: photoSource,
-        type: 'image/jpeg',
-        name: 'photo.jpg',
-      };
+    if (photoSource !==null) {
+      var photo;
+      if (Platform.OS === 'android') {
+        photo = {
+          uri: photoSource.uri,
+          type: 'image/jpeg',
+          name: 'photo.jpg',
+        };
+      } else {
+        photo = {
+          uri: photoSource,
+          type: 'image/jpeg',
+          name: 'photo.jpg',
+        };
+      }
+      body.append('image', photo);
     }
-    body.append('image', photo);
     AsyncStorage.getItem('jwtToken', (err, result) => {
         request.setRequestHeader('Authorization', result);
         request.send(body);
