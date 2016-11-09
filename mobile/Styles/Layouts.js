@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import {getScreenWidth, getScreenHeight, topNavBarHeight, getUsableScreenHeight, usablePercent} from '../helpers/dimension'
+import {getScreenWidth, getScreenHeight, topNavBarHeight, bottomNavBarHeight, getUsableScreenHeight, usablePercent} from '../helpers/dimension'
 
 const styles = StyleSheet.create({
     baseText: {
@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
     discoverPostStory: {
       flex: 3,
       width: getScreenWidth(),
+      minHeight: usablePercent(20),
       backgroundColor: 'white',
       paddingTop: 10,
       borderColor: 'gray',
@@ -140,6 +141,7 @@ const styles = StyleSheet.create({
     discoverPostLocation: {
       flex: 1,
       width: getScreenWidth(),
+      minHeight: usablePercent(10),
       backgroundColor: 'white',
       borderColor: 'gray',
       borderTopWidth: 1
@@ -147,12 +149,14 @@ const styles = StyleSheet.create({
     discoverPostPrice: {
       flex: 1,
       width: getScreenWidth(),
+      minHeight: usablePercent(10),
       backgroundColor: 'white',
       borderColor: 'gray',
       borderTopWidth: 1
     },
     discoverPostType: {
       width: getScreenWidth(),
+      minHeight: usablePercent(10),
       borderColor: 'gray',
       borderTopWidth: 1
     },
@@ -160,7 +164,7 @@ const styles = StyleSheet.create({
       padding:10,
       alignItems: "center",
       overflow:'hidden',
-      maxHeight: 50,
+      maxHeight: bottomNavBarHeight(),
       backgroundColor: '#24518D',
       borderRadius: 2
     },
@@ -246,7 +250,7 @@ const styles = StyleSheet.create({
       padding:10,
       alignItems: "center",
       overflow:'hidden',
-      maxHeight: 50,
+      maxHeight: bottomNavBarHeight(),
       backgroundColor: '#24518D',
       borderRadius: 2
     },
@@ -259,7 +263,7 @@ const styles = StyleSheet.create({
       padding:10,
       alignItems: "center",
       overflow:'hidden',
-      maxHeight: 50,
+      maxHeight: bottomNavBarHeight(),
       backgroundColor: '#ec7063',
       borderRadius: 2
     },

@@ -22,7 +22,7 @@ var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
 var ImagePicker = require('react-native-image-picker');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {getScreenWidth, getScreenHeight, usablePercent, usableWithTop} from '../helpers/dimension'
+import {getScreenWidth, getScreenHeight, usablePercent, usableWithTop, bottomNavBarHeight} from '../helpers/dimension'
 import {grabArtTypes} from '../resources/Types'
 import { Kohana } from 'react-native-textinput-effects';
 import ModalPicker from 'react-native-modal-picker';
@@ -74,7 +74,7 @@ class NewPost extends Component {
                 </View>
             </TouchableOpacity>
             <Kohana
-              style={{flex: 3, width: getScreenWidth(), backgroundColor: 'white', paddingTop: 10, borderColor: 'gray', borderTopWidth: 1}}
+              style={{flex: 3, width: getScreenWidth(), minHeight: usablePercent(30), backgroundColor: 'white', paddingTop: 10, borderColor: 'gray', borderTopWidth: 1}}
               onChangeText={(username) => this.setState({username})}
               label={'Story'}
               iconClass={FA}
@@ -87,7 +87,7 @@ class NewPost extends Component {
               onChangeText={(description) => this.setState({description})}
             />
             <Kohana
-              style={{flex: 1, width: getScreenWidth(), backgroundColor: 'white', borderColor: 'gray', borderTopWidth: 1}}
+              style={{flex: 1, width: getScreenWidth(), minHeight: usablePercent(10), backgroundColor: 'white', borderColor: 'gray', borderTopWidth: 1}}
               onChangeText={(username) => this.setState({username})}
               label={'Asking Price'}
               iconClass={MaterialIcons}
@@ -105,7 +105,7 @@ class NewPost extends Component {
                    onChange={(option)=> this.setState({type:option.label})}
                    >
                        <Kohana
-                         style = {{width: getScreenWidth(), borderColor: 'gray', borderTopWidth: 1}}
+                         style = {{width: getScreenWidth(), minHeight: usablePercent(10), borderColor: 'gray', borderTopWidth: 1}}
                          editable= {false}
                          label={'Type'}
                          iconClass={MaterialIcons}
@@ -117,7 +117,7 @@ class NewPost extends Component {
                        />
             </ModalPicker>
             <Button
-              containerStyle={{padding:10, overflow:'hidden', maxHeight: 50, backgroundColor: '#24518D', borderRadius: 2}}
+              containerStyle={{padding:10, overflow:'hidden', maxHeight: bottomNavBarHeight(), backgroundColor: '#24518D', borderRadius: 2}}
               style={{fontSize: 20, color: 'white'}}
               onPress={() => this._postPressed()}>
               Post
