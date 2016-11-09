@@ -1,0 +1,139 @@
+exports[`test Discover renders correctly 1`] = `
+<View>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "white",
+        },
+        null,
+      ]
+    }>
+    <View
+      style={
+        Array [
+          Object {
+            "height": 20,
+          },
+          null,
+        ]
+      } />
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "stretch",
+            "flexDirection": "row",
+            "height": 44,
+            "justifyContent": "space-between",
+          },
+          Object {
+            "backgroundColor": "#cce5ff",
+            "height": 45,
+          },
+        ]
+      }>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "color": "#333",
+                "fontSize": 17,
+                "fontWeight": "500",
+                "letterSpacing": 0.5,
+              },
+              null,
+            ]
+          }>
+          Discover
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "stretch",
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
+        }>
+        <View
+          style={
+            Object {
+              "padding": 10,
+            }
+          }>
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "color": undefined,
+                  "fontFamily": "Ionicons",
+                  "fontSize": 30,
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+                undefined,
+              ]
+            }>
+            
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "stretch",
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
+        }>
+        <View
+          style={
+            Object {
+              "padding": 10,
+            }
+          }>
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "color": undefined,
+                  "fontFamily": "Ionicons",
+                  "fontSize": 30,
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+                undefined,
+              ]
+            }>
+            
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

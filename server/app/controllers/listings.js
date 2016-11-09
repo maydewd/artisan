@@ -11,7 +11,7 @@ exports.create = function (req, res) {
     type: req.body.type,
     imagePath: filePath,
     coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)],
-    locality: req.body.location
+    locality: req.body.locality
   });
 
   newListing.save(function(err, listing) {

@@ -85,6 +85,7 @@ class MyBundle extends Component {
         leftButton={leftButtonConfig}
         />
         <SwipeListView
+          enableEmptySections={true}
           disableRightSwipe={true}
           style = {{height: getScreenHeight() -topNavBarHeight()-20}}
           dataSource = {this.state.dataSource}

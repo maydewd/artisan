@@ -29,8 +29,6 @@ class Discover extends Component {
   }
 
   componentDidMount() {
-
-    AsyncStorage.removeItem('bundlePosts')
     AsyncStorage.getItem("bundlePosts").then((value) => {
            if(value != null) {
              var list = JSON.parse(value)
@@ -92,7 +90,7 @@ class Discover extends Component {
       const myPosts = JSON.parse(result[2][1]);
       navigator.geolocation.getCurrentPosition (
         (position) => {
-          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=1&hideMine=${!myPosts}&radius=10&lng=${position.coords.longitude}&lat=${position.coords.latitude}`,
+          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=20&hideMine=${!myPosts}&radius=10&lng=${position.coords.longitude}&lat=${position.coords.latitude}`,
             {method: "GET",
               headers: {
                 'Accept': 'application/json',
@@ -247,7 +245,6 @@ class Discover extends Component {
          return responseData;
        })
       .catch(function(err) {
-        console.log("Error in Login Fetch request");
         console.log(err);
       })
       .done();
