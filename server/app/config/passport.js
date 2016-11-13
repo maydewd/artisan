@@ -4,9 +4,8 @@
  * Module dependencies.
  */
 
-const mongoose = require('mongoose');
-
 const jwt = require('./passport/jwt');
+const fb_token = require('./passport/fb-token');
 
 /**
  * Expose
@@ -15,4 +14,5 @@ const jwt = require('./passport/jwt');
 module.exports = function (passport) {
   // use these strategies
   passport.use(jwt);
+  passport.use(fb_token);
 };
