@@ -1,5 +1,5 @@
 /**
- * Messaging
+ * Discover Screen
  */
 
 import React, { Component } from 'react';
@@ -8,22 +8,18 @@ import {
   StyleSheet,
   Text,
   View,
-  ListView,
-  Image,
   AsyncStorage,
-  TouchableOpacity
+  Switch
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
-import {getScreenHeight, topNavBarHeight, getScreenWidth} from '../helpers/dimension'
-import { SwipeListView } from 'react-native-swipe-list-view';
-styles = require('../Styles/Layouts');
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { SegmentedControls } from 'react-native-radio-buttons';
 
-class Messages extends Component {
+class StorkFrontSettings extends Component {
 
   render() {
     var titleConfig = {
-     title: 'Messages',
+     title: 'Profile Settings',
    };
 
    const leftButtonConfig = {
@@ -32,23 +28,20 @@ class Messages extends Component {
   };
 
     return (
+
       <View>
         <NavigationBar
         style={styles.navBar}
         title={titleConfig}
         leftButton={leftButtonConfig}
         />
-        <Text>
-        Messages
-        </Text>
       </View>
     );
   }
 
   pop() {
-    this.props.navigator.pop()
+    this.props.navigator.pop();
   }
-
 }
 
-module.exports = Messages
+module.exports = StorkFrontSettings

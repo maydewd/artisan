@@ -19,6 +19,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 styles = require('../Styles/Layouts');
 var NavigationBar = require('react-native-navbar');
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const DefaultProfileImage = require("../resources/profile.png");
 
@@ -106,7 +107,7 @@ class StorkFront extends Component {
   leftButton() {
     return  (
       <View style = {styles.navIcon}>
-        <Ionicons name="ios-settings" size={30}/>
+        <FontAwesome name= "inbox" size={25} onPress={(event) => {this.goToMessages()}}/>
       </View>
     );
   }
@@ -114,7 +115,7 @@ class StorkFront extends Component {
   rightButton() {
     return (
       <View style = {styles.navIcon}>
-        <Ionicons name="ios-add" size={30} onPress={(event) => {this.goToNewPost()}}/>
+        <FontAwesome name="plus-circle" size={25} onPress={(event) => {this.goToNewPost()}}/>
       </View>
     );
   }
@@ -124,6 +125,19 @@ class StorkFront extends Component {
         id: 'newPost'
     });
   }
+
+  goToMessages() {
+    this.props.navigator.push({
+        id: 'messages'
+    });
+  }
+
+  goToProfileSettings() {
+    this.props.navigator.push({
+        id: 'profileSettings'
+    });
+  }
+
 
   render() {
 
@@ -150,6 +164,7 @@ class StorkFront extends Component {
           <View style = {styles.storkFrontBanner}>
             <Image style = {styles.storkfrontProfileImage} source={imageSource} />
             <Text style = {styles.storkfrontProfileText}>{username}</Text>
+            <Ionicons name = "ios-settings" size = {30} onPress={(event) => {this.goToProfileSettings()}} style = {{paddingRight: 8}} />
           </View>
           <View style = {{flex:1}}>
           <ListView
