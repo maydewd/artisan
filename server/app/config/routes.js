@@ -7,6 +7,7 @@
 const express = require('express');
 const users = require('../controllers/users');
 const listings = require('../controllers/listings');
+const messages = require('../controllers/messages');
 
 const upload = require('./multer');
 
@@ -49,7 +50,11 @@ module.exports = function (app, passport) {
   apiRoutes.post('/listings/:listingID/like', jwtAuth, listings.like);
   apiRoutes.post('/listings/:listingID/unlike', jwtAuth, listings.unlike);
 
-
+  // API MESSAGING routes
+  apiRoutes.get('/messages/:conversationID/', jwtAuth, messages.getMessagesFromConversation);
+  apiRoutes.post('/messages/:conversationID/', jwtAuth, messages.postToConversation);
+  apiRoutes.get('/messages/item/:itemID/', jwtAuth, messages.getMessagesFromItem);
+  apiRoutes.post('/messages/item/:itemID/', jwtAuth, messages.postToItem);
 
 
   /**
