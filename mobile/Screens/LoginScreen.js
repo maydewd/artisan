@@ -22,6 +22,7 @@ styles = require('../Styles/Layouts');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
 import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
+var {FBLogin, FBLoginManager} = require('react-native-facebook-login');
 
 class LoginScreen extends Component {
 
@@ -52,9 +53,35 @@ class LoginScreen extends Component {
         <Image source = {require("../resources/storkdLogo.png")}
           style = {{width: logoWidth, height: logoHeight}}
         />
-        <Icon.Button name="facebook" backgroundColor="#3b5998" width = {180} onPress={() => this._loginPressed()}>
-            Login with Facebook
-        </Icon.Button>
+        <FBLogin
+            ref={(fbLogin) => { this.fbLogin = fbLogin }}
+            permissions={["email","user_friends"]}
+            loginBehavior={FBLoginManager.LoginBehaviors.Native}
+             onLogin={function(data){
+               console.log("Logged in!");
+               console.log(data);
+             }}
+             onLogout={function(){
+               console.log("Logged out.");
+             }}
+             onLoginFound={function(data){
+               console.log("Existing login found.");
+               console.log(data);
+             }}
+             onLoginNotFound={function(){
+               console.log("No user logged in.");
+             }}
+             onError={function(data){
+               console.log("ERROR");
+               console.log(data);
+             }}
+             onCancel={function(){
+               console.log("User cancelled.");
+             }}
+             onPermissionsMissing={function(data){
+               console.log("Check permissions!");
+               console.log(data);
+             }}/>
         <View style = {{alignItems: 'center'}}>
           <Kohana
             style={{width: getScreenWidth() * .9, backgroundColor: 'white', borderTopRightRadius:10, borderTopLeftRadius:10 }}

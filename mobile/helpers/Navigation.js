@@ -11,6 +11,8 @@ import MyBundle from '../Screens/MyBundle.js'
 import Messages from '../Screens/Messages.js'
 import BottomTabBar from '../Components/BottomTabBar.js'
 import Chat from '../Screens/Chat.js'
+import ProfileSettings from '../Screens/StorkFrontSettings.js'
+import FB from '../Screens/FB.js'
 
 export function render(route, navigator) {
   var routeId = route.id;
@@ -66,7 +68,6 @@ export function render(route, navigator) {
   if (routeId === 'messages') {
     return (
       <Messages
-        creatorID = {route.creator}
         navigator={navigator} />
     );
   }
@@ -74,6 +75,13 @@ export function render(route, navigator) {
     return (
       <Chat
         creatorID = {route.creator}
+        navigator={navigator} />
+    );
+  }
+
+  if (routeId === 'profileSettings') {
+    return (
+      <ProfileSettings
         navigator={navigator} />
     );
   }

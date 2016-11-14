@@ -18,6 +18,7 @@ import {getScreenHeight, topNavBarHeight, getScreenWidth} from '../helpers/dimen
 import { SwipeListView } from 'react-native-swipe-list-view';
 styles = require('../Styles/Layouts');
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Ionic from 'react-native-vector-icons/Ionicons';
 
 class MyBundle extends Component {
 
@@ -95,7 +96,7 @@ class MyBundle extends Component {
               <Image style = {{height: 80, width: 80}}
                source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + item.imagePath}}/>
                <TouchableOpacity style = {{paddingRight: 10}}>
-                <Icon onPress= {() => this._mail(item)} name="envelope" size={20} color="black" />
+                <Ionic onPress= {() => this._mail(item)} name="ios-chatbubbles" size={30} color="black" />
               </TouchableOpacity>
              </View>
           )}
