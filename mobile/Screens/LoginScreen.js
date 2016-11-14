@@ -53,7 +53,35 @@ class LoginScreen extends Component {
         <Image source = {require("../resources/storkdLogo.png")}
           style = {{width: logoWidth, height: logoHeight}}
         />
-        <FBLogin />
+        <FBLogin
+            ref={(fbLogin) => { this.fbLogin = fbLogin }}
+            permissions={["email","user_friends"]}
+            loginBehavior={FBLoginManager.LoginBehaviors.Native}
+             onLogin={function(data){
+               console.log("Logged in!");
+               console.log(data);
+             }}
+             onLogout={function(){
+               console.log("Logged out.");
+             }}
+             onLoginFound={function(data){
+               console.log("Existing login found.");
+               console.log(data);
+             }}
+             onLoginNotFound={function(){
+               console.log("No user logged in.");
+             }}
+             onError={function(data){
+               console.log("ERROR");
+               console.log(data);
+             }}
+             onCancel={function(){
+               console.log("User cancelled.");
+             }}
+             onPermissionsMissing={function(data){
+               console.log("Check permissions!");
+               console.log(data);
+             }}/>
         <View style = {{alignItems: 'center'}}>
           <Kohana
             style={{width: getScreenWidth() * .9, backgroundColor: 'white', borderTopRightRadius:10, borderTopLeftRadius:10 }}
