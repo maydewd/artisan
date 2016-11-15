@@ -25,7 +25,6 @@ module.exports = new FacebookTokenStrategy(opts, function(accessToken, refreshTo
           if (err) {
             done(err, false);
           }
-          console.log(user);
           done(null, user);
         });
       }

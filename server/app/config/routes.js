@@ -50,6 +50,9 @@ module.exports = function (app, passport) {
   apiRoutes.post('/listings/:listingID/like', jwtAuth, listings.like);
   apiRoutes.post('/listings/:listingID/unlike', jwtAuth, listings.unlike);
 
+  // API CONNECT routes
+  apiRoutes.post('/connect/fb', [jwtAuth, passport.authorize('facebook-token', { session: false })], users.linkFB);
+  //apiRoutes.post('/connect/fb/unlink', jwtAuth, users.unlinkFB); // JUST REMOVE FBID AND FBIMAGEID FROM DOCUMENT
 
 
 
