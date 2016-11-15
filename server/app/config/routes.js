@@ -30,7 +30,7 @@ module.exports = function (app, passport) {
 
   // API AUTH routes
   apiRoutes.post('/login', users.login);
-  apiRoutes.post('/login/fb', passport.authenticate('facebook-token'), users.loginFB);
+  apiRoutes.post('/login/fb', passport.authenticate('facebook-token', { session: false }), users.loginFB);
   apiRoutes.post('/register', upload.single('image'), users.register);
   // apiRoutes.post('/logout', users.logout);
 

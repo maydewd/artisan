@@ -77,6 +77,13 @@ exports.showMe = function (req, res) {
   res.json(req.user);
 }
 
+exports.loginFB = function (req, res) {
+  var token = jwt.sign({_id:req.user._id.toString()}, config.secret, {
+    expiresIn: 10080 // 3 hours in seconds
+  });
+  res.json({ success: true, token: 'JWT ' + token });
+}
+
 // /**
 //  *  Show profile
 //  */

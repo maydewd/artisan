@@ -10,19 +10,18 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
-  password: {
-    type: String,
-    required: true
-  },
-  imagePath: {type: String, required: true},
+  password: {type: String},
+  imagePath: {type: String},
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Listing' }],
-  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Listing' }]
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Listing' }],
+  facebookID: {type: Number, unique: true},
+  facebookImagePath: {type: String}
 });
 
 // Saves the user's password hashed (plain text password storage is not good)
 UserSchema.pre('save', function (next) {
   const user = this;
-  if (this.isModified('password') || this.isNew) {
+  if (this.isModified('password') || (this.isNew && typeof this.password !== 'undefined')) {
     bcrypt.genSalt(10, function (err, salt) {
       if (err) {
         return next(err);
