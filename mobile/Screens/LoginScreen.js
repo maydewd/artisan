@@ -136,13 +136,9 @@ class LoginScreen extends Component {
       });
   }
 
-  //Not functional
+  //Get the AWT token given the username and password state of the app
   _submitLogin() {
     const { username, password } = this.state
-
-    console.log(username);
-    console.log(password);
-    //Username and password reach this point
     fetch("http://colab-sbx-137.oit.duke.edu:3000/api/login",
       {method: "POST",
         headers: {
@@ -152,12 +148,12 @@ class LoginScreen extends Component {
         body: JSON.stringify({username: username, password: password})})
     .then((response) => response.json())
     .then((responseData) => {
-      console.log(responseData);
       if (responseData.success === true) {
         AsyncStorage.setItem('jwtToken', responseData.token, () =>
           this.props.navigator.push({id:'mainView'})
         );
       } else {
+        console.log("Incorrect login");
         alert('Incorrect username and password')
       }
        return responseData;
@@ -165,7 +161,7 @@ class LoginScreen extends Component {
     .catch(function(err) {
       console.log("Error in Login Fetch request");
       console.log(err);
-        alert('Something went wrong')
+      alert('Something went wrong- test your connection')
     })
     .done();
   }
