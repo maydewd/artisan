@@ -48,6 +48,6 @@ Below is an overview of the tasks for you to complete.  When you're ready tackle
 
 Please navigate to the following link to access the tasks and provide feedback:
 
-![Click me]("www.google.com")
+[Click me](www.google.com)
 
 Thanks again for your time and meaningful feedback!
