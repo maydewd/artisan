@@ -42,7 +42,7 @@ Below is an overview of the tasks for you to complete.  When you're ready tackle
 6. Starting from the Login screen, create a new post with all fields populated appropriately.  
 7. From the StorkFront screen, locate the post that is doing the worst. Edit this post.
 8. Starting from the Login screen, how would you check if you have any interested buyers, and if so, respond to them.
-9. Starting rom the Discover screen, logout.
+9. Starting from the Discover screen, logout.
 
 ### Survey link
 
