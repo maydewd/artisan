@@ -14,6 +14,7 @@ import {
 var NavigationBar = require('react-native-navbar');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { SegmentedControls } from 'react-native-radio-buttons';
+styles = require('../Styles/Layouts');
 
 class DiscoverSettings extends Component {
 
@@ -120,7 +121,7 @@ class DiscoverSettings extends Component {
         />
         <View>
           <View>
-            <Text>
+            <Text style = {styles.settingsText}>
               Discover Distance
             </Text>
             <SegmentedControls
@@ -132,7 +133,7 @@ class DiscoverSettings extends Component {
               onSelection={ setDistance.bind(this) }
               selectedOption={ this.state.distance }
               />
-              <Text>
+              <Text style = {styles.settingsText}>
                 Price Range
               </Text>
               <SegmentedControls
@@ -145,6 +146,9 @@ class DiscoverSettings extends Component {
                 selectedOption={ this.state.cost }
                 />
               </View>
+              <Text style = {styles.settingsText}>
+                Extras
+              </Text>
               <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                 <Text> See my posts</Text>
                 <Switch

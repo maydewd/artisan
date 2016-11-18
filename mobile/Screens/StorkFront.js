@@ -148,11 +148,14 @@ class StorkFront extends Component {
     };
 
     var username = "";
-    if(this.state.profile === null) {
+    if(this.state.profile == null) {
       var imageSource={DefaultProfileImage};
+    } else if(this.state.profile.imagePath == null) {
+      var imageSource = {uri: this.state.profile.facebookImagePath};
+      username = this.state.profile.username
     } else {
       var imageSource= {uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.profile.imagePath};
-        username = this.state.profile.username
+      username = this.state.profile.username
     }
     return (
       <View style={styles.navScreen}>

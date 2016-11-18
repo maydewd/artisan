@@ -59,16 +59,14 @@ class LoginScreen extends Component {
             ref={(fbLogin) => { this.fbLogin = fbLogin }}
             permissions={["email","user_friends"]}
             loginBehavior={FBLoginManager.LoginBehaviors.Native}
-             onLogin={function(data){
-               console.log("Logged in!");
-               console.log(data);
-             }}
+             onLogin={(data) => this._loginWithFB(data)}
              onLogout={function(){
                console.log("Logged out.");
              }}
              onLoginFound={function(data){
                console.log("Existing login found.");
-               console.log(data);
+               console.log(data)
+
              }}
              onLoginNotFound={function(){
                console.log("No user logged in.");
@@ -137,6 +135,34 @@ class LoginScreen extends Component {
     });
   }
 
+  _loginWithFB(data) {
+    fetch("http://colab-sbx-137.oit.duke.edu:3000/api/login/fb",
+      {method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'access_token': data.credentials.token
+        }
+      })
+    .then((response) => response.json())
+    .then((responseData) => {
+      if (responseData.success === true) {
+        AsyncStorage.setItem('jwtToken', responseData.token, () =>
+          this.props.navigator.push({
+            id:'mainView',
+            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+          })
+        );
+      } else {
+        alert('Invalid FB login')
+      }
+       return responseData;
+     })
+    .catch(function(err) {
+      alert('Something went wrong- test your connection')
+    })
+    .done();
+  }
 
   //Get the AWT token given the username and password state of the app
   _submitLogin() {
@@ -164,8 +190,6 @@ class LoginScreen extends Component {
        return responseData;
      })
     .catch(function(err) {
-      console.log("Error in Login Fetch request");
-      console.log(err);
       alert('Something went wrong- test your connection')
     })
     .done();

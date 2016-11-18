@@ -192,6 +192,13 @@ const styles = StyleSheet.create({
       backgroundColor: 'rgba(0,0,0,0)',
       color: 'rgb(255,255,255)'
     },
+
+    settingsText: {
+      paddingTop: 10,
+      paddingBottom: 10,
+      fontSize: 16,
+      textAlign: 'center',
+    },
 //==================================
 //  STORKFRONT
 
