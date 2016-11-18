@@ -137,14 +137,6 @@ class LoginScreen extends Component {
     });
   }
 
-  _loginPressed() {
-    const { username, password } = this.state
-    if (this._authenticated()) {}
-      var navigator = this.props.navigator;
-      navigator.replace({
-          id: 'mainView'
-      });
-  }
 
   //Get the AWT token given the username and password state of the app
   _submitLogin() {
@@ -160,7 +152,10 @@ class LoginScreen extends Component {
     .then((responseData) => {
       if (responseData.success === true) {
         AsyncStorage.setItem('jwtToken', responseData.token, () =>
-          this.props.navigator.push({id:'mainView'})
+          this.props.navigator.push({
+            id:'mainView',
+            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+          })
         );
       } else {
         console.log("Incorrect login");
@@ -176,11 +171,6 @@ class LoginScreen extends Component {
     .done();
   }
 
-
-  //placeholder
-  _authenticated() {
-    return true;
-  }
 }
 
 module.exports = LoginScreen

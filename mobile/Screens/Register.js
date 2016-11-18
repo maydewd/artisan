@@ -10,6 +10,7 @@ import {
   ListView,
   Image,
   AsyncStorage,
+  TouchableOpacity
 } from 'react-native';
 
 class Register extends Component {
@@ -18,23 +19,16 @@ class Register extends Component {
     return (
       <View>
         <View style = {{height: 20}}/>
-        <Text>"Text"</Text>
-        <Text>"Text"</Text>
-        <Text>"Text"</Text>
-        <Text>"Text"</Text>
-        <Text>"Text"</Text>
-        <Text>"Text"</Text>
-        <Text>"Text"</Text>
-        <Text>"Text"</Text>
-        <Text>"Text"</Text>
-        <Text>"Text"</Text>
-        <Text>"Text"</Text>
-        <Text>"Text"</Text>
-        <Text>"Text"</Text>
-        <Text>"Text"</Text>
-        <Text>"Text"</Text>
+        <TouchableOpacity onPress={() => this._cancel()}>
+          <Text> Back </Text>
+        </TouchableOpacity>
       </View>
     );
+  }
+
+  _cancel() {
+    var navigator = this.props.navigator;
+    navigator.pop();
   }
 
 }

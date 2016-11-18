@@ -12,7 +12,8 @@ import {
   Image,
   TouchableOpacity,
   AsyncStorage,
-  RefreshControl
+  RefreshControl,
+  Navigator
 } from 'react-native';
 import BottomNav from '../Components/BottomNav'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -122,7 +123,8 @@ class StorkFront extends Component {
 
   goToNewPost() {
     this.props.navigator.push({
-        id: 'newPost'
+        id: 'newPost',
+        sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
     });
   }
 

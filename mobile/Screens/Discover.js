@@ -11,7 +11,8 @@ import {
   Image,
   AsyncStorage,
   TouchableOpacity,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Navigator
 } from 'react-native';
 import BottomNav from '../Components/BottomNav'
 import MainNavBar from '../Components/MainNavBar'
@@ -237,7 +238,8 @@ class Discover extends Component {
     console.log("info pressed")
     this.props.navigator.push({
       id: 'discoverPost',
-      item: this.state.currentListing
+      item: this.state.currentListing,
+      sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
     });
   }
   _thumbsDownPressed() {

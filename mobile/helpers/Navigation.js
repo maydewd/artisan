@@ -23,7 +23,6 @@ export function render(route, navigator) {
     );
   }
   if (routeId === 'register') {
-    console.log('here')
     return (
       <Register
         navigator={navigator} />
@@ -35,10 +34,18 @@ export function render(route, navigator) {
     );
   }
   if (routeId === 'mainView') {
-    return (
-      <BottomTabBar
-        navigator={navigator} />
-    );
+    if (route.screen === null) {
+      return (
+        <BottomTabBar
+          navigator={navigator} />
+      );
+    } else {
+      return (
+        <BottomTabBar
+          navigator={navigator}
+          screen = {route.screen} />
+      );
+    }
   }
   if (routeId === 'discoverSettings') {
     return (

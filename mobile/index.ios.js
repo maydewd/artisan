@@ -36,7 +36,6 @@ class Storkd extends Component {
          renderScene={this.renderScene.bind(this)}
          configureScene={(route) => {
            if (route.sceneConfig) {
-             console.log(route.sceneConfig)
              return route.sceneConfig;
            }else{
              return Navigator.SceneConfigs.FadeAndroid;

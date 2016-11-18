@@ -16,7 +16,8 @@ import {
   Platform,
   ScrollView,
   AsyncStorage,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Navigator
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
@@ -55,7 +56,7 @@ class NewPost extends Component {
 
    const leftButtonConfig = {
     title: 'Back',
-    handler: () => {this.pop()}
+    handler: () => {this.toStorkFront()}
   };
 
     return (
@@ -221,7 +222,7 @@ class NewPost extends Component {
         request.setRequestHeader('Authorization', result);
         request.send(body);
         alert('Thanks!')
-        this.pop()
+        this.toStorkFront()
     });
   }
 
@@ -252,8 +253,13 @@ class NewPost extends Component {
   _postPressed() {
     this._getLocation();
   }
-  pop() {
-    this.props.navigator.pop()
+
+  toStorkFront() {
+    this.props.navigator.push({
+        id: 'mainView',
+        screen: 'storkFront',
+        sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJumpFromRight
+    });
   }
 
 }
