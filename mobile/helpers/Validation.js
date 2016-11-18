@@ -35,6 +35,9 @@ function _getMessage(start, messages) {
   for (i = 1; i < length-1; i++) {
     ans += ", " + messages[i];
   }
+  if (length !==2) {
+    ans+= ","
+  }
   ans += " and " + messages[length-1];
   return ans;
 }
