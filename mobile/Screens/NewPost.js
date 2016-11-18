@@ -23,6 +23,7 @@ import Button from 'react-native-button'
 var ImagePicker = require('react-native-image-picker');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {getScreenWidth, getScreenHeight, usablePercent, usableWithTop, bottomNavBarHeight} from '../helpers/dimension'
+import {ValidateNewPost} from '../helpers/Validation'
 import {grabArtTypes} from '../resources/Types'
 import { Kohana } from 'react-native-textinput-effects';
 import ModalPicker from 'react-native-modal-picker';
@@ -38,7 +39,7 @@ class NewPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      description: '',
+      description: null,
       price: null,
       photoSource: null,
       type: null,
@@ -119,7 +120,7 @@ class NewPost extends Component {
             <Button
               containerStyle={{padding:10, overflow:'hidden', maxHeight: bottomNavBarHeight(), backgroundColor: '#24518D', borderRadius: 2}}
               style={{fontSize: 20, color: 'white'}}
-              onPress={() => this._postPressed()}>
+              onPress={() => this._post()}>
               Post
             </Button>
             </View>
@@ -169,36 +170,49 @@ class NewPost extends Component {
      }
     });
   }
+
+  _getData() {
+    return ({
+      description: this.state.description,
+      price: this.state.price,
+      photoSource: this.state.photoSource,
+      type: this.state.type,
+      lat: this.state.lat,
+      lng: this.state.lng,
+      locality: this.state.locality,
+    });
+  }
+
   _post() {
-    const {description, type, price, photoSource, lat, lng, locality} = this.state;
-    console.log("description: " + description)
-    console.log("type: " + type)
-    console.log("photoSource: " + photoSource)
-    console.log("lat: " + lat)
-    console.log("lng: " + lng)
-    console.log("locality: " + locality)
-    console.log(AsyncStorage.getItem('jwtToken'));
+    const data = this._getData()
+    try {
+      var tf = ValidateNewPost(this._getData());
+    } catch(err) {
+      alert(err.message);
+      return;
+    }
     var request = new XMLHttpRequest();
     request.open("POST", "http://colab-sbx-137.oit.duke.edu:3000/api/listings");
     request.setRequestHeader('Accept', 'application/json');
     request.setRequestHeader('Content-Type', 'multipart/form-data');
     var body = new FormData();
-    body.append('description', description);
-    body.append('type', type);
-    body.append('price', price);
-    body.append('lat', lat);
-    body.append('lng', lng);
-    body.append('locality', locality);
+    body.append('description', data.description);
+    body.append('type', data.type);
+    body.append('price', data.price);
+    //Add these back when location is not null
+//  body.append('lat', data.lat);
+//  body.append('lng', data.lng);
+//  body.append('locality', data.locality);
     var photo;
     if (Platform.OS === 'android') {
       photo = {
-        uri: photoSource.uri,
+        uri: data.photoSource.uri,
         type: 'image/jpeg',
         name: 'photo.jpg',
       };
     } else {
       photo = {
-        uri: photoSource,
+        uri: data.photoSource,
         type: 'image/jpeg',
         name: 'photo.jpg',
       };
@@ -207,13 +221,11 @@ class NewPost extends Component {
     AsyncStorage.getItem('jwtToken', (err, result) => {
         request.setRequestHeader('Authorization', result);
         request.send(body);
-        console.log(body);
-        console.log(request);
-        console.log('request sent');
         alert('Thanks!')
         this.pop()
     });
   }
+
   _getLocation() {
 
     navigator.geolocation.getCurrentPosition (
