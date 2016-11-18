@@ -120,7 +120,7 @@ class NewPost extends Component {
             <Button
               containerStyle={{padding:10, overflow:'hidden', maxHeight: bottomNavBarHeight(), backgroundColor: '#24518D', borderRadius: 2}}
               style={{fontSize: 20, color: 'white'}}
-              onPress={() => this._post()}>
+              onPress={() => this._postPressed()}>
               Post
             </Button>
             </View>
@@ -142,7 +142,7 @@ class NewPost extends Component {
     ImagePicker.showImagePicker(options, (response) => {
         console.log('Response = ', response);
 
-        if (response.didCancel) {
+     if (response.didCancel) {
        console.log('User cancelled photo picker');
      }
      else if (response.error) {
@@ -199,10 +199,9 @@ class NewPost extends Component {
     body.append('description', data.description);
     body.append('type', data.type);
     body.append('price', data.price);
-    //Add these back when location is not null
-//  body.append('lat', data.lat);
-//  body.append('lng', data.lng);
-//  body.append('locality', data.locality);
+    body.append('lat', data.lat);
+    body.append('lng', data.lng);
+    body.append('locality', data.locality);
     var photo;
     if (Platform.OS === 'android') {
       photo = {

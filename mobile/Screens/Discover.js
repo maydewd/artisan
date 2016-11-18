@@ -18,13 +18,15 @@ import Button from 'react-native-button';
 styles = require('../Styles/Layouts');
 var NavigationBar = require('react-native-navbar');
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {getScreenWidth, getScreenHeight, getUsableScreenHeight, usablePercent} from '../helpers/dimension'
+import {getScreenWidth, getScreenHeight, getUsableScreenHeight, usablePercent} from '../helpers/dimension';
+import * as Animatable from 'react-native-animatable';
 
 class Discover extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentListing: null
+      currentListing: null,
+      bundleSize: 9
     };
   }
 
@@ -149,9 +151,30 @@ class Discover extends Component {
   }
 
   rightButton() {
+    var displayText = this.state.bundleSize;
+    if (this.state.bundleSize > 9) {
+      displayText = "9+";
+    }
     return (
       <View style = {styles.navIcon}>
         <Ionicons name="ios-basket" size={30} onPress={(event) => {this.goToMyBundle()}}/>
+        <Animatable.View ref = "bubble" style = {{
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: 21,
+          height: 21,
+          borderRadius: 21/2,
+          backgroundColor: 'red',
+          position: 'absolute',
+          top: 4,
+          left: 0}}>
+          <Text   style = {{
+                  fontSize: 12,
+                  backgroundColor: 'rgba(0,0,0,0)',
+                  color: 'rgb(255,255,255)'}}>
+            {displayText}
+          </Text>
+        </Animatable.View>
       </View>
     );
   }
@@ -242,7 +265,8 @@ class Discover extends Component {
         if (responseData.success !== true) {
           console.log('Failed to like')
         }
-         return responseData;
+        this._incrementBundleSize();
+        return responseData;
        })
       .catch(function(err) {
         console.log(err);
@@ -251,6 +275,14 @@ class Discover extends Component {
   });
 
     this._nextListing();
+  }
+
+  _incrementBundleSize() {
+    this.refs.bubble.flash(800).then((endstate) => {
+        this.setState({
+          bundleSize: this.state.bundleSize + 1
+        });
+    });
   }
 }
 
