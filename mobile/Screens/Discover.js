@@ -158,20 +158,8 @@ class Discover extends Component {
     return (
       <View style = {styles.navIcon}>
         <Ionicons name="ios-basket" size={30} onPress={(event) => {this.goToMyBundle()}}/>
-        <Animatable.View ref = "bubble" style = {{
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: 21,
-          height: 21,
-          borderRadius: 21/2,
-          backgroundColor: 'red',
-          position: 'absolute',
-          top: 4,
-          left: 0}}>
-          <Text   style = {{
-                  fontSize: 12,
-                  backgroundColor: 'rgba(0,0,0,0)',
-                  color: 'rgb(255,255,255)'}}>
+        <Animatable.View ref = "bubble" style = {styles.circle}>
+          <Text   style = {styles.displayText}>
             {displayText}
           </Text>
         </Animatable.View>
