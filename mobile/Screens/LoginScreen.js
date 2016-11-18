@@ -14,7 +14,9 @@ import {
   AsyncStorage,
   Dimensions,
   Keyboard,
-  LayoutAnimation
+  LayoutAnimation,
+  TouchableOpacity,
+  Navigator
 } from 'react-native';
 import Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -117,18 +119,26 @@ class LoginScreen extends Component {
             Login
           </Button>
         </View>
-        <Text style={[styles.baseText, styles.instructions]}>
-          Sign Up
-        </Text>
+        <TouchableOpacity   onPress={() => this._register()}>
+          <Text style={[styles.baseText, styles.instructions]}>
+            Sign Up
+          </Text>
+        </TouchableOpacity>
       </View>
       </KeyboardAvoidingView>
     );
   }
 
+  _register() {
+    var navigator = this.props.navigator;
+    navigator.push({
+        id: 'register',
+        sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump
+    });
+  }
+
   _loginPressed() {
     const { username, password } = this.state
-    console.log(username);
-    console.log(password);
     if (this._authenticated()) {}
       var navigator = this.props.navigator;
       navigator.replace({
