@@ -30,12 +30,21 @@ class Chat extends Component {
    }
 
    componentWillMount() {
-
      if (this.props.conversationID == null) {
        this._fetchMessages("item/" + this.props.itemID);
      } else {
        this._fetchMessages(this.props.conversationID);
      }
+     this._setUserId();
+   }
+
+   _setUserId() {
+     AsyncStorage.getItem('user', (err, result) => {
+         const userID = JSON.parse(result)._id;
+         this.setState({
+           userID: userID
+         });
+     });
    }
 
    _fetchMessages(route) {
@@ -130,39 +139,37 @@ class Chat extends Component {
 
   }
 
-
   render() {
     var titleConfig = {
-     title: 'Messages',
-   };
+       title: 'Messages',
+    };
 
-   const leftButtonConfig = {
-    title: 'Back',
-    handler: () => {this.pop()}
-  };
+    const leftButtonConfig = {
+      title: 'Back',
+      handler: () => {this.pop()}
+    };
 
     return (
-
-      <View>
-        <NavigationBar
-        style={styles.navBar}
-        title={titleConfig}
-        leftButton={leftButtonConfig}
-        />
-        <View style ={{minHeight: usableWithTop()}}>
-          <GiftedChat
-           messages={this.state.messages}
-           onSend={this.onSend}
-           //Add back if desired
-           //renderActions={this.renderActions}
-           user={{
-             _id: '58212d547544970d0fd22916',
-           }}
-           />
-         </View>
-        </View>
-    );
-  }
+          <View>
+            <NavigationBar
+            style={styles.navBar}
+            title={titleConfig}
+            leftButton={leftButtonConfig}
+            />
+            <View style ={{minHeight: usableWithTop()}}>
+              <GiftedChat
+               messages={this.state.messages}
+               onSend={this.onSend}
+               //Add back if desired
+               //renderActions={this.renderActions}
+               user={{
+                 _id: this.state.userID
+               }}
+               />
+             </View>
+            </View>
+      );
+    }
 
   pop() {
     this.props.navigator.pop()
