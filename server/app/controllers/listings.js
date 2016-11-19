@@ -104,6 +104,15 @@ exports.showLiked = function(req, res) {
   });
 }
 
+exports.countLiked = function(req, res) {
+  req.user.populate('likes', '-coordinates', function (err, user) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.json({success: true, payload:user.likes.length});
+  });
+}
+
 exports.edit = function (req, res) {
   var User = req.user;
   Listing.findOne({_id: req.params.listingID}, function(err, listing) {

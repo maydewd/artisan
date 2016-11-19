@@ -45,6 +45,7 @@ module.exports = function (app, passport) {
   apiRoutes.get('/listings', jwtAuth, listings.showPosts);
   apiRoutes.get('/listings/me', jwtAuth, listings.showMine);
   apiRoutes.get('/listings/liked', jwtAuth, listings.showLiked);
+  apiRoutes.get('/listings/liked/count', jwtAuth, listings.countLiked);
   apiRoutes.get('/listings/:listingID', jwtAuth, listings.show);
   apiRoutes.post('/listings/:listingID', [jwtAuth, upload.single('image')], listings.edit);
   apiRoutes.delete('/listings/:listingID', jwtAuth, listings.delete);
