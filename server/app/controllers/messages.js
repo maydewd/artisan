@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 exports.getConversations = function (req, res) {
   Conversation
-  .find({sender: req.user._id})
+  .find({seller: req.user._id})
   .exec(function(err, conversations) {
     if (err) {
       return res.status(400).send({ success: false, message: err});
@@ -98,7 +98,7 @@ exports.postToItem = function (req, res) {
         return res.status(500).send("No listing with that ID");
       }
       Conversation
-        .findOneAndUpdate({buyer: req.user._id, item: listing._id, sender: listing.creator}, {$push: {"messages": message._id}}, {upsert:true})
+        .findOneAndUpdate({buyer: req.user._id, item: listing._id, seller: listing.creator}, {$push: {"messages": message._id}}, {upsert:true})
         .exec(function(err, conversation) {
           if (err) {
             return res.status(400).send(err);
