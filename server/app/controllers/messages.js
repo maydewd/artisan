@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 exports.getConversations = function (req, res) {
   Conversation
-  .find({sender: req.user._id})
+  .find({seller: req.user._id})
   .exec(function(err, conversations) {
     if (err) {
       return res.status(400).send({ success: false, message: err});
