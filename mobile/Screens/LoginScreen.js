@@ -22,6 +22,7 @@ styles = require('../Styles/Layouts');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
 import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
+var {FBLogin, FBLoginManager} = require('react-native-facebook-login');
 
 class LoginScreen extends Component {
 
@@ -52,9 +53,35 @@ class LoginScreen extends Component {
         <Image source = {require("../resources/storkdLogo.png")}
           style = {{width: logoWidth, height: logoHeight}}
         />
-        <Icon.Button name="facebook" backgroundColor="#3b5998" width = {180} onPress={() => this._loginPressed()}>
-            Login with Facebook
-        </Icon.Button>
+        <FBLogin
+            ref={(fbLogin) => { this.fbLogin = fbLogin }}
+            permissions={["email","user_friends"]}
+            loginBehavior={FBLoginManager.LoginBehaviors.Native}
+             onLogin={function(data){
+               console.log("Logged in!");
+               console.log(data);
+             }}
+             onLogout={function(){
+               console.log("Logged out.");
+             }}
+             onLoginFound={function(data){
+               console.log("Existing login found.");
+               console.log(data);
+             }}
+             onLoginNotFound={function(){
+               console.log("No user logged in.");
+             }}
+             onError={function(data){
+               console.log("ERROR");
+               console.log(data);
+             }}
+             onCancel={function(){
+               console.log("User cancelled.");
+             }}
+             onPermissionsMissing={function(data){
+               console.log("Check permissions!");
+               console.log(data);
+             }}/>
         <View style = {{alignItems: 'center'}}>
           <Kohana
             style={{width: getScreenWidth() * .9, backgroundColor: 'white', borderTopRightRadius:10, borderTopLeftRadius:10 }}
@@ -109,13 +136,9 @@ class LoginScreen extends Component {
       });
   }
 
-  //Not functional
+  //Get the AWT token given the username and password state of the app
   _submitLogin() {
     const { username, password } = this.state
-
-    console.log(username);
-    console.log(password);
-    //Username and password reach this point
     fetch("http://colab-sbx-137.oit.duke.edu:3000/api/login",
       {method: "POST",
         headers: {
@@ -125,12 +148,12 @@ class LoginScreen extends Component {
         body: JSON.stringify({username: username, password: password})})
     .then((response) => response.json())
     .then((responseData) => {
-      console.log(responseData);
       if (responseData.success === true) {
         AsyncStorage.setItem('jwtToken', responseData.token, () =>
           this.props.navigator.push({id:'mainView'})
         );
       } else {
+        console.log("Incorrect login");
         alert('Incorrect username and password')
       }
        return responseData;
@@ -138,7 +161,7 @@ class LoginScreen extends Component {
     .catch(function(err) {
       console.log("Error in Login Fetch request");
       console.log(err);
-        alert('Something went wrong')
+      alert('Something went wrong- test your connection')
     })
     .done();
   }

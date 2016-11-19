@@ -31,6 +31,7 @@ module.exports = function (app, passport) {
 
   // API AUTH routes
   apiRoutes.post('/login', users.login);
+  apiRoutes.post('/login/fb', passport.authenticate('facebook-token', { session: false }), users.loginFB);
   apiRoutes.post('/register', upload.single('image'), users.register);
   // apiRoutes.post('/logout', users.logout);
 
@@ -55,6 +56,10 @@ module.exports = function (app, passport) {
   apiRoutes.post('/messages/:conversationID/', jwtAuth, messages.postToConversation);
   apiRoutes.get('/messages/item/:itemID/', jwtAuth, messages.getMessagesFromItem);
   apiRoutes.post('/messages/item/:itemID/', jwtAuth, messages.postToItem);
+
+  // API CONNECT routes
+  apiRoutes.post('/connect/fb', [jwtAuth, passport.authorize('facebook-token', { session: false })], users.linkFB);
+  //apiRoutes.post('/connect/fb/unlink', jwtAuth, users.unlinkFB); // JUST REMOVE FBID AND FBIMAGEID FROM DOCUMENT
 
 
   /**
