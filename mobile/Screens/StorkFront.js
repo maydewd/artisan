@@ -45,24 +45,10 @@ class StorkFront extends Component {
   }
 
   _fetchProfile() {
-    AsyncStorage.getItem('jwtToken', (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/users/me",
-        {method: "GET",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': result
-          }})
-        .then((response) => response.json())
-        .then((responseData) => {
-            this.setState({
-              profile: responseData,
-            })
-         })
-        .catch(function(err) {
-          alert("error");
-        })
-        .done();
+    AsyncStorage.getItem('user', (err, result) => {
+      this.setState({
+        profile: JSON.parse(result)
+      })
     });
   }
 
