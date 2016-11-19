@@ -16,13 +16,15 @@ import {
   Platform,
   ScrollView,
   AsyncStorage,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Navigator
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
 var ImagePicker = require('react-native-image-picker');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {getScreenWidth, getScreenHeight, usablePercent, usableWithTop, bottomNavBarHeight} from '../helpers/dimension'
+import {ValidateNewPost} from '../helpers/Validation'
 import {grabArtTypes} from '../resources/Types'
 import { Kohana } from 'react-native-textinput-effects';
 import ModalPicker from 'react-native-modal-picker';
@@ -38,7 +40,7 @@ class NewPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      description: '',
+      description: null,
       price: null,
       photoSource: null,
       type: null,
@@ -54,7 +56,7 @@ class NewPost extends Component {
 
    const leftButtonConfig = {
     title: 'Back',
-    handler: () => {this.pop()}
+    handler: () => {this.toStorkFront()}
   };
 
     return (
@@ -141,7 +143,7 @@ class NewPost extends Component {
     ImagePicker.showImagePicker(options, (response) => {
         console.log('Response = ', response);
 
-        if (response.didCancel) {
+     if (response.didCancel) {
        console.log('User cancelled photo picker');
      }
      else if (response.error) {
@@ -169,36 +171,48 @@ class NewPost extends Component {
      }
     });
   }
+
+  _getData() {
+    return ({
+      description: this.state.description,
+      price: this.state.price,
+      photoSource: this.state.photoSource,
+      type: this.state.type,
+      lat: this.state.lat,
+      lng: this.state.lng,
+      locality: this.state.locality,
+    });
+  }
+
   _post() {
-    const {description, type, price, photoSource, lat, lng, locality} = this.state;
-    console.log("description: " + description)
-    console.log("type: " + type)
-    console.log("photoSource: " + photoSource)
-    console.log("lat: " + lat)
-    console.log("lng: " + lng)
-    console.log("locality: " + locality)
-    console.log(AsyncStorage.getItem('jwtToken'));
+    const data = this._getData()
+    try {
+      var tf = ValidateNewPost(this._getData());
+    } catch(err) {
+      alert(err.message);
+      return;
+    }
     var request = new XMLHttpRequest();
     request.open("POST", "http://colab-sbx-137.oit.duke.edu:3000/api/listings");
     request.setRequestHeader('Accept', 'application/json');
     request.setRequestHeader('Content-Type', 'multipart/form-data');
     var body = new FormData();
-    body.append('description', description);
-    body.append('type', type);
-    body.append('price', price);
-    body.append('lat', lat);
-    body.append('lng', lng);
-    body.append('locality', locality);
+    body.append('description', data.description);
+    body.append('type', data.type);
+    body.append('price', data.price);
+    body.append('lat', data.lat);
+    body.append('lng', data.lng);
+    body.append('locality', data.locality);
     var photo;
     if (Platform.OS === 'android') {
       photo = {
-        uri: photoSource.uri,
+        uri: data.photoSource.uri,
         type: 'image/jpeg',
         name: 'photo.jpg',
       };
     } else {
       photo = {
-        uri: photoSource,
+        uri: data.photoSource,
         type: 'image/jpeg',
         name: 'photo.jpg',
       };
@@ -207,13 +221,11 @@ class NewPost extends Component {
     AsyncStorage.getItem('jwtToken', (err, result) => {
         request.setRequestHeader('Authorization', result);
         request.send(body);
-        console.log(body);
-        console.log(request);
-        console.log('request sent');
         alert('Thanks!')
-        this.pop()
+        this.toStorkFront()
     });
   }
+
   _getLocation() {
 
     navigator.geolocation.getCurrentPosition (
@@ -241,8 +253,13 @@ class NewPost extends Component {
   _postPressed() {
     this._getLocation();
   }
-  pop() {
-    this.props.navigator.pop()
+
+  toStorkFront() {
+    this.props.navigator.push({
+        id: 'mainView',
+        screen: 'storkFront',
+        sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJumpFromRight
+    });
   }
 
 }

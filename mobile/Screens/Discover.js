@@ -9,7 +9,10 @@ import {
   Text,
   View,
   Image,
-  AsyncStorage
+  AsyncStorage,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Navigator
 } from 'react-native';
 import BottomNav from '../Components/BottomNav'
 import MainNavBar from '../Components/MainNavBar'
@@ -18,13 +21,19 @@ import Button from 'react-native-button';
 styles = require('../Styles/Layouts');
 var NavigationBar = require('react-native-navbar');
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {getScreenWidth, getScreenHeight, getUsableScreenHeight, usablePercent} from '../helpers/dimension'
+import {getScreenWidth, getScreenHeight, getUsableScreenHeight, usablePercent} from '../helpers/dimension';
+import * as Animatable from 'react-native-animatable';
+//ms
+const ANIMATION_LENGTH = 1000;
+const DOUBLE_PRESS_DELAY = 300;
 
 class Discover extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      currentListing: null
+      currentListing: null,
+      bundleSize: 9
     };
   }
 
@@ -128,9 +137,9 @@ class Discover extends Component {
 
   leftButton() {
     return  (
-      <View style = {styles.navIcon}>
-        <Ionicons name="ios-settings" size={30} onPress={(event) => {this.goToSettings()}}/>
-      </View>
+      <TouchableOpacity style = {styles.navIcon} onPress={(event) => {this.goToSettings()}}>
+        <Ionicons name="ios-settings" size={30}/>
+      </TouchableOpacity>
     );
   }
 
@@ -149,10 +158,19 @@ class Discover extends Component {
   }
 
   rightButton() {
+    var displayText = this.state.bundleSize;
+    if (this.state.bundleSize > 9) {
+      displayText = "9+";
+    }
     return (
-      <View style = {styles.navIcon}>
-        <Ionicons name="ios-basket" size={30} onPress={(event) => {this.goToMyBundle()}}/>
-      </View>
+      <TouchableOpacity style = {styles.navIcon}  onPress={(event) => {this.goToMyBundle()}}>
+        <Ionicons name="ios-basket" size={30}/>
+        <Animatable.View ref = "bubble" style = {styles.circle}>
+          <Text   style = {styles.displayText}>
+            {displayText}
+          </Text>
+        </Animatable.View>
+      </TouchableOpacity>
     );
   }
 
@@ -174,25 +192,28 @@ class Discover extends Component {
               onPress={() => this._infoPressed()}>
             </Icon>
           </View>
-          <Image
-                style = {[styles.discoverImage, {width: getScreenWidth()}]}
-                source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.currentListing.imagePath}}
-           />
+          <TouchableWithoutFeedback  onPress={(event) => this._handleImagePress(event)}>
+            <Image
+                  style = {[styles.discoverImage, {width: getScreenWidth()}]}
+                  source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.currentListing.imagePath}}
+             />
+          </TouchableWithoutFeedback>
           <View style = {styles.centered && {flexDirection: "row", paddingLeft: 30, paddingRight: 30, paddingBottom: 30, paddingTop: 2}}>
-            <Button
-              containerStyle={styles.discoverButtonContainerDown}
-              style={styles.discoverButtonDown}
-              onPress={() => this._thumbsDownPressed()}>
-              <Icon name="thumbs-down" size={usablePercent(8)}/>
-            </Button>
+                <Button
+                containerStyle={styles.discoverButtonContainerDown}
+                style={styles.discoverButtonDown}
+                >
+                  <Icon name="thumbs-down" size={usablePercent(8)}/>
+                </Button>
             <View style={{flex:1}}></View>
-            <Button
-              containerStyle={styles.discoverButtonContainerUp}
-              style={styles.discoverButtonUp}
-              onPress={() => this._thumbsUpPressed()}>
-              <Icon name="thumbs-up" size={usablePercent(8)}/>
-            </Button>
-
+            <Animatable.View ref = "thumbsUp">
+                <Button
+                  containerStyle={styles.discoverButtonContainerUp}
+                  style={styles.discoverButtonUp}
+                  onPress={() => this._thumbsUpPressed()}>
+                  <Icon name="thumbs-up" size={usablePercent(8)}/>
+                </Button>
+            </Animatable.View>
           </View>
         </View>
     }
@@ -217,7 +238,8 @@ class Discover extends Component {
     console.log("info pressed")
     this.props.navigator.push({
       id: 'discoverPost',
-      item: this.state.currentListing
+      item: this.state.currentListing,
+      sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
     });
   }
   _thumbsDownPressed() {
@@ -242,7 +264,8 @@ class Discover extends Component {
         if (responseData.success !== true) {
           console.log('Failed to like')
         }
-         return responseData;
+        this._incrementBundleSize();
+        return responseData;
        })
       .catch(function(err) {
         console.log(err);
@@ -251,6 +274,35 @@ class Discover extends Component {
   });
 
     this._nextListing();
+  }
+
+  _handleImagePress(e) {
+
+    //Bruno Tavares double tap gesture
+    const now = new Date().getTime();
+
+    if (this.lastImagePress && (now - this.lastImagePress) < DOUBLE_PRESS_DELAY) {
+      console.log('double');
+      delete this.lastImagePress;
+      this.refs.thumbsUp.flash(ANIMATION_LENGTH);
+      this._thumbsUpPressed();
+      return;
+    }
+    else {
+      console.log('single')
+      this.lastImagePress = now;
+      return;
+    }
+  }
+
+  _incrementBundleSize() {
+    //Run the animation "twice" so value changes in between
+    this.refs.bubble.tada(ANIMATION_LENGTH/2).then((endstate) => {
+        this.setState({
+          bundleSize: this.state.bundleSize + 1
+        });
+        this.refs.bubble.tada(ANIMATION_LENGTH/2);
+    });
   }
 }
 
