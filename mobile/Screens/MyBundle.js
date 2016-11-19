@@ -47,7 +47,6 @@ class MyBundle extends Component {
         .then((response) => response.json())
         .then((responseData) => {
           console.log(responseData);
-
             responseData.forEach((item) => {
               this.state.data.push(item)
             })

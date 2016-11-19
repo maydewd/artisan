@@ -33,7 +33,7 @@ class Discover extends Component {
     super(props);
     this.state = {
       currentListing: null,
-      bundleSize: 9
+      bundleSize: 0
     };
   }
 
@@ -51,7 +51,30 @@ class Discover extends Component {
            } else {
                this._fetchData()
           }
-       }).done();
+      }).done();
+      this._updateBundleSize();
+  }
+
+  _updateBundleSize() {
+    AsyncStorage.getItem('jwtToken', (err, result) => {
+      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/liked/count",
+        {method: "GET",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': result
+          }})
+        .then((response) => response.json())
+        .then((responseData) => {
+           if (responseData.success === true) {
+             this.setState({bundleSize: responseData.payload});
+          }
+         })
+        .catch(function(err) {
+          console.log(err);
+        })
+        .done();
+    });
   }
 
   _nextListing() {
