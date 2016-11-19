@@ -73,6 +73,9 @@ exports.getMessagesFromItem = function (req, res) {
       if (err) {
         return res.status(400).send(err);
       }
+      if (conversation == null) {
+        return res.json([]);
+      }
       res.json(conversation.messages);
     });
 }
