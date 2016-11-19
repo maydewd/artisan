@@ -96,7 +96,7 @@ class MyBundle extends Component {
               <Image style = {{height: 80, width: 80}}
                source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + item.imagePath}}/>
                <TouchableOpacity style = {{paddingRight: 10}}>
-                <Ionic onPress= {() => this._mail(item)} name="ios-chatbubbles" size={30} color="black" />
+                <Ionic onPress= {() => this._message(item)} name="ios-chatbubbles" size={30} color="black" />
               </TouchableOpacity>
              </View>
           )}
@@ -113,11 +113,10 @@ class MyBundle extends Component {
     );
   }
 
-  _mail(data) {
-    console.log(data)
+  _message(data) {
     this.props.navigator.push({
         id: 'chat',
-        creator: data.creator
+        itemID: data._id
     });
   }
 

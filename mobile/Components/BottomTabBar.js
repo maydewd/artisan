@@ -24,10 +24,21 @@ class BottomTabBar extends Component {
 
   constructor(props, context) {
     super(props, context)
-    this.tabarRef = null
-    this.state = {
-      tab: 'discover'
+    this.tabbarRef = null
+    // If a screen has been passed go to that, else default to discover
+    if (this.props.screen) {
+      this.state = {
+        tab: this.props.screen
+      }
+    } else {
+      this.state = {
+        tab: 'discover'
+      }
     }
+  }
+
+  componentDidMount() {
+    console.log(this.props.screen);
   }
 
   onTabSelect(tab) {
@@ -85,7 +96,7 @@ class BottomTabBar extends Component {
           </View>
           <Tabbar show={true}
                disable={true}
-               ref={(ref) => this.tabarRef = ref}
+               ref={(ref) => this.tabbarRef = ref}
                style={{backgroundColor: '#cce5ff', height: bottomNavBarHeight() }}>
           {this.renderTabs()}
          </Tabbar>

@@ -12,7 +12,7 @@ import Messages from '../Screens/Messages.js'
 import BottomTabBar from '../Components/BottomTabBar.js'
 import Chat from '../Screens/Chat.js'
 import ProfileSettings from '../Screens/StorkFrontSettings.js'
-import FB from '../Screens/FB.js'
+import Register from '../Screens/Register.js'
 
 export function render(route, navigator) {
   var routeId = route.id;
@@ -22,16 +22,30 @@ export function render(route, navigator) {
         navigator={navigator} />
     );
   }
+  if (routeId === 'register') {
+    return (
+      <Register
+        navigator={navigator} />
+    );
+  }
   if (routeId === 'discover') {
     return (<BottomTabBar
       navigator={navigator} />
     );
   }
   if (routeId === 'mainView') {
-    return (
-      <BottomTabBar
-        navigator={navigator} />
-    );
+    if (route.screen === null) {
+      return (
+        <BottomTabBar
+          navigator={navigator} />
+      );
+    } else {
+      return (
+        <BottomTabBar
+          navigator={navigator}
+          screen = {route.screen} />
+      );
+    }
   }
   if (routeId === 'discoverSettings') {
     return (
@@ -74,7 +88,7 @@ export function render(route, navigator) {
   if (routeId === 'chat') {
     return (
       <Chat
-        creatorID = {route.creator}
+        itemID = {route.itemID}
         navigator={navigator} />
     );
   }

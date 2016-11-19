@@ -14,7 +14,9 @@ import {
   AsyncStorage,
   Dimensions,
   Keyboard,
-  LayoutAnimation
+  LayoutAnimation,
+  TouchableOpacity,
+  Navigator
 } from 'react-native';
 import Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -57,16 +59,14 @@ class LoginScreen extends Component {
             ref={(fbLogin) => { this.fbLogin = fbLogin }}
             permissions={["email","user_friends"]}
             loginBehavior={FBLoginManager.LoginBehaviors.Native}
-             onLogin={function(data){
-               console.log("Logged in!");
-               console.log(data);
-             }}
+             onLogin={(data) => this._loginWithFB(data)}
              onLogout={function(){
                console.log("Logged out.");
              }}
              onLoginFound={function(data){
                console.log("Existing login found.");
-               console.log(data);
+               console.log(data)
+
              }}
              onLoginNotFound={function(){
                console.log("No user logged in.");
@@ -117,23 +117,51 @@ class LoginScreen extends Component {
             Login
           </Button>
         </View>
-        <Text style={[styles.baseText, styles.instructions]}>
-          Sign Up
-        </Text>
+        <TouchableOpacity   onPress={() => this._register()}>
+          <Text style={[styles.baseText, styles.instructions]}>
+            Sign Up
+          </Text>
+        </TouchableOpacity>
       </View>
       </KeyboardAvoidingView>
     );
   }
 
-  _loginPressed() {
-    const { username, password } = this.state
-    console.log(username);
-    console.log(password);
-    if (this._authenticated()) {}
-      var navigator = this.props.navigator;
-      navigator.replace({
-          id: 'mainView'
-      });
+  _register() {
+    var navigator = this.props.navigator;
+    navigator.push({
+        id: 'register',
+        sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump
+    });
+  }
+
+  _loginWithFB(data) {
+    fetch("http://colab-sbx-137.oit.duke.edu:3000/api/login/fb",
+      {method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'access_token': data.credentials.token
+        }
+      })
+    .then((response) => response.json())
+    .then((responseData) => {
+      if (responseData.success === true) {
+        AsyncStorage.setItem('jwtToken', responseData.token, () =>
+          this.props.navigator.push({
+            id:'mainView',
+            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+          })
+        );
+      } else {
+        alert('Invalid FB login')
+      }
+       return responseData;
+     })
+    .catch(function(err) {
+      alert('Something went wrong- test your connection')
+    })
+    .done();
   }
 
   //Get the AWT token given the username and password state of the app
@@ -150,7 +178,10 @@ class LoginScreen extends Component {
     .then((responseData) => {
       if (responseData.success === true) {
         AsyncStorage.setItem('jwtToken', responseData.token, () =>
-          this.props.navigator.push({id:'mainView'})
+          this.props.navigator.push({
+            id:'mainView',
+            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+          })
         );
       } else {
         console.log("Incorrect login");
@@ -159,18 +190,11 @@ class LoginScreen extends Component {
        return responseData;
      })
     .catch(function(err) {
-      console.log("Error in Login Fetch request");
-      console.log(err);
       alert('Something went wrong- test your connection')
     })
     .done();
   }
 
-
-  //placeholder
-  _authenticated() {
-    return true;
-  }
 }
 
 module.exports = LoginScreen

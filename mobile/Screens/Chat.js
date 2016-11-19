@@ -30,29 +30,98 @@ class Chat extends Component {
    }
 
    componentWillMount() {
-    this.setState({
-      messages: [
-        {
-          _id: 1,
-          text: 'Hello!',
-          createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          },
-        },
-      ],
-    });
-  }
+
+     if (this.props.conversationID == null) {
+       this._fetchMessages("item/" + this.props.itemID);
+     } else {
+       this._fetchMessages(this.props.conversationID);
+     }
+   }
+
+   _fetchMessages(route) {
+     var route = "http://colab-sbx-137.oit.duke.edu:3000/api/messages/" + route;
+     console.log(route);
+     AsyncStorage.getItem('jwtToken', (err, result) => {
+       fetch(route,
+         {method: "GET",
+           headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json',
+             'Authorization': result
+           }})
+         .then((response) => response.json())
+         .then((responseData) => {
+             var holder = []
+             responseData.forEach((item) => {
+               holder.push(this._reformat(item));
+             })
+             this.setState({
+               messages: holder
+             });
+          })
+         .catch(function(err) {
+           alert("error");
+           console.log("Error in Posting");
+           console.log(err);
+         })
+         .done();
+     });
+   }
+
+   _reformat(item) {
+
+     var imagePath =  item.sender.imagePath;
+     if (imagePath == null) {
+       imagePath = item.sender.facebookImagePath;
+     } else {
+       imagePath = "http://colab-sbx-137.oit.duke.edu:3000/" + imagePath
+     }
+     return ({
+       _id: item._id,
+       text: item.text,
+       createdAt: item.createdAt,
+       user: {
+         _id: item.sender._id,
+         name: item.sender.username,
+         avatar: imagePath,
+       }
+     });
+   }
 
   onSend(messages = []) {
     this.setState((previousState) => {
       var updated = GiftedChat.append(previousState.messages, messages);
-      console.log(updated);
+      this._post(messages[0]);
       return {
         messages:updated
       };
+    });
+  }
+
+  _post(message) {
+    AsyncStorage.getItem('jwtToken', (err, result) => {
+      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/messages/item/" + this.props.itemID,
+        {method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': result
+          },
+          body: JSON.stringify({text: message.text})
+        })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData);
+        if (responseData.success !== true) {
+          console.log('Failed to send to server')
+        }
+         return responseData;
+       })
+      .catch(function(err) {
+        console.log("Error");
+        console.log(err);
+      })
+      .done();
     });
   }
 
@@ -72,7 +141,6 @@ class Chat extends Component {
     handler: () => {this.pop()}
   };
 
-  console.log(usableWithTop())
     return (
 
       <View>
@@ -88,7 +156,7 @@ class Chat extends Component {
            //Add back if desired
            //renderActions={this.renderActions}
            user={{
-             _id: 1,
+             _id: '58212d547544970d0fd22916',
            }}
            />
          </View>
