@@ -147,6 +147,7 @@ class LoginScreen extends Component {
     .then((response) => response.json())
     .then((responseData) => {
       if (responseData.success === true) {
+          AsyncStorage.setItem('user', JSON.stringify(responseData.user));
         AsyncStorage.setItem('jwtToken', responseData.token, () =>
           this.props.navigator.push({
             id:'mainView',

@@ -62,8 +62,9 @@ class Chat extends Component {
          .then((responseData) => {
              var holder = []
              responseData.forEach((item) => {
-               holder.push(this._reformat(item));
+               holder.unshift(this._reformat(item));
              })
+             console.log(holder);
              this.setState({
                messages: holder
              });
@@ -100,16 +101,20 @@ class Chat extends Component {
   onSend(messages = []) {
     this.setState((previousState) => {
       var updated = GiftedChat.append(previousState.messages, messages);
-      this._post(messages[0]);
+      if (this.props.conversationID == null) {
+        this._post(messages[0], "item/" + this.props.itemID);
+      } else {
+        this._post(messages[0], this.props.conversationID);
+      }
       return {
         messages:updated
       };
     });
   }
 
-  _post(message) {
+  _post(message, route) {
     AsyncStorage.getItem('jwtToken', (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/messages/item/" + this.props.itemID,
+      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/messages/" + route,
         {method: "POST",
           headers: {
             'Accept': 'application/json',

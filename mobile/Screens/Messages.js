@@ -45,13 +45,13 @@ class Messages extends Component {
           }})
         .then((response) => response.json())
         .then((responseData) => {
-          this.state = {
+          console.log("RESPONSE");
+          console.log(responseData);
+          this.setState({
             dataSource: this.state.dataSource.cloneWithRows(responseData),
-          };
+          });
          })
         .catch(function(err) {
-          alert("error");
-          console.log("Error in Posting");
           console.log(err);
         })
         .done();
@@ -85,20 +85,22 @@ class Messages extends Component {
   }
 
   renderRow(rowData) {
-
     var imagePath = "public/uploads/listings/loading.jpg"
     return (
       <View style = {{flexDirection: 'row'}}>
         <Image style = {{height: 80, width: 80}}
          source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + imagePath}}/>
          <Text> {rowData._id} </Text>
-           <Ionic onPress= {() => this._mail(item)} name="ios-chatbubbles" size={30} color="black" />
+         <Ionic onPress= {() => this._message(rowData._id)} name="ios-chatbubbles" size={30} color="black" />
       </View>
      );
   }
 
-  mail(item) {
-    console.log("trying to message");
+  _message(id) {
+    this.props.navigator.push({
+        id: 'chat',
+        conversationID: id
+    });
   }
 
   pop() {

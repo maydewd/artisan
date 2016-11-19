@@ -89,6 +89,7 @@ export function render(route, navigator) {
     return (
       <Chat
         itemID = {route.itemID}
+        conversationID = {route.conversationID}
         navigator={navigator} />
     );
   }
