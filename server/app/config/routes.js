@@ -52,10 +52,11 @@ module.exports = function (app, passport) {
   apiRoutes.post('/listings/:listingID/unlike', jwtAuth, listings.unlike);
 
   // API MESSAGING routes
-  apiRoutes.get('/messages/:conversationID/', jwtAuth, messages.getMessagesFromConversation);
-  apiRoutes.post('/messages/:conversationID/', jwtAuth, messages.postToConversation);
-  apiRoutes.get('/messages/item/:itemID/', jwtAuth, messages.getMessagesFromItem);
-  apiRoutes.post('/messages/item/:itemID/', jwtAuth, messages.postToItem);
+  apiRoutes.get('/messages/conversations', jwtAuth, messages.getConversations);
+  apiRoutes.get('/messages/:conversationID', jwtAuth, messages.getMessagesFromConversation);
+  apiRoutes.post('/messages/:conversationID', jwtAuth, messages.postToConversation);
+  apiRoutes.get('/messages/item/:itemID', jwtAuth, messages.getMessagesFromItem);
+  apiRoutes.post('/messages/item/:itemID', jwtAuth, messages.postToItem);
 
   // API CONNECT routes
   apiRoutes.post('/connect/fb', [jwtAuth, passport.authorize('facebook-token', { session: false })], users.linkFB);

@@ -4,11 +4,26 @@ const Conversation = require('../models/conversation');
 const Message = require('../models/message');
 const mongoose = require('mongoose');
 
+exports.getConversations = function (req, res) {
+  Conversation
+  .find({sender: req.user._id})
+  .exec(function(err, conversations) {
+    if (err) {
+      return res.status(400).send({ success: false, message: err});
+    }
+    res.json(conversations);
+  });
+}
+
 exports.getMessagesFromConversation = function (req, res) {
   Conversation
     .findOne({_id: req.params.conversationID})
     .select('messages')
-    .populate('messages')
+    .populate({
+    	path: 'messages',
+    	populate: {  path:  'sender',
+    		          model: 'User' }
+      })
     .exec(function(err, conversation) {
       if (err) {
         return res.status(400).send({ success: false, message: err});
@@ -49,7 +64,11 @@ exports.getMessagesFromItem = function (req, res) {
   Conversation
     .findOne({buyer: req.user._id, item: req.params.itemID})
     .select('messages')
-    .populate('messages')
+    .populate({
+    	path: 'messages',
+    	populate: {  path:  'sender',
+    		          model: 'User' }
+      })
     .exec(function(err, conversation) {
       if (err) {
         return res.status(400).send(err);
@@ -68,17 +87,26 @@ exports.postToItem = function (req, res) {
     if (err) {
       return res.status(400).json({ success: false, message: err});
     }
-    Conversation
-      .findOneAndUpdate({buyer: req.user._id, item: req.params.itemID}, {$push: {"messages": message._id}}, {upsert:true})
-      .exec(function(err, conversation) {
-        if (err) {
-          return res.status(400).send(err);
-        }
-        res.json({
-          success: true,
-          message: 'Successfully created new message.',
-          listingID: message._id
+    Listing.findOne({_id: req.params.itemID}, function(err, listing) {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      if (listing == null) {
+        return res.status(500).send("No listing with that ID");
+      }
+      Conversation
+        .findOneAndUpdate({buyer: req.user._id, item: listing._id, sender: listing.creator}, {$push: {"messages": message._id}}, {upsert:true})
+        .exec(function(err, conversation) {
+          if (err) {
+            return res.status(400).send(err);
+          }
+          res.json({
+            success: true,
+            message: 'Successfully created new message.',
+            listingID: message._id
+          });
         });
-      });
+    });
+
   });
 }
