@@ -13,9 +13,7 @@ exports.login = function (req, res) {
   if(!req.body.username || !req.body.password) {
     return res.status(400).json({ success: false, message: 'Please enter username and password.' });
   } else {
-    User.findOne({
-      username: req.body.username.toLowerCase()
-    }, function(err, user) {
+    User.findOne({username: req.body.username.toLowerCase()}, function(err, user) {
       if (err) throw err;
 
       if (!user) {
@@ -28,7 +26,8 @@ exports.login = function (req, res) {
             var token = jwt.sign({_id:user._id.toString()}, config.secret, {
               expiresIn: 10080 // 3 hours in seconds
             });
-            res.json({ success: true, token: 'JWT ' + token });
+            var filteredUser = {_id: user.id, username: user.username, imagePath:user.imagePath, facebookImagePath: user.facebookImagePath}
+            res.json({ success: true, token: 'JWT ' + token, user: filteredUser });
           } else {
             res.status(401).send({ success: false, message: 'Authentication failed.' });
           }
@@ -81,7 +80,7 @@ exports.loginFB = function (req, res) {
   var token = jwt.sign({_id:req.user._id.toString()}, config.secret, {
     expiresIn: 10080 // 3 hours in seconds
   });
-  res.json({ success: true, token: 'JWT ' + token });
+  res.json({ success: true, token: 'JWT ' + token, user: req.user });
 }
 
 exports.linkFB = function (req, res) {
