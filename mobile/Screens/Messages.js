@@ -14,7 +14,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
-import {usableWithTop} from '../helpers/dimension'
+import {usableWithTop, getScreenWidth} from '../helpers/dimension'
 import { SwipeListView } from 'react-native-swipe-list-view';
 styles = require('../Styles/Layouts');
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -26,10 +26,36 @@ class Messages extends Component {
     super();
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(
-        [{buyer: "Buyer 1"}, {buyer: "Buyer 2"}]
-      ),
+      dataSource: ds.cloneWithRows([]),
     };
+  }
+
+  componentWillMount() {
+    this._fetchMessages();
+  }
+
+  _fetchMessages() {
+    AsyncStorage.getItem('jwtToken', (err, result) => {
+      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/messages/conversations",
+        {method: "GET",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': result
+          }})
+        .then((response) => response.json())
+        .then((responseData) => {
+          this.state = {
+            dataSource: this.state.dataSource.cloneWithRows(responseData),
+          };
+         })
+        .catch(function(err) {
+          alert("error");
+          console.log("Error in Posting");
+          console.log(err);
+        })
+        .done();
+    });
   }
 
   render() {
@@ -50,7 +76,7 @@ class Messages extends Component {
         leftButton={leftButtonConfig}
         />
         <ListView
-          style = {{height: usableWithTop()}}
+          style = {{height: usableWithTop(), width: getScreenWidth()}}
           dataSource={this.state.dataSource}
           renderRow={(rowData) => this.renderRow(rowData)}
         />
@@ -59,12 +85,13 @@ class Messages extends Component {
   }
 
   renderRow(rowData) {
+
     var imagePath = "public/uploads/listings/loading.jpg"
     return (
       <View style = {{flexDirection: 'row'}}>
         <Image style = {{height: 80, width: 80}}
          source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + imagePath}}/>
-         <Text> {rowData.buyer} </Text>
+         <Text> {rowData._id} </Text>
            <Ionic onPress= {() => this._mail(item)} name="ios-chatbubbles" size={30} color="black" />
       </View>
      );

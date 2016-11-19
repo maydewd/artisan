@@ -74,7 +74,7 @@ export function render(route, navigator) {
   if (routeId === 'chat') {
     return (
       <Chat
-        creatorID = {route.creator}
+        itemID = {route.itemID}
         navigator={navigator} />
     );
   }
