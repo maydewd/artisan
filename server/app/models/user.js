@@ -14,6 +14,7 @@ const UserSchema = new mongoose.Schema({
   imagePath: {type: String},
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Listing' }],
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Listing' }],
+  dislikes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Listing' }],
   facebookID: {type: Number, unique: true},
   facebookImagePath: {type: String}
 });
