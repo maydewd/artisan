@@ -84,15 +84,7 @@ exports.loginFB = function (req, res) {
 }
 
 exports.linkFB = function (req, res) {
-  // var token = jwt.sign({_id:req.user._id.toString()}, config.secret, {
-  //   expiresIn: 10080 // 3 hours in seconds
-  // });
-  // res.json({ success: true, token: 'JWT ' + token });
-
   // MERGE THE TWO USERS req.user and req.account
-  console.log(req.user);
-  console.log("asdofijapesfoijapweoifj");
-  console.log(req.account);
   if (req.user._id === req.user._id) {
     res.status(400).send.json({ success: false, message: 'Accounts already linked' });
   } else if (req.user.password == null) {
@@ -117,6 +109,25 @@ exports.linkFB = function (req, res) {
       }
     );
   }
+}
+
+exports.editProfile = function (req, res) {
+  var User = req.user;
+  if (req.body.username) {
+    User.username = req.body.username
+  }
+  if (req.body.password) {
+    User.password = req.body.password
+  }
+  if (req.file) {
+    User.imagePath = req.file.path;
+  }
+  User.save(function(err) {
+    if (err) {
+      return res.status(400).json({ success: false, message: err});
+    }
+    res.json({ success: true, message: 'Successfully updated user.' });
+  });
 }
 
 // /**

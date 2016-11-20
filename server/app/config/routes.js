@@ -38,6 +38,7 @@ module.exports = function (app, passport) {
   // API USER routes
   apiRoutes.get('/users', jwtAuth, users.showAll);
   apiRoutes.get('/users/me', jwtAuth, users.showMe);
+  apiRoutes.post('/users/me', [jwtAuth, upload.single('image')], users.editProfile);
   // apiRoutes.get('/users/:userId/posts', users.posts);
 
   // API LISTING routes
