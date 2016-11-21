@@ -17,7 +17,6 @@ import Button from 'react-native-button';
 import {usableWithTop, usablePercent} from '../helpers/dimension';
 import { Kohana } from 'react-native-textinput-effects';
 import FA from 'react-native-vector-icons/FontAwesome';
-import Icon from 'react-native-vector-icons/FontAwesome'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 styles = require('../Styles/Layouts');

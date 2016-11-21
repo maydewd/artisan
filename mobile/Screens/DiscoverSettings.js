@@ -105,7 +105,6 @@ class DiscoverSettings extends Component {
    }
 
    function setCost(selectedOption){
-     console.log(selectedOption)
      this.setState({
        cost: selectedOption
      });

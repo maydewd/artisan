@@ -131,7 +131,6 @@ class NewPost extends Component {
   }
 
   selectPhotoTapped() {
-    console.log("Getting photo");
     const options = {
         quality: 1.0,
         maxWidth: 500,
