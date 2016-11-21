@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     registerContainer: {
       width:  getScreenWidth()/2,
       height: getScreenWidth()/2,
+      borderRadius: getScreenWidth()/4,
       alignItems: 'center',
       justifyContent: "space-around",
       backgroundColor: '#f6f6f6',
@@ -23,9 +24,10 @@ const styles = StyleSheet.create({
     },
 
     registerAvatar: {
-      resizeMode: 'contain',
+      resizeMode: 'stretch',
       width: getScreenWidth()/2,
       height: getScreenWidth()/2,
+      borderRadius: getScreenWidth()/4,
     },
 
     registerBackground: {
