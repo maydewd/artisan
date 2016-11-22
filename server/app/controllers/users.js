@@ -85,16 +85,14 @@ exports.loginFB = function (req, res) {
 
 exports.linkFB = function (req, res) {
   // MERGE THE TWO USERS req.user and req.account
-  if (req.user._id === req.user._id) {
-    res.status(400).send.json({ success: false, message: 'Accounts already linked' });
-  } else if (req.user.password == null) {
-    res.status(400).send.json({ success: false, message: 'Must be logged in using local username and password' });
-  } else if (req.user.facebookID !== null) {
-    res.status(400).send.json({ success: false, message: 'Local account already linked with a Facebook account' });
+  if (req.user._id === req.account._id) {
+    res.status(400).json({ success: false, message: 'Accounts already linked' });
+  } else if (req.user.facebookID != null) {
+    res.status(400).json({ success: false, message: 'Local account already linked with a Facebook account' });
   } else { // can merge users
     User.update(req.user,
       {
-        $set: {facebookID: req.account.facebookID, facebookImagePath: req.account.facebookImagePath},
+        $set: {facebookImagePath: req.account.facebookImagePath},
         $addToSet: { posts: { $each: req.account.posts }, likes: { $each: req.account.likes } }
       }, function(err, user) {
         if (err) {
@@ -104,7 +102,12 @@ exports.linkFB = function (req, res) {
           if (err) {
             return res.status(400).send(err);
           }
-          res.json({ success: true, message: 'Accounts successfully linked' });
+          User.update(req.user, { $set: {facebookID: req.account.facebookID}}, function(err, user) {
+            if (err) {
+              return res.status(400).send(err);
+            }
+            res.json({ success: true, message: 'Accounts successfully linked' });
+          });
         });
       }
     );
