@@ -298,6 +298,56 @@ const styles = StyleSheet.create({
       fontSize: 20,
       color: 'white'
     },
+    // STORKFRONT/PROFILE SETTINGS
+    profileSettings: {
+      flex: 1,
+      // flexDirection: 'row',
+      justifyContent: "flex-start",
+      alignItems: "center",
+      maxHeight: 80,
+      padding: 5
+    },
+    // TODO: use register layout
+    profileImageContainer: {
+      width: getScreenWidth()/2,
+      height: getScreenWidth()/2,
+      borderRadius: getScreenWidth()/4,
+      alignItems: 'center',
+      justifyContent: "space-around",
+      backgroundColor: '#f6f6f6',
+      borderColor: 'black',
+      borderWidth: 1
+    },
+    profileImage: {
+      resizeMode: 'stretch',
+      width: getScreenWidth()/2,
+      height: getScreenWidth()/2,
+      borderRadius: getScreenWidth()/4,
+    },
+    fullWidthSaveButtonContainer: {
+      flex: 1,
+      padding:10,
+      alignItems: "center",
+      overflow:'hidden',
+      maxHeight: bottomNavBarHeight(),
+      width: getScreenWidth(),
+      backgroundColor: '#24518D',
+      borderRadius: 2
+    },
+    logoutContainer: {
+      flex: 1,
+      padding:10,
+      alignItems: "center",
+      overflow:'hidden',
+      maxHeight: bottomNavBarHeight(),
+      width: getScreenWidth(),
+      backgroundColor: '#ec7063',
+      borderRadius: 2
+    },
+    logout: {
+      fontSize: 20,
+      color: 'white'
+    },
 });
 
 module.exports = styles

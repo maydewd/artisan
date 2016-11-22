@@ -11,7 +11,7 @@ import MyBundle from '../Screens/MyBundle.js'
 import Messages from '../Screens/Messages.js'
 import BottomTabBar from '../Components/BottomTabBar.js'
 import Chat from '../Screens/Chat.js'
-import ProfileSettings from '../Screens/StorkFrontSettings.js'
+import StorkFrontSettings from '../Screens/StorkFrontSettings.js'
 import Register from '../Screens/Register.js'
 
 export function render(route, navigator) {
@@ -96,7 +96,8 @@ export function render(route, navigator) {
 
   if (routeId === 'profileSettings') {
     return (
-      <ProfileSettings
+      <StorkFrontSettings
+        profile = {route.profile}
         navigator={navigator} />
     );
   }
