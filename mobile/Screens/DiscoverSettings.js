@@ -15,13 +15,14 @@ var NavigationBar = require('react-native-navbar');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { SegmentedControls } from 'react-native-radio-buttons';
 styles = require('../Styles/Layouts');
+import {radii, costBrackets} from '../resources/Preferences';
 
 class DiscoverSettings extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      distance: '0-5 miles',
+      distance: '5 miles',
       cost: '$20-100',
       myPosts: false,
       downedPost: false
@@ -30,7 +31,7 @@ class DiscoverSettings extends Component {
 
   componentDidMount() {
     AsyncStorage.multiGet(['distance', 'cost', 'myPosts', 'downedPost'], (err, stores) => {
-           var d = '0-5 miles';
+           var d = '5 miles';
            var c = '$20-100';
            var mP = false;
            var dP = false
@@ -84,19 +85,8 @@ class DiscoverSettings extends Component {
     handler: () => {this.pop()}
   };
 
-  const distanceOptions = [
-     "0-5 miles",
-     "5-10 miles",
-     "10-15 miles"
-   ];
-
-   const priceOptions = [
-      "$0-5",
-      "$5-20",
-      "$20-100",
-      "$100+"
-    ];
-
+   const distanceOptions = radii();
+   const priceOptions = costBrackets();
 
    function setDistance(selectedOption){
      this.setState({
@@ -121,7 +111,7 @@ class DiscoverSettings extends Component {
         <View>
           <View>
             <Text style = {styles.settingsText}>
-              Discover Distance
+              Discover Radius
             </Text>
             <SegmentedControls
               tint= {'#24518D'}

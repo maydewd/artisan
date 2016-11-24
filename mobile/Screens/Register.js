@@ -26,6 +26,7 @@ import { Sae } from 'react-native-textinput-effects';
 var NavigationBar = require('react-native-navbar');
 var ImagePicker = require('react-native-image-picker');
 import { SegmentedControls } from 'react-native-radio-buttons';
+import {radii, costBrackets} from '../resources/Preferences';
 
 class Register extends Component {
 
@@ -33,7 +34,7 @@ class Register extends Component {
     super(props);
     this.state = {
       profileImage: null,
-      distance: '0-5 miles',
+      distance: '5 miles',
       cost: '$20-100',
       myPosts: false,
       downedPost: false,
@@ -69,18 +70,8 @@ class Register extends Component {
      });
    }
 
-   const priceOptions = [
-      "$0-5",
-      "$5-20",
-      "$20-100",
-      "$100+"
-    ];
-
-   const distanceOptions = [
-      "0-5 miles",
-      "5-10 miles",
-      "10-15 miles"
-    ];
+   const priceOptions = costBrackets();
+   const distanceOptions = radii();
 
     return (
       <View>
@@ -152,7 +143,7 @@ class Register extends Component {
                 </FA>
               </View>
               <Text style = {styles.settingsText}>
-                Discover Distance
+                Discover Radius
               </Text>
               <SegmentedControls
                 tint= {'#24518D'}
@@ -260,18 +251,14 @@ class Register extends Component {
         }
       };
     ImagePicker.showImagePicker(options, (response) => {
-        console.log('Response = ', response);
 
-     if (response.didCancel) {
-       console.log('User cancelled photo picker');
-     }
-     else if (response.error) {
+    if (response.error) {
        console.log('ImagePicker Error: ', response.error);
      }
      else if (response.customButton) {
        console.log('User tapped custom button: ', response.customButton);
      }
-     else {
+     else if (!response.didCancel){
        var source;
 
        // You can display the image using either:
@@ -290,7 +277,6 @@ class Register extends Component {
      }
     });
   }
-
 
   _cancel() {
     var navigator = this.props.navigator;
