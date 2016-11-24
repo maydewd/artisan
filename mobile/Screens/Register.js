@@ -239,7 +239,15 @@ class Register extends Component {
 
   //TODO
   _register() {
+    this._savePreferences();
     alert("need to register")
+  }
+
+  _savePreferences() {
+    AsyncStorage.setItem('distance', this.state.distance);
+    AsyncStorage.setItem('cost', this.state.cost);
+    AsyncStorage.setItem('myPosts', JSON.stringify(this.state.myPosts));
+    AsyncStorage.setItem('downedPost', JSON.stringify(this.state.downedPost));
   }
 
   selectPhotoTapped() {
