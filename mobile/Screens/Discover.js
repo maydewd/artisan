@@ -98,7 +98,7 @@ class Discover extends Component {
   }
 
   _fetchData() {
-    AsyncStorage.multiGet(['jwtToken', 'cost', 'myPosts'], (err, result) => {
+    AsyncStorage.multiGet(['jwtToken', 'cost', 'myPosts', 'seeLiked', 'seeDisliked'], (err, result) => {
       const jwt = result[0][1];
       const cost = result[1][1];
       let minCost, maxCost= null;
@@ -120,9 +120,11 @@ class Discover extends Component {
           break;
       }
       const myPosts = JSON.parse(result[2][1]);
+      const seeLiked = JSON.parse(result[3][1]);
+      const seeDisliked = JSON.parse(result[4][1]);
       navigator.geolocation.getCurrentPosition (
         (position) => {
-          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=20&hideMine=${!myPosts}&hideLiked=${true}&hideDisliked=${true}&radius=10&lng=${position.coords.longitude}&lat=${position.coords.latitude}`,
+          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=2&hideMine=${!myPosts}&hideLiked=${!seeLiked}&hideDisliked=${!seeDisliked}&radius=10&lng=${position.coords.longitude}&lat=${position.coords.latitude}`,
             {method: "GET",
               headers: {
                 'Accept': 'application/json',
@@ -281,7 +283,6 @@ class Discover extends Component {
       .then((response) => response.json())
       .then((responseData) => {
         console.log(responseData);
-        alert(responseData)
         if (responseData.success !== true) {
           console.log('Failed to dislike')
         }
@@ -289,7 +290,6 @@ class Discover extends Component {
        })
       .catch(function(err) {
         console.log(err);
-        alert(err.message)
       })
       .done();
     });

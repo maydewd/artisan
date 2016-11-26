@@ -13,7 +13,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Alert,
-  AsyncStorage
+  AsyncStorage,
+  Platform
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 var ImagePicker = require('react-native-image-picker');

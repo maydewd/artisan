@@ -32,11 +32,13 @@ class DiscoverSettings extends Component {
   }
 
   componentDidMount() {
-    AsyncStorage.multiGet(['distance', 'cost', 'myPosts', 'downedPost'], (err, stores) => {
+    AsyncStorage.multiGet(['distance', 'cost', 'myPosts', 'downedPost', 'seeLiked', 'seeDisliked'], (err, stores) => {
            var d = '5 miles';
            var c = '$20-100';
            var mP = false;
-           var dP = false
+           var dP = false;
+           var seeLiked = false;
+           var seeDisliked = false
            if(stores[0][1] != null) {
              var d = stores[0][1]
            }
@@ -49,11 +51,19 @@ class DiscoverSettings extends Component {
            if(stores[3][1] != null) {
              var dP = JSON.parse(stores[3][1])
            }
+           if(stores[4][1] != null) {
+             var seeLiked = JSON.parse(stores[4][1])
+           }
+           if(stores[5][1] != null) {
+             var seeDisliked = JSON.parse(stores[5][1])
+           }
            this.setState({
              distance: d,
              cost: c,
              myPosts: mP,
-             downedPost: dP
+             downedPost: dP,
+             seeLiked: seeLiked,
+             seeDisliked: seeDisliked
            })
            console.log(this.state)
        });
@@ -74,6 +84,8 @@ class DiscoverSettings extends Component {
     AsyncStorage.setItem('cost', this.state.cost);
     AsyncStorage.setItem('myPosts', JSON.stringify(this.state.myPosts));
     AsyncStorage.setItem('downedPost', JSON.stringify(this.state.downedPost));
+    AsyncStorage.setItem('seeLiked', JSON.stringify(this.state.seeLiked));
+    AsyncStorage.setItem('seeDisliked', JSON.stringify(this.state.seeDisliked));
     alert('Saved!')
   }
 
