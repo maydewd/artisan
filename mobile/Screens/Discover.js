@@ -122,7 +122,7 @@ class Discover extends Component {
       const myPosts = JSON.parse(result[2][1]);
       navigator.geolocation.getCurrentPosition (
         (position) => {
-          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=20&hideMine=${!myPosts}&radius=10&lng=${position.coords.longitude}&lat=${position.coords.latitude}`,
+          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=20&hideMine=${!myPosts}&hideLiked=${true}&hideDisliked=${true}&radius=10&lng=${position.coords.longitude}&lat=${position.coords.latitude}`,
             {method: "GET",
               headers: {
                 'Accept': 'application/json',
@@ -225,6 +225,7 @@ class Discover extends Component {
                 <Button
                 containerStyle={styles.discoverButtonContainerDown}
                 style={styles.discoverButtonDown}
+                onPress={() => this._thumbsDownPressed()}
                 >
                   <Icon name="thumbs-down" size={usablePercent(8)}/>
                 </Button>
@@ -265,8 +266,33 @@ class Discover extends Component {
       sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
     });
   }
+
   _thumbsDownPressed() {
-    // TODO: other actions necessary
+    var currID = this.state.currentListing._id;
+    AsyncStorage.getItem('jwtToken', (err, result) => {
+      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/" + currID + "/dislike",
+        {method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': result
+          }
+        })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData);
+        alert(responseData)
+        if (responseData.success !== true) {
+          console.log('Failed to dislike')
+        }
+        return responseData;
+       })
+      .catch(function(err) {
+        console.log(err);
+        alert(err.message)
+      })
+      .done();
+    });
     this._nextListing()
   }
 

@@ -25,7 +25,9 @@ class DiscoverSettings extends Component {
       distance: '5 miles',
       cost: '$20-100',
       myPosts: false,
-      downedPost: false
+      downedPost: false,
+      seeDisliked: false,
+      seeLiked: false
     };
   }
 
@@ -153,6 +155,24 @@ class DiscoverSettings extends Component {
                     value={this.state.downedPost}
                     onValueChange={(val) =>  this.setState({
                        downedPost: val
+                     })}
+                />
+              </View>
+              <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                <Text> See posts I have liked</Text>
+                <Switch
+                    value={this.state.seeLiked}
+                    onValueChange={(val) =>  this.setState({
+                       seeLiked: val
+                     })}
+                />
+              </View>
+              <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                <Text> See post I have disliked </Text>
+                <Switch
+                    value={this.state.seeDisliked}
+                    onValueChange={(val) =>  this.setState({
+                       seeDisliked: val
                      })}
                 />
               </View>

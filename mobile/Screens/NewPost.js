@@ -255,7 +255,6 @@ class NewPost extends Component {
             return;
           }
           this.setState({locality: res[0].locality})
-          this._post();
           if (callback) {
             callback();
           }
@@ -269,6 +268,7 @@ class NewPost extends Component {
       {enableHighAccuracy: true, timeout: 2000, maximumAge: 1000}
     );
   }
+
   _postPressed() {
     if (this.state.lat === null || this.state.lng === null || this.state.locality === null) {
       this._getLocation(this._post);

@@ -34,17 +34,20 @@ class Register extends Component {
     super(props);
     this.state = {
       profileImage: null,
+      username: null,
+      password: null,
       distance: '5 miles',
       cost: '$20-100',
       myPosts: false,
       downedPost: false,
       modalVisible: false,
+      confirmPassword: null,
     };
   }
 
   leftButton() {
     return (
-      <TouchableOpacity style = {styles.registerRow} onPress={() => this._cancel()}>
+      <TouchableOpacity style = {styles.registerRow} onPress={() => this._pop()}>
           <Icon size = {20} name = "ios-arrow-back" style = {styles.registerArrow} />
           <Text style = {styles.registerCancel}> Cancel </Text>
       </TouchableOpacity>
@@ -101,6 +104,7 @@ class Register extends Component {
               </TouchableOpacity>
               <Sae
                 label={'Username'}
+                onChangeText={(username) => this.setState({username})}
                 iconClass={MaterialIcons}
                 style = {{width: 0.8 * getScreenWidth()}}
                 labelStyle={{ color: '#24518D' }}
@@ -112,6 +116,7 @@ class Register extends Component {
               />
               <Sae
                 label={'Password'}
+                onChangeText={(password) => this.setState({password})}
                 iconClass={MaterialIcons}
                 style = {{width: 0.8 * getScreenWidth()}}
                 labelStyle={{ color: '#24518D' }}
@@ -120,9 +125,11 @@ class Register extends Component {
                 iconColor={'#24518D'}
                 autoCapitalize={'none'}
                 autoCorrect={false}
+                password = {true}
               />
               <Sae
                 label={'Confirm password'}
+                onChangeText={(confirmPassword) => this.setState({confirmPassword})}
                 iconClass={MaterialIcons}
                 style = {{width: 0.8 * getScreenWidth()}}
                 labelStyle={{ color: '#24518D' }}
@@ -131,6 +138,7 @@ class Register extends Component {
                 iconColor={'#24518D'}
                 autoCapitalize={'none'}
                 autoCorrect={false}
+                password = {true}
               />
               <View style = {{height: 20}}/>
               <View style = {styles.bottomBorder}>
@@ -230,8 +238,51 @@ class Register extends Component {
 
   //TODO
   _register() {
+    if (this.state.password !== this.state.confirmPassword) {
+      alert('Confirm password does not match password field')
+      return;
+    }
+    this._registerUser();
     this._savePreferences();
-    alert("need to register")
+    this._pop()
+  }
+
+  _registerUser() {
+    const {username, password, profileImage} = this.state;
+    var request = new XMLHttpRequest();
+    request.open("POST", "http://colab-sbx-137.oit.duke.edu:3000/api/register");
+    request.setRequestHeader('Accept', 'application/json');
+    request.setRequestHeader('Content-Type', 'multipart/form-data');
+    var body = new FormData();
+    body.append('username', username);
+    if (password !== null) {
+      body.append('password', password);
+    }
+    if (profileImage !==null) {
+      var photo;
+      if (Platform.OS === 'android') {
+        photo = {
+          uri: profileImage.uri,
+          type: 'image/jpeg',
+          name: 'photo.jpg',
+        };
+      } else {
+        photo = {
+          uri: profileImage,
+          type: 'image/jpeg',
+          name: 'photo.jpg',
+        };
+      }
+      body.append('image', photo);
+    }
+    AsyncStorage.getItem('jwtToken', (err, result) => {
+        request.setRequestHeader('Authorization', result);
+        request.send(body);
+        console.log(body);
+        console.log(request);
+        console.log('request sent');
+        alert('Thanks!')
+    });
   }
 
   _savePreferences() {
@@ -278,7 +329,7 @@ class Register extends Component {
     });
   }
 
-  _cancel() {
+  _pop() {
     var navigator = this.props.navigator;
     navigator.pop();
   }
