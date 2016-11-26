@@ -224,6 +224,7 @@ exports.dislike = function (req, res) {
   if (!User.dislikes.some((dislike) => dislike.equals(req.params.listingID))) { // first time liking
     if (!User.likes.some((like) => like.equals(req.params.listingID))) { // user has never liked post
       // update user
+      User.dislikes.push(mongoose.Types.ObjectId(req.params.listingID));
       User.save(function(err, user) {
         if (err) {
           return res.status(500).json({ success: false, message: err});
