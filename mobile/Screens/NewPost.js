@@ -31,9 +31,8 @@ import ModalPicker from 'react-native-modal-picker';
 import FA from 'react-native-vector-icons/FontAwesome';
 
 import Geocoder from 'react-native-geocoder';
-// TODO:
-var MY_KEY = 'AIzaSyB4Wup3-phaP5kaiLHUOELxdtMKzm1GuxI';
-Geocoder.fallbackToGoogle(MY_KEY);
+import {GOOGLE_API_KEY} from '../resources/Properties.js'
+Geocoder.fallbackToGoogle(GOOGLE_API_KEY);
 
 class NewPost extends Component {
 
@@ -44,9 +43,18 @@ class NewPost extends Component {
       price: null,
       photoSource: null,
       type: null,
-      position: null,
+      lat: null,
+      lng: null,
       locality: null,
     };
+  }
+
+  componentWillMount() {
+    this.mounted = true;
+    this._getLocation()
+  }
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   render() {
@@ -131,7 +139,6 @@ class NewPost extends Component {
   }
 
   selectPhotoTapped() {
-    console.log("Getting photo");
     const options = {
         quality: 1.0,
         maxWidth: 500,
@@ -226,10 +233,13 @@ class NewPost extends Component {
     });
   }
 
-  _getLocation() {
+  _getLocation(callback) {
 
     navigator.geolocation.getCurrentPosition (
       (position) => {
+        if (!this.mounted) {
+          return;
+        }
         this.setState({
           lat: position.coords.latitude,
           lng: position.coords.longitude
@@ -241,17 +251,30 @@ class NewPost extends Component {
         Geocoder.geocodePosition(loc).then(res => {
           console.log(res)
           // TODO: res is an array of geocoding objects, and the information is not guaranteed to be there
+          if (!this.mounted) {
+            return;
+          }
           this.setState({locality: res[0].locality})
-          this._post();
+          if (callback) {
+            callback();
+          }
         })
-        .catch(err => alert(JSON.stringify(err)))
+        .catch(err => {
+          console.log(err);
+          alert(JSON.stringify(err));
+        })
       },
       (error) => alert(JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 2000, maximumAge: 1000}
     );
   }
+
   _postPressed() {
-    this._getLocation();
+    if (this.state.lat === null || this.state.lng === null || this.state.locality === null) {
+      this._getLocation(this._post);
+    } else {
+      this._post();
+    }
   }
 
   toStorkFront() {

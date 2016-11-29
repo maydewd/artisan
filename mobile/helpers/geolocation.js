@@ -3,10 +3,9 @@ import {
   AsyncStorage
 } from 'react-native';
 import Geocoder from 'react-native-geocoder';
-// TODO: get yer own key
-const google_API_key = 'AIzaSyB4Wup3-phaP5kaiLHUOELxdtMKzm1GuxI';
+import {GOOGLE_API_KEY} from '../resources/Properties.js';
 
-Geocoder.fallbackToGoogle(google_API_key);
+Geocoder.fallbackToGoogle(GOOGLE_API_KEY);
 
 export function reverseGeocode() {
   AsyncStorage.getItem('position', (err, result) => {
@@ -31,9 +30,9 @@ export function getCurrentPosition() {
   navigator.geolocation.getCurrentPosition( (position) => {
       var lastPosition = JSON.stringify(position);
       console.log(lastPosition)
-      AsyncStorage.setItem('position', lastPosition, () =>
+      AsyncStorage.setItem('position', lastPosition, () => {
         reverseGeocode();
-      );
+      });
     },
     (error) => alert(JSON.stringify(error)),
     {enableHighAccuracy: true, timeout: 5000, maximumAge: 1000}
