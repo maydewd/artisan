@@ -129,7 +129,8 @@ exports.editProfile = function (req, res) {
     if (err) {
       return res.status(400).json({ success: false, message: err});
     }
-    res.json({ success: true, message: 'Successfully updated user.' });
+    var filteredUser = {_id: User.id, username: User.username, imagePath:User.imagePath, facebookImagePath: User.facebookImagePath}
+    res.json({ success: true, message: 'Successfully updated user.', user: filteredUser});
   });
 }
 
