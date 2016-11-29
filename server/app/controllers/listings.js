@@ -62,8 +62,14 @@ exports.showPosts = function (req, res) {
   if (!isNaN(parseInt(req.query.minCost))) {
     query['price']['$gte'] = Math.max(parseInt(req.query.minCost), 0)
   }
+  // Show liked posts?
+  if (req.query.hideLiked === 'true') {
+    query['_id'] = {$nin: req.user.likes};
+  }
   // Show disliked posts?
-  // TODO
+  if (req.query.hideDisliked === 'true') {
+    query['_id'] = {$nin: req.user.dislikes};
+  }
 
   Listing
     .find(query)
@@ -166,6 +172,7 @@ exports.like = function (req, res) {
   var User = req.user;
   if (!User.likes.some((like) => like.equals(req.params.listingID))) { // first time liking
     // update user
+    User.dislikes.pull(mongoose.Types.ObjectId(req.params.listingID));
     User.likes.push(mongoose.Types.ObjectId(req.params.listingID));
     User.save(function(err, user) {
       if (err) {
@@ -183,7 +190,7 @@ exports.like = function (req, res) {
       });
     });
   } else {
-    return res.status(400).json({ success: false, message: 'User already liked post'});
+    return res.json({ success: true, message: 'User already liked post'});
   }
 }
 
@@ -209,5 +216,41 @@ exports.unlike = function (req, res) {
     });
   } else {
     return res.status(400).json({ success: false, message: 'User never liked this post'});
+  }
+}
+
+exports.dislike = function (req, res) {
+  var User = req.user;
+  if (!User.dislikes.some((dislike) => dislike.equals(req.params.listingID))) { // first time liking
+    if (!User.likes.some((like) => like.equals(req.params.listingID))) { // user has never liked post
+      // update user
+      User.dislikes.push(mongoose.Types.ObjectId(req.params.listingID));
+      User.save(function(err, user) {
+        if (err) {
+          return res.status(500).json({ success: false, message: err});
+        }
+        res.json({success: true, message: 'Successfully disliked post'});
+      });
+    } else { // user has liked post, remove it from likes
+      // update user
+      User.likes.pull(mongoose.Types.ObjectId(req.params.listingID));
+      User.dislikes.push(mongoose.Types.ObjectId(req.params.listingID));
+      User.save(function(err, user) {
+        if (err) {
+          return res.status(500).json({ success: false, message: err});
+        }
+        Listing.findOneAndUpdate({_id: req.params.listingID}, {$inc: {numLikes:-1}}, function(err, listing) {
+          if (err) {
+            return res.status(500).json({ success: false, message: err});
+          }
+          res.json({
+            success: true,
+            message: 'Successfully disliked post'
+          });
+        });
+      });
+    }
+  } else {
+    return res.json({ success: true, message: 'User already disliked post'});
   }
 }

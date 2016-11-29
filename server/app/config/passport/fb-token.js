@@ -21,7 +21,7 @@ module.exports = new FacebookTokenStrategy(opts, function(accessToken, refreshTo
           facebookImagePath: profile.photos[0]['value']
         });
         // Attempt to save the user
-        newUser.save(function(err) {
+        newUser.save(function(err, user) {
           if (err) {
             done(err, false);
           }

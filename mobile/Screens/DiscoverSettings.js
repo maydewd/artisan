@@ -15,25 +15,29 @@ var NavigationBar = require('react-native-navbar');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { SegmentedControls } from 'react-native-radio-buttons';
 styles = require('../Styles/Layouts');
+import {radii, costBrackets} from '../resources/Preferences';
 
 class DiscoverSettings extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      distance: '0-5 miles',
+      distance: '5 miles',
       cost: '$20-100',
       myPosts: false,
-      downedPost: false
+      seeDisliked: false,
+      seeLiked: false
     };
   }
 
   componentDidMount() {
-    AsyncStorage.multiGet(['distance', 'cost', 'myPosts', 'downedPost'], (err, stores) => {
-           var d = '0-5 miles';
+    AsyncStorage.multiGet(['distance', 'cost', 'myPosts', 'downedPost', 'seeLiked', 'seeDisliked'], (err, stores) => {
+           var d = '5 miles';
            var c = '$20-100';
            var mP = false;
-           var dP = false
+           var dP = false;
+           var seeLiked = false;
+           var seeDisliked = false
            if(stores[0][1] != null) {
              var d = stores[0][1]
            }
@@ -46,11 +50,19 @@ class DiscoverSettings extends Component {
            if(stores[3][1] != null) {
              var dP = JSON.parse(stores[3][1])
            }
+           if(stores[4][1] != null) {
+             var seeLiked = JSON.parse(stores[4][1])
+           }
+           if(stores[5][1] != null) {
+             var seeDisliked = JSON.parse(stores[5][1])
+           }
            this.setState({
              distance: d,
              cost: c,
              myPosts: mP,
-             downedPost: dP
+             downedPost: dP,
+             seeLiked: seeLiked,
+             seeDisliked: seeDisliked
            })
            console.log(this.state)
        });
@@ -70,7 +82,8 @@ class DiscoverSettings extends Component {
     AsyncStorage.setItem('distance', this.state.distance);
     AsyncStorage.setItem('cost', this.state.cost);
     AsyncStorage.setItem('myPosts', JSON.stringify(this.state.myPosts));
-    AsyncStorage.setItem('downedPost', JSON.stringify(this.state.downedPost));
+    AsyncStorage.setItem('seeLiked', JSON.stringify(this.state.seeLiked));
+    AsyncStorage.setItem('seeDisliked', JSON.stringify(this.state.seeDisliked));
     alert('Saved!')
   }
 
@@ -84,19 +97,8 @@ class DiscoverSettings extends Component {
     handler: () => {this.pop()}
   };
 
-  const distanceOptions = [
-     "0-5 miles",
-     "5-10 miles",
-     "10-15 miles"
-   ];
-
-   const priceOptions = [
-      "$0-5",
-      "$5-20",
-      "$20-100",
-      "$100+"
-    ];
-
+   const distanceOptions = radii();
+   const priceOptions = costBrackets();
 
    function setDistance(selectedOption){
      this.setState({
@@ -105,7 +107,6 @@ class DiscoverSettings extends Component {
    }
 
    function setCost(selectedOption){
-     console.log(selectedOption)
      this.setState({
        cost: selectedOption
      });
@@ -122,7 +123,7 @@ class DiscoverSettings extends Component {
         <View>
           <View>
             <Text style = {styles.settingsText}>
-              Discover Distance
+              Discover Radius
             </Text>
             <SegmentedControls
               tint= {'#24518D'}
@@ -159,11 +160,20 @@ class DiscoverSettings extends Component {
                 />
               </View>
               <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-                <Text> See down voted posts</Text>
+                <Text> See posts I have liked</Text>
                 <Switch
-                    value={this.state.downedPost}
+                    value={this.state.seeLiked}
                     onValueChange={(val) =>  this.setState({
-                       downedPost: val
+                       seeLiked: val
+                     })}
+                />
+              </View>
+              <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                <Text> See post I have disliked </Text>
+                <Switch
+                    value={this.state.seeDisliked}
+                    onValueChange={(val) =>  this.setState({
+                       seeDisliked: val
                      })}
                 />
               </View>

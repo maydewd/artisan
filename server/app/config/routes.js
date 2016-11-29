@@ -38,6 +38,7 @@ module.exports = function (app, passport) {
   // API USER routes
   apiRoutes.get('/users', jwtAuth, users.showAll);
   apiRoutes.get('/users/me', jwtAuth, users.showMe);
+  apiRoutes.post('/users/me', [jwtAuth, upload.single('image')], users.editProfile);
   // apiRoutes.get('/users/:userId/posts', users.posts);
 
   // API LISTING routes
@@ -51,6 +52,7 @@ module.exports = function (app, passport) {
   apiRoutes.delete('/listings/:listingID', jwtAuth, listings.delete);
   apiRoutes.post('/listings/:listingID/like', jwtAuth, listings.like);
   apiRoutes.post('/listings/:listingID/unlike', jwtAuth, listings.unlike);
+  apiRoutes.post('/listings/:listingID/dislike', jwtAuth, listings.dislike);
 
   // API MESSAGING routes
   apiRoutes.get('/messages/conversations', jwtAuth, messages.getConversations);
