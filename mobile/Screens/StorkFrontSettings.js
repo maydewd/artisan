@@ -272,7 +272,7 @@ class StorkFrontSettings extends Component {
     ] )
   }
   _logout() {
-    if (fblinked) {
+    if (this.state.fblinked) {
       FBLoginManager.logout((err, data) => {
         console.log(err)
         console.log(data)

@@ -224,7 +224,9 @@ const styles = StyleSheet.create({
       justifyContent: "flex-start",
       alignItems: "center",
       maxHeight: 80,
-      padding: 5
+      padding: 5,
+      borderWidth: 1,
+      borderColor: 'pink',
     },
 
     //Remove this hardcoded 80 - it corresponds to profile height
@@ -239,9 +241,10 @@ const styles = StyleSheet.create({
     },
 
     storkfrontProfileImage: {
-      resizeMode: 'contain',
+      resizeMode: 'stretch',
       height: 75,
-      width: 75
+      width: 75,
+      borderRadius: 37
     },
 
     storkfrontProfileText: {
