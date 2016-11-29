@@ -1,9 +1,78 @@
 'use strict'
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import {getScreenWidth, getScreenHeight, topNavBarHeight, bottomNavBarHeight, getUsableScreenHeight, usablePercent} from '../helpers/dimension'
+import {getScreenWidth, usableWithTop, getScreenHeight, topNavBarHeight, bottomNavBarHeight, getUsableScreenHeight, usablePercent} from '../helpers/dimension'
 
 const styles = StyleSheet.create({
+
+    //REGSTER
+    registerNavBar: {
+      backgroundColor: '#24518D',
+      height: topNavBarHeight()
+    },
+
+    //TODO make profile picture circular
+    registerContainer: {
+      width:  getScreenWidth()/2,
+      height: getScreenWidth()/2,
+      borderRadius: getScreenWidth()/4,
+      alignItems: 'center',
+      justifyContent: "space-around",
+      backgroundColor: '#f6f6f6',
+      borderColor: 'black',
+      borderWidth: 1
+    },
+
+    registerAvatar: {
+      resizeMode: 'stretch',
+      width: getScreenWidth()/2,
+      height: getScreenWidth()/2,
+      borderRadius: getScreenWidth()/4,
+    },
+
+    registerBackground: {
+      backgroundColor: 'white',
+      height: usableWithTop(),
+    },
+
+    registerText: {
+      textAlign: 'center',
+      color: '#24518D',
+      paddingTop: 5,
+      marginBottom: 5,
+      fontSize: 20
+    },
+
+    bottomBorder: {
+      borderBottomColor: '#24518D',
+      borderBottomWidth: 2,
+      width: getScreenWidth(),
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+
+    registerRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+
+    },
+
+    registerTitle: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      flex: 1,
+    },
+
+    registerCancel: {
+      color: 'white'
+    },
+
+    registerArrow: {
+      color: 'white',
+      paddingLeft: 10
+    },
+
     baseText: {
       // fontFamily: "serif"
     },
@@ -295,6 +364,56 @@ const styles = StyleSheet.create({
       borderRadius: 2
     },
     deleteButton: {
+      fontSize: 20,
+      color: 'white'
+    },
+    // STORKFRONT/PROFILE SETTINGS
+    profileSettings: {
+      flex: 1,
+      // flexDirection: 'row',
+      justifyContent: "flex-start",
+      alignItems: "center",
+      maxHeight: 80,
+      padding: 5
+    },
+    // TODO: use register layout
+    profileImageContainer: {
+      width: getScreenWidth()/2,
+      height: getScreenWidth()/2,
+      borderRadius: getScreenWidth()/4,
+      alignItems: 'center',
+      justifyContent: "space-around",
+      backgroundColor: '#f6f6f6',
+      borderColor: 'black',
+      borderWidth: 1
+    },
+    profileImage: {
+      resizeMode: 'stretch',
+      width: getScreenWidth()/2,
+      height: getScreenWidth()/2,
+      borderRadius: getScreenWidth()/4,
+    },
+    fullWidthSaveButtonContainer: {
+      flex: 1,
+      padding:10,
+      alignItems: "center",
+      overflow:'hidden',
+      maxHeight: bottomNavBarHeight(),
+      width: getScreenWidth(),
+      backgroundColor: '#24518D',
+      borderRadius: 2
+    },
+    logoutContainer: {
+      flex: 1,
+      padding:10,
+      alignItems: "center",
+      overflow:'hidden',
+      maxHeight: bottomNavBarHeight(),
+      width: getScreenWidth(),
+      backgroundColor: '#ec7063',
+      borderRadius: 2
+    },
+    logout: {
       fontSize: 20,
       color: 'white'
     },

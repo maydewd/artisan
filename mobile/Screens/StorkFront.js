@@ -122,7 +122,8 @@ class StorkFront extends Component {
 
   goToProfileSettings() {
     this.props.navigator.push({
-        id: 'profileSettings'
+      id: 'profileSettings',
+      profile: this.state.profile
     });
   }
 
