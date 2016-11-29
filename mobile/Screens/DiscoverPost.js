@@ -17,6 +17,8 @@ import Button from 'react-native-button';
 import {usableWithTop, usablePercent} from '../helpers/dimension';
 import { Kohana } from 'react-native-textinput-effects';
 import FA from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Ionic from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 styles = require('../Styles/Layouts');
@@ -35,7 +37,10 @@ class DiscoverPost extends Component {
     };
   }
   _contact() {
-    // TODO
+    this.props.navigator.push({
+        id: 'chat',
+        itemID: this.props.item._id
+    });
   }
   render() {
     var titleConfig = {
@@ -109,7 +114,7 @@ class DiscoverPost extends Component {
             containerStyle={styles.contactButtonContainer}
             style={styles.contactButton}
             onPress={() => this._contact()}>
-            <Icon name="envelope" size={usablePercent(6)}/>
+            <Ionic name="ios-chatbubbles" size={usablePercent(6)}/>
           </Button>
         </ScrollView>
       </View>

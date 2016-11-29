@@ -273,14 +273,20 @@ class StorkFrontSettings extends Component {
     ] )
   }
   _logout() {
-    //TODO
-    if (fblinked) {
-      // FBLoginManager.logout((err, data) => {
-      //
-      // });
+    if (this.state.fblinked) {
+      FBLoginManager.logout((err, data) => {
+        console.log(err)
+        console.log(data)
+        this._resetToLogin()
+      });
+    } else {
+      this._resetToLogin()
     }
+  }
+  _resetToLogin() {
     keys = getAsyncKeys();
     AsyncStorage.multiRemove(keys, (err) => {
+      console.log(err)
       this.props.navigator.resetTo({id: 'login'});
     });
   }

@@ -160,6 +160,7 @@ class StorkFront extends Component {
           </View>
           <View style = {{flex:1}}>
           <ListView
+            enableEmptySections={true}
             style = {styles.storkfrontList}
             initialListSize = {1}
             dataSource = {this.state.dataSource}
