@@ -25,7 +25,6 @@ class DiscoverSettings extends Component {
       distance: '5 miles',
       cost: '$20-100',
       myPosts: false,
-      downedPost: false,
       seeDisliked: false,
       seeLiked: false
     };
@@ -83,7 +82,6 @@ class DiscoverSettings extends Component {
     AsyncStorage.setItem('distance', this.state.distance);
     AsyncStorage.setItem('cost', this.state.cost);
     AsyncStorage.setItem('myPosts', JSON.stringify(this.state.myPosts));
-    AsyncStorage.setItem('downedPost', JSON.stringify(this.state.downedPost));
     AsyncStorage.setItem('seeLiked', JSON.stringify(this.state.seeLiked));
     AsyncStorage.setItem('seeDisliked', JSON.stringify(this.state.seeDisliked));
     alert('Saved!')
@@ -159,15 +157,6 @@ class DiscoverSettings extends Component {
                     onValueChange={(val) =>  this.setState({
                          myPosts: val
                     })}
-                />
-              </View>
-              <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-                <Text> See down voted posts</Text>
-                <Switch
-                    value={this.state.downedPost}
-                    onValueChange={(val) =>  this.setState({
-                       downedPost: val
-                     })}
                 />
               </View>
               <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>

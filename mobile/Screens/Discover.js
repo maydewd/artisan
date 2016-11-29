@@ -124,7 +124,7 @@ class Discover extends Component {
       const seeDisliked = JSON.parse(result[4][1]);
       navigator.geolocation.getCurrentPosition (
         (position) => {
-          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=2&hideMine=${!myPosts}&hideLiked=${!seeLiked}&hideDisliked=${!seeDisliked}&radius=10&lng=${position.coords.longitude}&lat=${position.coords.latitude}`,
+          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=20&hideMine=${!myPosts}&hideLiked=${!seeLiked}&hideDisliked=${!seeDisliked}&radius=10&lng=${position.coords.longitude}&lat=${position.coords.latitude}`,
             {method: "GET",
               headers: {
                 'Accept': 'application/json',

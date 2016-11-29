@@ -29,6 +29,7 @@ var {FBLogin, FBLoginManager} = require('react-native-facebook-login');
 class LoginScreen extends Component {
 
     componentDidMount() {
+        console.disableYellowBox = true;
         this.setState({
           username: 'devuser',
           password: 'securetest',
