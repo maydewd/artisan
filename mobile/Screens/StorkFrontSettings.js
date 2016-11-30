@@ -14,7 +14,8 @@ import {
   KeyboardAvoidingView,
   Alert,
   AsyncStorage,
-  Platform
+  Platform,
+  Navigator
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 var ImagePicker = require('react-native-image-picker');
@@ -96,7 +97,7 @@ class StorkFrontSettings extends Component {
         title={titleConfig}
         leftButton={leftButtonConfig}
         />
-        <KeyboardAvoidingView behavior='position'>
+
           <View style = {{height: usableWithTop(), alignItems: 'center'}}>
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
               <View style = {styles.profileImageContainer}>
@@ -146,11 +147,16 @@ class StorkFrontSettings extends Component {
               Log out
             </Button>
           </View>
-        </KeyboardAvoidingView>
       </View>
     );
   }
-
+  toStorkFront() {
+    this.props.navigator.push({
+      id: 'mainView',
+      screen: 'storkFront',
+      sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJumpFromRight
+    });
+  }
   pop() {
     this.props.navigator.pop();
   }
@@ -256,14 +262,25 @@ class StorkFrontSettings extends Component {
       }
       body.append('image', photo);
     }
+    request.onreadystatechange = (e) => {
+      if (request.readyState !== 4) {
+        return;
+      }
+      if (request.status === 200) {
+        console.log('success', request.responseText);
+        var data = JSON.parse(request.response)
+        AsyncStorage.setItem('user', JSON.stringify(data.user), () => {
+          alert('Thanks!')
+          this.toStorkFront()
+        });
+      } else { console.warn('error'); }
+    };
     AsyncStorage.getItem('jwtToken', (err, result) => {
         request.setRequestHeader('Authorization', result);
         request.send(body);
         console.log(body);
         console.log(request);
         console.log('request sent');
-        alert('Thanks!')
-        this.pop()
     });
   }
   _logoutPressed() {
