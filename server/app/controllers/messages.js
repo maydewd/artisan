@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 exports.getConversations = function (req, res) {
   Conversation
   .find({seller: req.user._id})
+  .populate("buyer", "username imagePath facebookImagePath")
+  .populate("item")
   .exec(function(err, conversations) {
     if (err) {
       return res.status(400).send({ success: false, message: err});
