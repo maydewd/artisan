@@ -85,13 +85,19 @@ class Messages extends Component {
   }
 
   renderRow(rowData) {
-    var imagePath = "public/uploads/listings/loading.jpg"
+    var imagePath = rowData.item.imagePath;
+    var displayText = rowData.buyer.username;
     return (
-      <View style = {{flexDirection: 'row'}}>
+      <View style = {{flexDirection: 'row',  justifyContent: 'space-between', alignItems: 'center'}}>
         <Image style = {{height: 80, width: 80}}
          source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + imagePath}}/>
-         <Text> {rowData._id} </Text>
-         <Ionic onPress= {() => this._message(rowData._id)} name="ios-chatbubbles" size={30} color="black" />
+         <Text> {displayText} </Text>
+         <Icon
+          onPress= {() => this._message(rowData._id)}
+          style = {{paddingRight: 6, paddingTop: 6}}
+          name="chevron-circle-right"
+          size={28}
+          color="black" />
       </View>
      );
   }
