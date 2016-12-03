@@ -313,8 +313,9 @@ class Discover extends Component {
         console.log(responseData);
         if (responseData.success !== true) {
           console.log('Failed to like')
+        } else if (responseData.message !== "User already liked post") {
+          this._incrementBundleSize();
         }
-        this._incrementBundleSize();
         return responseData;
        })
       .catch(function(err) {
