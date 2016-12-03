@@ -9,7 +9,8 @@ import {
   Text,
   View,
   AsyncStorage,
-  Switch
+  Switch,
+  Alert
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -84,7 +85,7 @@ class DiscoverSettings extends Component {
     AsyncStorage.setItem('myPosts', JSON.stringify(this.state.myPosts));
     AsyncStorage.setItem('seeLiked', JSON.stringify(this.state.seeLiked));
     AsyncStorage.setItem('seeDisliked', JSON.stringify(this.state.seeDisliked));
-    alert('Saved!')
+    Alert.alert('Saved!')
   }
 
   render() {

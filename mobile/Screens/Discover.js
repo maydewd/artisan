@@ -85,7 +85,6 @@ class Discover extends Component {
              AsyncStorage.setItem("bundlePosts", JSON.stringify(list));
              if (list.length === 0) {
                this._fetchData()
-               alert("Fetching");
                return
              }
              this.setState( {
@@ -143,13 +142,15 @@ class Discover extends Component {
                   this.setState({
                     currentListing: holder[0]
                   })
+                } else {
+                  alert('No more posts', 'Try changing your discover preferences');
+                  this.setState({
+                    currentListing: null
+                  })
                 }
-                console.log("Successfully grabbed data");
              })
             .catch(function(err) {
-              alert("error");
-              console.log("Error in Posting");
-              console.log(err);
+              return;
             })
             .done();
         },
