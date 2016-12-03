@@ -39,7 +39,7 @@ class Register extends Component {
       profileImage: null,
       username: null,
       password: null,
-      distance: '5 miles',
+      distance: 'Any',
       cost: '$20-100',
       myPosts: false,
       downedPost: false,

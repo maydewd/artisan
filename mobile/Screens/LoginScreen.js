@@ -178,14 +178,9 @@ class LoginScreen extends Component {
     .then((response) => response.json())
     .then((responseData) => {
       if (responseData.success === true) {
-<<<<<<< HEAD
         AsyncStorage.removeItem('bundlePosts')
-        AsyncStorage.setItem('user', JSON.stringify(responseData.user));
-        AsyncStorage.setItem('jwtToken', responseData.token, () =>
-=======
         AsyncStorage.setItem(async_keys.USER, JSON.stringify(responseData.user));
         AsyncStorage.setItem(async_keys.TOKEN, responseData.token, () =>
->>>>>>> origin/master
           this.props.navigator.push({
             id:'mainView',
             sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump

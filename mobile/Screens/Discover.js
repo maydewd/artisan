@@ -127,10 +127,25 @@ class Discover extends Component {
       const seeLiked = JSON.parse(result[3][1]);
       const seeDisliked = JSON.parse(result[4][1]);
       const distance = result[5][1];
+      var radius = "&radius=10";
+      switch(distance) {
+        case '5 miles':
+          radius = "&radius=5";
+          break;
+        case '10 miles':
+          radius = "&radius=10";
+          break;
+        case '20 miles':
+          radius = "&radius=20";
+          break;
+        case 'Any':
+          radius = "";
+          break;
+      }
       // TODO fix radius in query
       navigator.geolocation.getCurrentPosition (
         (position) => {
-          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=20&hideMine=${!myPosts}&hideLiked=${!seeLiked}&hideDisliked=${!seeDisliked}&radius=10&lng=${position.coords.longitude}&lat=${position.coords.latitude}`,
+          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=20&hideMine=${!myPosts}&hideLiked=${!seeLiked}&hideDisliked=${!seeDisliked}&lng=${position.coords.longitude}&lat=${position.coords.latitude}` + radius,
             {method: "GET",
               headers: {
                 'Accept': 'application/json',
