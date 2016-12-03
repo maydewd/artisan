@@ -35,12 +35,6 @@ class DiscoverPost extends Component {
       type: this.props.item.type
     };
   }
-  _contact() {
-    this.props.navigator.push({
-        id: 'chat',
-        itemID: this.props.item._id
-    });
-  }
   render() {
     var titleConfig = {
       title: 'Discover Post',
@@ -109,12 +103,6 @@ class DiscoverPost extends Component {
             inputStyle={{ color: '#24518D' }}
             value={this.state.type != null ? this.state.type.toString() : "N/A"}
           />
-          <Button
-            containerStyle={styles.contactButtonContainer}
-            style={styles.contactButton}
-            onPress={() => this._contact()}>
-            <Ionic name="ios-chatbubbles" size={usablePercent(6)}/>
-          </Button>
         </ScrollView>
       </View>
     );
