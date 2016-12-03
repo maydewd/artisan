@@ -99,7 +99,7 @@ class Discover extends Component {
   }
 
   _fetchData() {
-    AsyncStorage.multiGet([async_keys.TOKEN, async_keys.COST, async_keys.MYPOSTS, async_keys.LIKED, async_keys.DISLIKED], (err, result) => {
+    AsyncStorage.multiGet([async_keys.TOKEN, async_keys.COST, async_keys.MYPOSTS, async_keys.LIKED, async_keys.DISLIKED, async_keys.DISTANCE], (err, result) => {
       const jwt = result[0][1];
       const cost = result[1][1];
       let minCost, maxCost= null;
@@ -119,10 +119,16 @@ class Discover extends Component {
         case '$100+':
           minCost = 100;
           break;
+        default:
+          minCost = 20;
+          maxCost = 100;
+          break;
       }
       const myPosts = JSON.parse(result[2][1]);
       const seeLiked = JSON.parse(result[3][1]);
       const seeDisliked = JSON.parse(result[4][1]);
+      const distance = result[5][1];
+      // TODO fix radius in query
       navigator.geolocation.getCurrentPosition (
         (position) => {
           fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=20&hideMine=${!myPosts}&hideLiked=${!seeLiked}&hideDisliked=${!seeDisliked}&radius=10&lng=${position.coords.longitude}&lat=${position.coords.latitude}`,
