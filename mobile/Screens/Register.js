@@ -257,6 +257,7 @@ class Register extends Component {
     request.open("POST", config.url + config.register);
     request.setRequestHeader('Accept', 'application/json');
     request.setRequestHeader('Content-Type', 'multipart/form-data');
+    var body = new FormData();
     body.append('username', username);
     body.append('password', password);
     var photo;
