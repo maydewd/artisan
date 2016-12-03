@@ -18,6 +18,7 @@ import {
 import BottomNav from '../Components/BottomNav'
 import Icon from 'react-native-vector-icons/FontAwesome'
 styles = require('../Styles/Layouts');
+import {async_keys} from '../resources/Properties.js';
 var NavigationBar = require('react-native-navbar');
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -45,7 +46,7 @@ class StorkFront extends Component {
   }
 
   _fetchProfile() {
-    AsyncStorage.getItem('user', (err, result) => {
+    AsyncStorage.getItem(async_keys.USER, (err, result) => {
       this.setState({
         profile: JSON.parse(result)
       })
@@ -59,7 +60,7 @@ class StorkFront extends Component {
   }
 
   _fetchData() {
-    AsyncStorage.getItem('jwtToken', (err, result) => {
+    AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
       fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/me",
         {method: "GET",
           headers: {

@@ -15,6 +15,7 @@ var NavigationBar = require('react-native-navbar');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { SegmentedControls } from 'react-native-radio-buttons';
 styles = require('../Styles/Layouts');
+import {async_keys} from '../resources/Properties.js';
 import {radii, costBrackets} from '../resources/Preferences';
 
 class DiscoverSettings extends Component {
@@ -31,7 +32,7 @@ class DiscoverSettings extends Component {
   }
 
   componentDidMount() {
-    AsyncStorage.multiGet(['distance', 'cost', 'myPosts', 'downedPost', 'seeLiked', 'seeDisliked'], (err, stores) => {
+    AsyncStorage.multiGet([async_keys.DISTANCE, async_keys.COST, async_keys.MYPOSTS, async_keys.DOWNED, async_keys.LIKED, async_keys.DISLIKED], (err, stores) => {
            var d = '5 miles';
            var c = '$20-100';
            var mP = false;
@@ -78,12 +79,12 @@ class DiscoverSettings extends Component {
 
   _save() {
     var state = this.state;
-    AsyncStorage.removeItem('bundlePosts')
-    AsyncStorage.setItem('distance', this.state.distance);
-    AsyncStorage.setItem('cost', this.state.cost);
-    AsyncStorage.setItem('myPosts', JSON.stringify(this.state.myPosts));
-    AsyncStorage.setItem('seeLiked', JSON.stringify(this.state.seeLiked));
-    AsyncStorage.setItem('seeDisliked', JSON.stringify(this.state.seeDisliked));
+    AsyncStorage.removeItem(async_keys.BUNDLE)
+    AsyncStorage.setItem(async_keys.DISTANCE, this.state.distance);
+    AsyncStorage.setItem(async_keys.COST, this.state.cost);
+    AsyncStorage.setItem(async_keys.MYPOSTS, JSON.stringify(this.state.myPosts));
+    AsyncStorage.setItem(async_keys.LIKED, JSON.stringify(this.state.seeLiked));
+    AsyncStorage.setItem(async_keys.DISLIKED, JSON.stringify(this.state.seeDisliked));
     alert('Saved!')
   }
 

@@ -18,6 +18,7 @@ import {
   Alert
 } from 'react-native';
 styles = require('../Styles/Layouts');
+import {async_keys} from '../resources/Properties.js';
 const config = require('../config/server');
 import Button from 'react-native-button';
 import FA from 'react-native-vector-icons/FontAwesome';
@@ -275,7 +276,7 @@ class Register extends Component {
         };
       }
     body.append('image', photo);
-    AsyncStorage.getItem('jwtToken', (err, result) => {
+    AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
         request.setRequestHeader('Authorization', result);
         request.send(body);
         Alert.alert('Thanks!')
@@ -283,10 +284,10 @@ class Register extends Component {
   }
 
   _savePreferences() {
-    AsyncStorage.setItem('distance', this.state.distance);
-    AsyncStorage.setItem('cost', this.state.cost);
-    AsyncStorage.setItem('myPosts', JSON.stringify(this.state.myPosts));
-    AsyncStorage.setItem('downedPost', JSON.stringify(this.state.downedPost));
+    AsyncStorage.setItem(async_keys.DISTANCE, this.state.distance);
+    AsyncStorage.setItem(async_keys.COST, this.state.cost);
+    AsyncStorage.setItem(async_keys.MYPOSTS, JSON.stringify(this.state.myPosts));
+    AsyncStorage.setItem(async_keys.DOWNED, JSON.stringify(this.state.downedPost));
   }
 
   selectPhotoTapped() {

@@ -29,6 +29,7 @@ import {grabArtTypes} from '../resources/Types'
 import { Kohana } from 'react-native-textinput-effects';
 import ModalPicker from 'react-native-modal-picker';
 import FA from 'react-native-vector-icons/FontAwesome';
+import {async_keys} from '../resources/Properties.js';
 
 import Geocoder from 'react-native-geocoder';
 import {GOOGLE_API_KEY} from '../resources/Properties.js'
@@ -225,7 +226,7 @@ class NewPost extends Component {
       };
     }
     body.append('image', photo);
-    AsyncStorage.getItem('jwtToken', (err, result) => {
+    AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
         request.setRequestHeader('Authorization', result);
         request.send(body);
         alert('Thanks!')

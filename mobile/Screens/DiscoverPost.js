@@ -10,7 +10,6 @@ import {
   View,
   Image,
   ScrollView,
-  AsyncStorage
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button';

@@ -17,6 +17,7 @@ var NavigationBar = require('react-native-navbar');
 import {getScreenHeight, topNavBarHeight, getScreenWidth} from '../helpers/dimension'
 import { SwipeListView } from 'react-native-swipe-list-view';
 styles = require('../Styles/Layouts');
+import {async_keys} from '../resources/Properties.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ionic from 'react-native-vector-icons/Ionicons';
 
@@ -36,7 +37,7 @@ class MyBundle extends Component {
   }
 
   _fetchData() {
-    AsyncStorage.getItem('jwtToken', (err, result) => {
+    AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
       fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/liked",
         {method: "GET",
           headers: {
@@ -134,7 +135,7 @@ class MyBundle extends Component {
 
   _delete(item, index) {
     var currID = item._id;
-    AsyncStorage.getItem('jwtToken', (err, result) => {
+    AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
       fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/" + currID + "/unlike",
         {method: "POST",
           headers: {
