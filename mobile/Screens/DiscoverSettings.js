@@ -86,7 +86,7 @@ class DiscoverSettings extends Component {
     AsyncStorage.setItem(async_keys.MYPOSTS, JSON.stringify(this.state.myPosts));
     AsyncStorage.setItem(async_keys.LIKED, JSON.stringify(this.state.seeLiked));
     AsyncStorage.setItem(async_keys.DISLIKED, JSON.stringify(this.state.seeDisliked));
-    alert('Saved!')
+    Alert.alert('Saved!')
   }
 
   render() {

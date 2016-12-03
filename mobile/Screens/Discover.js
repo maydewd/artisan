@@ -165,7 +165,7 @@ class Discover extends Component {
                     currentListing: holder[0]
                   })
                 } else {
-                  alert('No more posts', 'Try changing your discover preferences');
+                  Alert.alert('No more posts', 'Try changing your discover preferences');
                   this.setState({
                     currentListing: null
                   })
@@ -192,14 +192,12 @@ class Discover extends Component {
   }
 
   goToSettings() {
-    console.log("pressed")
     this.props.navigator.push({
         id: 'discoverSettings'
     });
   }
 
   goToMyBundle() {
-    console.log("pressed")
     this.props.navigator.push({
         id: 'myBundle'
     });
@@ -228,7 +226,11 @@ class Discover extends Component {
     };
 
     if (this.state.currentListing === null) {
-      var components = null
+      var components =
+        <View style = {styles.centeredBoth}>
+          <Text>No Posts Left</Text>
+          <Text>Try changing your discover preferences</Text>
+        </View>
     } else {
       var components =  <View>
           <View style = {styles.centered && {flexDirection: "row", paddingRight: 5, paddingTop: 15, paddingBottom: 2}}>
