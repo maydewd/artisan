@@ -16,7 +16,8 @@ import {
   Keyboard,
   LayoutAnimation,
   TouchableOpacity,
-  Navigator
+  Navigator,
+  Alert
 } from 'react-native';
 import Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -24,6 +25,7 @@ styles = require('../Styles/Layouts');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
 import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
+const config = require('../config/server');
 var {FBLogin, FBLoginManager} = require('react-native-facebook-login');
 
 class LoginScreen extends Component {
@@ -31,61 +33,32 @@ class LoginScreen extends Component {
     componentDidMount() {
         console.disableYellowBox = true;
         this.setState({
-          username: 'devuser',
-          password: 'securetest',
+          username: null,
+          password: null,
         });
     }
 
   render() {
-    var height = getScreenHeight();
-    var logoWidth = usablePercent(30);
-    var logoHeight = usablePercent(30);
     return (
-
       <KeyboardAvoidingView behavior = 'position'>
-      <View
-              style = {{
-                flexDirection: "column",
-                justifyContent: "space-around",
-                alignItems: "center",
-                paddingTop: 40,
-                backgroundColor: '#e6f2ff',
-                height: height
-              }}
-          >
+      <View style = {styles.topLoginView}>
         <Image source = {require("../resources/storkdLogo.png")}
-          style = {{width: logoWidth, height: logoHeight}}
+          style = {styles.loginImage}
         />
         <FBLogin
             ref={(fbLogin) => { this.fbLogin = fbLogin }}
             permissions={["email","user_friends"]}
             loginBehavior={FBLoginManager.LoginBehaviors.Native}
              onLogin={(data) => this._loginWithFB(data)}
-             onLogout={function(){
-               console.log("Logged out.");
-             }}
-             onLoginFound={function(data){
-               console.log("Existing login found.");
-               console.log(data)
-
-             }}
-             onLoginNotFound={function(){
-               console.log("No user logged in.");
-             }}
-             onError={function(data){
-               console.log("ERROR");
-               console.log(data);
-             }}
-             onCancel={function(){
-               console.log("User cancelled.");
-             }}
-             onPermissionsMissing={function(data){
-               console.log("Check permissions!");
-               console.log(data);
-             }}/>
+             onLogout={(data) => this._logoutWithFB(data)}
+             onLoginFound={(data) => this._onLoginFound(data)}
+             onLoginNotFound={(data) => this._onLoginFound(data)}
+             onError={(data) => this._onError(data)}
+             onCancel={(data) => _onCancel()}
+             onPermissionsMissing={(data) => onPermissionsMissing(data)}/>
         <View style = {{alignItems: 'center'}}>
           <Kohana
-            style={{width: getScreenWidth() * .9, backgroundColor: 'white', borderTopRightRadius:10, borderTopLeftRadius:10 }}
+            style={styles.loginTopTextField}
             onChangeText={(username) => this.setState({username})}
             label={'Username'}
             iconClass={MaterialIcons}
@@ -98,7 +71,7 @@ class LoginScreen extends Component {
             returnKeyType = {'done'}
           />
           <Kohana
-            style={{ width: getScreenWidth() * .9, backgroundColor: 'white', borderBottomRightRadius:10, borderBottomLeftRadius:10}}
+            style={styles.loginBottomTextField}
             onChangeText={(password) => this.setState({password})}
             label={'Password'}
             iconClass={MaterialIcons}
@@ -112,7 +85,7 @@ class LoginScreen extends Component {
           />
           <View style = {{height: 10}} />
           <Button
-            containerStyle={{paddingTop: 7, width: 110, height:40, overflow:'hidden', borderRadius:4, backgroundColor: 'pink'}}
+            containerStyle={styles.loginButton}
             style={[styles.baseText, {fontSize: 20, color: 'white'}]}
             onPress={() => this._submitLogin()}>
             Login
@@ -136,8 +109,28 @@ class LoginScreen extends Component {
     });
   }
 
+  _logoutWithFB(data) {
+    //Currently nothing done
+  }
+
+  _onPermissionsMissing(data) {
+    alert("Check permissions")
+  }
+
+  _onLoginFound(data) {
+    //Currently nothing done
+  }
+
+  _onCancel(data) {
+    //Currently nothing done
+  }
+
+  _onLoginNotFound(data) {
+    //Currently nothing done
+  }
+
   _loginWithFB(data) {
-    fetch("http://colab-sbx-137.oit.duke.edu:3000/api/login/fb",
+    fetch(config.url + "/api/login/fb",
       {method: "POST",
         headers: {
           'Accept': 'application/json',
@@ -169,7 +162,11 @@ class LoginScreen extends Component {
   //Get the AWT token given the username and password state of the app
   _submitLogin() {
     const { username, password } = this.state
-    fetch("http://colab-sbx-137.oit.duke.edu:3000/api/login",
+    if (username == null || password == null) {
+      this._promptLogin();
+      return
+    }
+    fetch(config.url + config.login,
       {method: "POST",
         headers: {
           'Accept': 'application/json',
@@ -187,8 +184,7 @@ class LoginScreen extends Component {
           })
         );
       } else {
-        console.log("Incorrect login");
-        alert('Incorrect username and password')
+        this._displayIncorrectLogin();
       }
        return responseData;
      })
@@ -196,6 +192,14 @@ class LoginScreen extends Component {
       alert('Something went wrong- test your connection')
     })
     .done();
+  }
+
+  _displayIncorrectLogin(){
+    Alert.alert('Try again', 'Incorrect username and password')
+  }
+
+  _promptLogin() {
+    Alert.alert('Empty fields', 'Please enter username and password or register')
   }
 
 }

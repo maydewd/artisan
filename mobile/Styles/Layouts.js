@@ -84,6 +84,43 @@ const styles = StyleSheet.create({
       paddingLeft: 20,
     },
 
+    loginTopTextField: {
+      width: getScreenWidth() * .9,
+      backgroundColor: 'white',
+      borderTopRightRadius:10,
+      borderTopLeftRadius:10
+    },
+
+    loginBottomTextField: {
+      width: getScreenWidth() * .9,
+      backgroundColor: 'white',
+      borderBottomRightRadius:10,
+      borderBottomLeftRadius:10
+    },
+
+    loginButton: {
+          paddingTop: 7,
+          width: 110,
+          height:40,
+          overflow:'hidden',
+          borderRadius:4,
+          backgroundColor: 'pink'
+    },
+
+    topLoginView: {
+        flexDirection: "column",
+        justifyContent: "space-around",
+        alignItems: "center",
+        paddingTop: 40,
+        backgroundColor: '#e6f2ff',
+        height: getScreenHeight()
+    },
+
+    loginImage: {
+      width: usablePercent(30),
+      height: usablePercent(30)
+    },
+
     loginScreenView: {
       flexDirection: "column",
       justifyContent: "space-around",
