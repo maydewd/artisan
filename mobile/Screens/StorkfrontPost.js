@@ -28,6 +28,7 @@ import ModalPicker from 'react-native-modal-picker';
 var ImagePicker = require('react-native-image-picker');
 
 styles = require('../Styles/Layouts');
+import {async_keys} from '../resources/Properties.js';
 
 
 class StorkfrontPost extends Component {
@@ -50,7 +51,7 @@ class StorkfrontPost extends Component {
     console.log("description: " + description)
     console.log("type: " + type)
     console.log("photoSource: " + photoSource)
-    console.log(AsyncStorage.getItem('jwtToken'));
+    // console.log(AsyncStorage.getItem(async_keys.TOKEN));
     var request = new XMLHttpRequest();
     request.open("POST", "http://colab-sbx-137.oit.duke.edu:3000/api/listings/"+_id);
     request.setRequestHeader('Accept', 'application/json');
@@ -76,7 +77,7 @@ class StorkfrontPost extends Component {
       }
       body.append('image', photo);
     }
-    AsyncStorage.getItem('jwtToken', (err, result) => {
+    AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
         request.setRequestHeader('Authorization', result);
         request.send(body);
         console.log(body);
@@ -94,7 +95,7 @@ class StorkfrontPost extends Component {
   }
   _deletePost() {
     var currID = this.state._id;
-    AsyncStorage.getItem('jwtToken', (err, result) => {
+    AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
       fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/" + currID,
         {method: "DELETE",
           headers: {

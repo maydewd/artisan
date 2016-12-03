@@ -1,10 +1,23 @@
 // property file
-export const ASYNC_USER_KEY = "user";
-export const ASYNC_TOKEN_KEY = "jwtToken"
+
+export const async_keys = {
+  // async keys for authentication
+  "USER" : "user",
+  "TOKEN" : "jwtToken",
+  // async keys for discover filtering
+  "COST" : "cost",
+  "MYPOSTS" : "myPosts",
+  "LIKED" : "seeLiked",
+  "DISLIKED" : "seeDisliked",
+  "BUNDLE" : "bundlePosts",
+  "DISTANCE" : "distance",
+  "DOWNED" : "downedPost",
+}
 
 // TODO: get yer own key
 export const GOOGLE_API_KEY = 'AIzaSyB4Wup3-phaP5kaiLHUOELxdtMKzm1GuxI';
 
-export function getAsyncKeys() {
-  return [ASYNC_TOKEN_KEY, ASYNC_USER_KEY];
+export function getAllAsyncKeys() {
+  // get an array of async keys; intended for use with AsyncStorage.multiRemove
+  return Object.keys(async_keys).map(function (key) { return async_keys[key]; });
 }

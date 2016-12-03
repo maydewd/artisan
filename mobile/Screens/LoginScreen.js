@@ -26,6 +26,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
 import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
 const config = require('../config/server');
+import {async_keys} from '../resources/Properties.js';
 var {FBLogin, FBLoginManager} = require('react-native-facebook-login');
 
 class LoginScreen extends Component {
@@ -142,8 +143,8 @@ class LoginScreen extends Component {
     .then((responseData) => {
       if (responseData.success === true) {
         AsyncStorage.removeItem('bundlePosts')
-        AsyncStorage.setItem('user', JSON.stringify(responseData.user));
-        AsyncStorage.setItem('jwtToken', responseData.token, () =>
+        AsyncStorage.setItem(async_keys.USER, JSON.stringify(responseData.user));
+        AsyncStorage.setItem(async_keys.TOKEN, responseData.token, () =>
           this.props.navigator.push({
             id:'mainView',
             sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
@@ -177,9 +178,14 @@ class LoginScreen extends Component {
     .then((response) => response.json())
     .then((responseData) => {
       if (responseData.success === true) {
+<<<<<<< HEAD
         AsyncStorage.removeItem('bundlePosts')
         AsyncStorage.setItem('user', JSON.stringify(responseData.user));
         AsyncStorage.setItem('jwtToken', responseData.token, () =>
+=======
+        AsyncStorage.setItem(async_keys.USER, JSON.stringify(responseData.user));
+        AsyncStorage.setItem(async_keys.TOKEN, responseData.token, () =>
+>>>>>>> origin/master
           this.props.navigator.push({
             id:'mainView',
             sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump

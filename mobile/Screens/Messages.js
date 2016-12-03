@@ -17,6 +17,7 @@ var NavigationBar = require('react-native-navbar');
 import {usableWithTop, getScreenWidth} from '../helpers/dimension'
 import { SwipeListView } from 'react-native-swipe-list-view';
 styles = require('../Styles/Layouts');
+import {async_keys} from '../resources/Properties.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ionic from 'react-native-vector-icons/Ionicons';
 
@@ -35,7 +36,7 @@ class Messages extends Component {
   }
 
   _fetchMessages() {
-    AsyncStorage.getItem('jwtToken', (err, result) => {
+    AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
       fetch("http://colab-sbx-137.oit.duke.edu:3000/api/messages/conversations",
         {method: "GET",
           headers: {

@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import {usableWithTop} from '../helpers/dimension'
+import {async_keys} from '../resources/Properties.js';
 import { SwipeListView } from 'react-native-swipe-list-view';
 styles = require('../Styles/Layouts');
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -39,7 +40,7 @@ class Chat extends Component {
    }
 
    _setUserId() {
-     AsyncStorage.getItem('user', (err, result) => {
+     AsyncStorage.getItem(async_keys.USER, (err, result) => {
          const userID = JSON.parse(result)._id;
          this.setState({
            userID: userID
@@ -50,7 +51,7 @@ class Chat extends Component {
    _fetchMessages(route) {
      var route = "http://colab-sbx-137.oit.duke.edu:3000/api/messages/" + route;
      console.log(route);
-     AsyncStorage.getItem('jwtToken', (err, result) => {
+     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
        fetch(route,
          {method: "GET",
            headers: {
@@ -113,7 +114,7 @@ class Chat extends Component {
   }
 
   _post(message, route) {
-    AsyncStorage.getItem('jwtToken', (err, result) => {
+    AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
       fetch("http://colab-sbx-137.oit.duke.edu:3000/api/messages/" + route,
         {method: "POST",
           headers: {

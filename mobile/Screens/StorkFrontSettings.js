@@ -27,7 +27,7 @@ import { Sae } from 'react-native-textinput-effects';
 import { SegmentedControls } from 'react-native-radio-buttons';
 
 import {usableWithTop, getScreenWidth} from '../helpers/dimension'
-import {getAsyncKeys, ASYNC_TOKEN_KEY} from '../resources/Properties.js'
+import {getAllAsyncKeys, async_keys} from '../resources/Properties.js'
 styles = require('../Styles/Layouts');
 
 class StorkFrontSettings extends Component {
@@ -203,7 +203,7 @@ class StorkFrontSettings extends Component {
   }
 
   _connectFB(data) {
-    AsyncStorage.getItem(ASYNC_TOKEN_KEY, (err, result) => {
+    AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
       // console.log(result)
       // console.log(data.credentials.token)
       fetch("http://colab-sbx-137.oit.duke.edu:3000/api/connect/fb",
@@ -269,13 +269,13 @@ class StorkFrontSettings extends Component {
       if (request.status === 200) {
         console.log('success', request.responseText);
         var data = JSON.parse(request.response)
-        AsyncStorage.setItem('user', JSON.stringify(data.user), () => {
+        AsyncStorage.setItem(async_keys.USER, JSON.stringify(data.user), () => {
           alert('Thanks!')
           this.toStorkFront()
         });
       } else { console.warn('error'); }
     };
-    AsyncStorage.getItem('jwtToken', (err, result) => {
+    AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
         request.setRequestHeader('Authorization', result);
         request.send(body);
         console.log(body);
@@ -301,7 +301,7 @@ class StorkFrontSettings extends Component {
     }
   }
   _resetToLogin() {
-    keys = getAsyncKeys();
+    keys = getAllAsyncKeys();
     AsyncStorage.multiRemove(keys, (err) => {
       console.log(err)
       this.props.navigator.resetTo({id: 'login'});
