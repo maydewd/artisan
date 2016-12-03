@@ -11,6 +11,10 @@ const styles = StyleSheet.create({
       height: topNavBarHeight()
     },
 
+    registerWidth: {
+      width: 0.8 * getScreenWidth()
+    },
+
     //TODO make profile picture circular
     registerContainer: {
       width:  getScreenWidth()/2,

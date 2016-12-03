@@ -14,9 +14,11 @@ import {
   Platform,
   ScrollView,
   Switch,
-  Modal
+  Modal,
+  Alert
 } from 'react-native';
 styles = require('../Styles/Layouts');
+const config = require('../config/server');
 import Button from 'react-native-button';
 import FA from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -55,7 +57,6 @@ class Register extends Component {
   }
 
   render() {
-
     var titleConfig = {
      title: 'Registration',
      tintColor: 'white'
@@ -87,7 +88,6 @@ class Register extends Component {
            animationType={"slide"}
            transparent={false}
            visible={this.state.modalVisible}
-           onRequestClose={() => {alert("Modal has been closed.")}}
          >
             {this.modal()}
          </Modal>
@@ -106,7 +106,7 @@ class Register extends Component {
                 label={'Username'}
                 onChangeText={(username) => this.setState({username})}
                 iconClass={MaterialIcons}
-                style = {{width: 0.8 * getScreenWidth()}}
+                style = {styles.registerWidth}
                 labelStyle={{ color: '#24518D' }}
                 inputStyle={{ color: '#24518D' }}
                 iconName={'perm-identity'}
@@ -118,7 +118,7 @@ class Register extends Component {
                 label={'Password'}
                 onChangeText={(password) => this.setState({password})}
                 iconClass={MaterialIcons}
-                style = {{width: 0.8 * getScreenWidth()}}
+                style = {styles.registerWidth}
                 labelStyle={{ color: '#24518D' }}
                 inputStyle={{ color: '#24518D' }}
                 iconName={'lock'}
@@ -131,7 +131,7 @@ class Register extends Component {
                 label={'Confirm password'}
                 onChangeText={(confirmPassword) => this.setState({confirmPassword})}
                 iconClass={MaterialIcons}
-                style = {{width: 0.8 * getScreenWidth()}}
+                style = {styles.registerWidth}
                 labelStyle={{ color: '#24518D' }}
                 inputStyle={{ color: '#24518D' }}
                 iconName={'lock'}
@@ -217,8 +217,8 @@ class Register extends Component {
         <View style = {{height: 10}}/>
         <Text>  Do not worry they can be changed any time! </Text>
         <View style = {{height: 40}}/>
-        <TouchableOpacity  onPress={this.hideModal.bind(this)}>
-          <Text> Got It!</Text>
+        <TouchableOpacity>
+          <Button onPress={this.hideModal.bind(this)}> Got It!</Button>
         </TouchableOpacity>
       </View>
     );
@@ -238,50 +238,46 @@ class Register extends Component {
 
   //TODO
   _register() {
-    if (this.state.password !== this.state.confirmPassword) {
-      alert('Confirm password does not match password field')
+    const {username, password, confirmPassword, profileImage} = this.state;
+    if (username == null || password == null || profileImage == null || confirmPassword == null) {
+      Alert.alert('Incomplete', 'Check you filled out all the fields!');
       return;
     }
-    this._registerUser();
+    if (this.state.password !== this.state.confirmPassword) {
+      Alert.alert('Check Passwords match', 'Confirm password does not match password field')
+      return;
+    }
+    this._registerUser(username, password, profileImage);
     this._savePreferences();
     this._pop()
   }
 
-  _registerUser() {
-    const {username, password, profileImage} = this.state;
+  _registerUser(username, password, profileImage) {
     var request = new XMLHttpRequest();
-    request.open("POST", "http://colab-sbx-137.oit.duke.edu:3000/api/register");
+    request.open("POST", config.url + config.register);
     request.setRequestHeader('Accept', 'application/json');
     request.setRequestHeader('Content-Type', 'multipart/form-data');
-    var body = new FormData();
     body.append('username', username);
-    if (password !== null) {
-      body.append('password', password);
-    }
-    if (profileImage !==null) {
-      var photo;
-      if (Platform.OS === 'android') {
+    body.append('password', password);
+    var photo;
+    if (Platform.OS === 'android') {
         photo = {
           uri: profileImage.uri,
           type: 'image/jpeg',
           name: 'photo.jpg',
         };
-      } else {
+    } else {
         photo = {
           uri: profileImage,
           type: 'image/jpeg',
           name: 'photo.jpg',
         };
       }
-      body.append('image', photo);
-    }
+    body.append('image', photo);
     AsyncStorage.getItem('jwtToken', (err, result) => {
         request.setRequestHeader('Authorization', result);
         request.send(body);
-        console.log(body);
-        console.log(request);
-        console.log('request sent');
-        alert('Thanks!')
+        Alert.alert('Thanks!')
     });
   }
 
@@ -304,24 +300,18 @@ class Register extends Component {
     ImagePicker.showImagePicker(options, (response) => {
 
     if (response.error) {
-       console.log('ImagePicker Error: ', response.error);
+       return;
      }
      else if (response.customButton) {
-       console.log('User tapped custom button: ', response.customButton);
+       return;
      }
      else if (!response.didCancel){
        var source;
-
-       // You can display the image using either:
-       //source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
-
-       //Or:
        if (Platform.OS === 'android') {
          source = {uri: response.uri, isStatic: true};
        } else {
          source = {uri: response.uri.replace('file://', ''), isStatic: true};
        }
-
        this.setState({
          profileImage: source
        });
