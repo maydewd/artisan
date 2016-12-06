@@ -140,6 +140,13 @@ const styles = StyleSheet.create({
       alignItems: "center",
     },
 
+    centeredBoth: {
+      flex: 1,
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+
     navBar: {
       backgroundColor: '#cce5ff',
       height: topNavBarHeight()

@@ -86,7 +86,6 @@ class Discover extends Component {
              AsyncStorage.setItem(async_keys.BUNDLE, JSON.stringify(list));
              if (list.length === 0) {
                this._fetchData()
-               alert("Fetching");
                return
              }
              this.setState( {
@@ -128,10 +127,25 @@ class Discover extends Component {
       const seeLiked = JSON.parse(result[3][1]);
       const seeDisliked = JSON.parse(result[4][1]);
       const distance = result[5][1];
+      var radius = "&radius=10";
+      switch(distance) {
+        case '5 miles':
+          radius = "&radius=5";
+          break;
+        case '10 miles':
+          radius = "&radius=10";
+          break;
+        case '20 miles':
+          radius = "&radius=20";
+          break;
+        case 'Any':
+          radius = "";
+          break;
+      }
       // TODO fix radius in query
       navigator.geolocation.getCurrentPosition (
         (position) => {
-          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=20&hideMine=${!myPosts}&hideLiked=${!seeLiked}&hideDisliked=${!seeDisliked}&radius=10&lng=${position.coords.longitude}&lat=${position.coords.latitude}`,
+          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=20&hideMine=${!myPosts}&hideLiked=${!seeLiked}&hideDisliked=${!seeDisliked}&lng=${position.coords.longitude}&lat=${position.coords.latitude}` + radius,
             {method: "GET",
               headers: {
                 'Accept': 'application/json',
@@ -150,13 +164,15 @@ class Discover extends Component {
                   this.setState({
                     currentListing: holder[0]
                   })
+                } else {
+                  Alert.alert('No more posts', 'Try changing your discover preferences');
+                  this.setState({
+                    currentListing: null
+                  })
                 }
-                console.log("Successfully grabbed data");
              })
             .catch(function(err) {
-              alert("error");
-              console.log("Error in Posting");
-              console.log(err);
+              return;
             })
             .done();
         },
@@ -176,14 +192,12 @@ class Discover extends Component {
   }
 
   goToSettings() {
-    console.log("pressed")
     this.props.navigator.push({
         id: 'discoverSettings'
     });
   }
 
   goToMyBundle() {
-    console.log("pressed")
     this.props.navigator.push({
         id: 'myBundle'
     });
@@ -212,7 +226,11 @@ class Discover extends Component {
     };
 
     if (this.state.currentListing === null) {
-      var components = null
+      var components =
+        <View style = {styles.centeredBoth}>
+          <Text>No Posts Left</Text>
+          <Text>Try changing your discover preferences</Text>
+        </View>
     } else {
       var components =  <View>
           <View style = {styles.centered && {flexDirection: "row", paddingRight: 5, paddingTop: 15, paddingBottom: 2}}>
@@ -319,8 +337,9 @@ class Discover extends Component {
         console.log(responseData);
         if (responseData.success !== true) {
           console.log('Failed to like')
+        } else if (responseData.message !== "User already liked post") {
+          this._incrementBundleSize();
         }
-        this._incrementBundleSize();
         return responseData;
        })
       .catch(function(err) {

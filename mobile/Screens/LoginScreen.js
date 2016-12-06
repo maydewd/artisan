@@ -142,6 +142,7 @@ class LoginScreen extends Component {
     .then((response) => response.json())
     .then((responseData) => {
       if (responseData.success === true) {
+        AsyncStorage.removeItem('bundlePosts')
         AsyncStorage.setItem(async_keys.USER, JSON.stringify(responseData.user));
         AsyncStorage.setItem(async_keys.TOKEN, responseData.token, () =>
           this.props.navigator.push({
@@ -177,6 +178,7 @@ class LoginScreen extends Component {
     .then((response) => response.json())
     .then((responseData) => {
       if (responseData.success === true) {
+        AsyncStorage.removeItem('bundlePosts')
         AsyncStorage.setItem(async_keys.USER, JSON.stringify(responseData.user));
         AsyncStorage.setItem(async_keys.TOKEN, responseData.token, () =>
           this.props.navigator.push({
