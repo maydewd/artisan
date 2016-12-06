@@ -194,6 +194,7 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       color: '#333333',
       marginBottom: 5,
+      textDecorationLine: 'underline'
     },
 
 
@@ -468,6 +469,41 @@ const styles = StyleSheet.create({
       fontSize: 20,
       color: 'white'
     },
+
+    //==================================
+    //  AboutPage
+
+    AboutView: {
+      height: usableWithTop(),
+      alignItems: "center",
+      justifyContent: 'space-around',
+      backgroundColor: '#003366'
+    },
+
+    AboutHeader: {
+      textAlign: 'center',
+      marginBottom: 20,
+      fontSize: 24,
+      color: 'white'
+    },
+
+    AboutBasic: {
+      textAlign: 'center',
+      marginBottom: 2,
+      color: 'white'
+    },
+
+    DukeText: {
+      textAlign: 'center',
+      color: 'white'
+    },
+
+    AboutNavBar: {
+      backgroundColor: 'white',
+      height: topNavBarHeight(),
+      borderBottomWidth: 4,
+      borderBottomColor: 'pink'
+    }
 });
 
 module.exports = styles

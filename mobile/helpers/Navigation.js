@@ -12,6 +12,7 @@ import Messages from '../Screens/Messages.js'
 import BottomTabBar from '../Components/BottomTabBar.js'
 import Chat from '../Screens/Chat.js'
 import StorkFrontSettings from '../Screens/StorkFrontSettings.js'
+import AboutPage from '../Screens/AboutPage.js'
 import Register from '../Screens/Register.js'
 
 export function render(route, navigator) {
@@ -90,6 +91,13 @@ export function render(route, navigator) {
       <Chat
         itemID = {route.itemID}
         conversationID = {route.conversationID}
+        navigator={navigator} />
+    );
+  }
+
+  if (routeId === 'about') {
+    return (
+      <AboutPage
         navigator={navigator} />
     );
   }

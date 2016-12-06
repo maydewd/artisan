@@ -97,6 +97,11 @@ class LoginScreen extends Component {
             Sign Up
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity   onPress={() => this._toAboutPage()}>
+          <Text style={[styles.baseText]}>
+            About Page
+          </Text>
+        </TouchableOpacity>
       </View>
       </KeyboardAvoidingView>
     );
@@ -106,6 +111,14 @@ class LoginScreen extends Component {
     var navigator = this.props.navigator;
     navigator.push({
         id: 'register',
+        sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump
+    });
+  }
+
+  _toAboutPage() {
+    var navigator = this.props.navigator;
+    navigator.push({
+        id: 'about',
         sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump
     });
   }
