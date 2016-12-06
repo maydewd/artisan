@@ -1,0 +1,16 @@
+* Incorporate push notifications
+* Make the pink color on all screens a darker shade
+* Allow filtering based on type
+* In-app purchases
+* Ability to add title to a post
+* Other forms of login through social media
+  * Twitter
+  * Google
+  * Instagram
+* Time to make parameter on a post- this would allow an artist to attach a parameter to a post that would notify the user how long it would take to make the item
+* Design and integrate an algorithm that would better suggest posts to users
+* Integrate in-app messaging with text messaging or email
+* Have messages refresh when a new message is detected
+* Add an indicator to the StorkFront that let's the user know how many messages they have
+* Investigate different UI's for the Discover buttons
+* Add video capability
