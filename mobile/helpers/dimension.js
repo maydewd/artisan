@@ -1,3 +1,8 @@
+/**
+ * Provided for easy access to screen dimensions
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
+ */
+
 import {
   Dimensions,
   Platform,
@@ -16,6 +21,7 @@ export function bottomNavBarHeight() {
   return NavBarBottomHeight;
 }
 
+//Usable screen height accounting for top and bottom navigation bars
 export function getUsableScreenHeight() {
   if (Platform.OS === 'android') {
     return (Dimensions.get('window').height - bottomNavBarHeight() - topNavBarHeight() - StatusBar.currentHeight);
@@ -36,10 +42,12 @@ export function getScreenHeight() {
   }
 }
 
+//Returns height of screen based on percentage given (perc)
 export function usablePercent(perc) {
   return getUsableScreenHeight() * perc/100;
 }
 
+//Usable height accounting for top nav bar
 export function usableWithTop() {
   if (Platform.OS === 'android') {
     return (getScreenHeight() - topNavBarHeight());

@@ -1,6 +1,5 @@
 /**
- * Centered Screen
- * Used as a part Component for certain screens
+ * Deprecated
  */
 
 import React, { Component } from 'react';

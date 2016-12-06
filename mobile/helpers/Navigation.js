@@ -1,3 +1,7 @@
+/**
+ * Helper that extracts render route logic
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
+ */
 import React from 'react';
 import LoginScreen from '../Screens/LoginScreen.js'
 import NewPost from '../Screens/NewPost.js'
@@ -15,6 +19,7 @@ import StorkFrontSettings from '../Screens/StorkFrontSettings.js'
 import AboutPage from '../Screens/AboutPage.js'
 import Register from '../Screens/Register.js'
 
+//Function used by main naivagator
 export function render(route, navigator) {
   var routeId = route.id;
   if (routeId === 'login') {
@@ -94,14 +99,12 @@ export function render(route, navigator) {
         navigator={navigator} />
     );
   }
-
   if (routeId === 'about') {
     return (
       <AboutPage
         navigator={navigator} />
     );
   }
-
   if (routeId === 'profileSettings') {
     return (
       <StorkFrontSettings

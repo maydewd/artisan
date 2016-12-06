@@ -5,6 +5,36 @@ import {getScreenWidth, usableWithTop, getScreenHeight, topNavBarHeight, bottomN
 
 const styles = StyleSheet.create({
 
+    //TABS
+
+    tabcontainer: {
+     flex: 1,
+     backgroundColor: 'white'
+    },
+
+    tabTextActive: {
+      fontSize: 10,
+      color: '#24518D'
+    },
+
+    tabText: {
+      fontSize: 10,
+    },
+
+    iconActive : {
+      color: '#24518D'
+    },
+
+    tabIcon : {
+      color: 'black'
+    },
+
+    tabItem: {
+     flex: 1,
+     alignItems: 'center',
+     justifyContent: 'center'
+   },
+   
     //REGSTER
     registerNavBar: {
       backgroundColor: '#24518D',

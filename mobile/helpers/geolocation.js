@@ -1,3 +1,7 @@
+/**
+ * Geolocation code
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
+ */
 import React from 'react';
 import {
   AsyncStorage

@@ -1,3 +1,7 @@
+/**
+ * Tests the validity of the Dimensions helper class
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
+ */
 import {
   getScreenHeight,
   getUsableScreenHeight,

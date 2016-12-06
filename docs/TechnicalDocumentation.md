@@ -58,6 +58,8 @@ Other resources, such as images, can be found in the */mobile/resources/* folder
 
 The test suit for the mobile application can be found under  */mobile/__test__/*.  The testing framework being used is [Jest](https://facebook.github.io/jest/docs/tutorial-react-native.html).
 
+This test suit can be run with the command "npm test".  Running the command "npm test -- -u" will overwrite the screenshots from the last test.
+
 ### Geolocation
 
 ## Server

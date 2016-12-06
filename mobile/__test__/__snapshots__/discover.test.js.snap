@@ -72,16 +72,29 @@ exports[`test Discover renders correctly 1`] = `
           }
         }>
         <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          hitSlop={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
+              "opacity": 1,
               "padding": 10,
             }
-          }>
+          }
+          testID={undefined}>
           <Text
             accessible={true}
             allowFontScaling={false}
             ellipsizeMode="tail"
-            onPress={[Function]}
             style={
               Array [
                 Object {
@@ -107,16 +120,29 @@ exports[`test Discover renders correctly 1`] = `
           }
         }>
         <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          hitSlop={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
+              "opacity": 1,
               "padding": 10,
             }
-          }>
+          }
+          testID={undefined}>
           <Text
             accessible={true}
             allowFontScaling={false}
             ellipsizeMode="tail"
-            onPress={[Function]}
             style={
               Array [
                 Object {
@@ -131,6 +157,38 @@ exports[`test Discover renders correctly 1`] = `
             }>
             
           </Text>
+          <View
+            iterationCount={1}
+            onAnimationBegin={[Function]}
+            onAnimationEnd={[Function]}
+            onLayout={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "rgb(255, 102, 102)",
+                "borderRadius": 10.5,
+                "height": 21,
+                "justifyContent": "center",
+                "left": 0,
+                "position": "absolute",
+                "top": 4,
+                "width": 21,
+              }
+            }>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "backgroundColor": "rgba(0,0,0,0)",
+                  "color": "rgb(255,255,255)",
+                  "fontSize": 12,
+                }
+              }>
+              0
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -141,6 +199,29 @@ exports[`test Discover renders correctly 1`] = `
         "backgroundColor": "white",
         "height": 552,
       }
-    } />
+    }>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "column",
+          "justifyContent": "center",
+        }
+      }>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail">
+        No Posts Left
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail">
+        Try changing your discover preferences
+      </Text>
+    </View>
+  </View>
 </View>
 `;

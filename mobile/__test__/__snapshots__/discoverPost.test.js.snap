@@ -767,50 +767,6 @@ exports[`test DiscoverPost renders correctly 1`] = `
         underlineColorAndroid="transparent"
         value="Ceramic" />
     </View>
-    <View
-      accessibilityComponentType="button"
-      accessibilityLabel={undefined}
-      accessibilityTraits="button"
-      accessible={true}
-      hitSlop={undefined}
-      onLayout={undefined}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "#24518D",
-          "borderRadius": 2,
-          "maxHeight": 50,
-          "opacity": 1,
-          "overflow": "hidden",
-          "padding": 10,
-        }
-      }
-      testID={undefined}>
-      <Text
-        accessible={true}
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        style={
-          Array [
-            Object {
-              "color": undefined,
-              "fontFamily": "FontAwesome",
-              "fontSize": 33.12,
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            undefined,
-          ]
-        }>
-        
-      </Text>
-    </View>
   </ScrollView>
 </View>
 `;

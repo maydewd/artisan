@@ -1,6 +1,7 @@
 /**
- * Centered Screen
- * Used as a part Component for certain screens
+ * BottomTabBar
+ * Responsible for handling the transition between the Discover and StorkFront screens
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
  */
 
 import React, { Component } from 'react';
@@ -13,6 +14,7 @@ import {
   TouchableOpacity,
   Navigator
 } from 'react-native';
+styles = require('../Styles/Layouts');
 import BottomNav from '../Components/BottomNav'
 import Discover from '../Screens/Discover.js'
 import StorkFront from '../Screens/StorkFront.js'
@@ -50,7 +52,7 @@ class BottomTabBar extends Component {
       <View style={{ flexDirection: 'row', borderTopWidth: 3, borderTopColor: 'pink' }}>
         <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('discover')}>
           <Icon
-            style = {(this.state.tab == 'discover') ? styles.iconActive : styles.icon}
+            style = {(this.state.tab == 'discover') ? styles.iconActive : styles.tabIcon}
             name="globe" size={30} />
           <View>
             <Text
@@ -60,7 +62,7 @@ class BottomTabBar extends Component {
         </TouchableOpacity>
         <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('storkFront')}>
           <Icon
-          style = {(this.state.tab == 'storkFront') ? styles.iconActive : styles.icon}
+          style = {(this.state.tab == 'storkFront') ? styles.iconActive : styles.tabIcon}
           name="home" size={30} />
           <View>
             <Text
@@ -90,7 +92,7 @@ class BottomTabBar extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.tabContainer}>
           <View>
             {this.renderContent()}
           </View>
@@ -104,44 +106,6 @@ class BottomTabBar extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-
-  centered: {
-      flex: 1,
-      flexDirection: "column",
-      justifyContent: "space-between",
-      alignItems: "center",
-    },
-
-  container: {
-   flex: 1,
-   backgroundColor: 'white'
-  },
-
-  tabTextActive: {
-    fontSize: 10,
-    color: '#24518D'
-  },
-
-  tabText: {
-    fontSize: 10,
-  },
-
-  iconActive : {
-    color: '#24518D'
-  },
-
-  icon : {
-    color: 'black'
-  },
-
-  tabItem: {
-   flex: 1,
-   alignItems: 'center',
-   justifyContent: 'center'
- }
-});
 
 
 module.exports = BottomTabBar

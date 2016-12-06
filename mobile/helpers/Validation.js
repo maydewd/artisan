@@ -1,4 +1,9 @@
+/**
+ * Used to validate data entered by the user
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
+ */
 
+//Check if any of the fields in data are null and throw the proper error
 export function ValidateNewPost(data) {
 
   var errs = [];
@@ -42,6 +47,7 @@ function _getMessage(start, messages) {
   return ans;
 }
 
+//Defines a user input error with the given message
 function UserInputException(message) {
    this.message = message;
    this.name = "UserInputException";
