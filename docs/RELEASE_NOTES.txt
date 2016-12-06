@@ -1,0 +1,37 @@
+Current functionality:
+
+* Local and Facebook login
+* User registration with associated profile picture and preferences
+* Filtering of Discover posts based on user preferences
+* Ability to change filtering of Discover posts based on proximity & price range
+* Limit display of posts in the Discover screen that have been posted, liked, or disliked by the current user
+* React to art posts on the Discover screen by liking or disliking the post
+* Double-click functionality to like a post
+* Animation to notify a user a liked item has been sent to MyBundle
+* Saving of posts for future viewing in MyBundle
+* Deleting items from MyBundle
+* Directly contacting an artist from the MyBundle screen
+* In-app messaging
+* Information screen that display all the information of a post
+* Ability to make a new post with an uploaded image, text description, asking price, and type
+* Ability to delete a post
+* Ability to edit a post
+* Log-out
+* Link account to Facebook
+* Edit profile settings
+
+All of the above features have been tested on the following platforms (with some exceptions- see below **)
+
+* iOS
+  * Emulator:
+    *iPhone 4, 5, 6, & 6s running iOS 9.3
+  * Phone
+    *iPhone 6 running iOS 9.1
+* Android
+  * Emulator & Phone
+
+** Exceptions
+
+In-app messaging has yet to be tested on Android. A set of requirements need to be added to be compliant with the Third Party.  This third party is called GiftedChat and a link to this GitHub repo is included below:
+
+https://github.com/FaridSafi/react-native-gifted-chat
