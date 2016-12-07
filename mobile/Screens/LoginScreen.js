@@ -208,7 +208,10 @@ class LoginScreen extends Component {
   _toMainView() {
     this.props.navigator.push({
       id:'mainView',
-      sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+      sceneConfig: {
+        ...Navigator.SceneConfigs.HorizontalSwipeJump,
+        gestures: {}
+      }
     });
   }
 

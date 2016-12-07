@@ -28,7 +28,6 @@ All of the above features have been tested on the following platforms (with some
   * Phone
     *iPhone 6 running iOS 9.1
 * Android
-  * Emulator & Phone
 
 ** Exceptions
 
