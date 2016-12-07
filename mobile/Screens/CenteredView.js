@@ -1,8 +1,7 @@
 /**
- * Centered Screen
- * Used as a part Component for certain screens
+ * Deprecated
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
  */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,

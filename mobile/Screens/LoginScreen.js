@@ -1,7 +1,7 @@
 /**
  * Login Screen
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
  */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -21,23 +21,20 @@ import {
 } from 'react-native';
 import Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/FontAwesome';
-styles = require('../Styles/Layouts');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
 import {getScreenWidth, getScreenHeight, usablePercent} from '../helpers/dimension'
 const config = require('../config/server');
 import {async_keys} from '../resources/Properties.js';
 var {FBLogin, FBLoginManager} = require('react-native-facebook-login');
+styles = require('../Styles/Layouts');
 
 class LoginScreen extends Component {
 
-    componentDidMount() {
+  componentDidMount() {
         console.disableYellowBox = true;
-        this.setState({
-          username: null,
-          password: null,
-        });
-    }
+        this.setState({username: null, password: null});
+  }
 
   render() {
     return (
@@ -144,7 +141,7 @@ class LoginScreen extends Component {
   }
 
   _loginWithFB(data) {
-    fetch(config.url + "/api/login/fb",
+    fetch(config.url + config.fbLogin,
       {method: "POST",
         headers: {
           'Accept': 'application/json',
@@ -157,12 +154,7 @@ class LoginScreen extends Component {
       if (responseData.success === true) {
         AsyncStorage.removeItem('bundlePosts')
         AsyncStorage.setItem(async_keys.USER, JSON.stringify(responseData.user));
-        AsyncStorage.setItem(async_keys.TOKEN, responseData.token, () =>
-          this.props.navigator.push({
-            id:'mainView',
-            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
-          })
-        );
+        AsyncStorage.setItem(async_keys.TOKEN, responseData.token, () => this._toMainView());
       } else {
         alert('Invalid FB login')
       }
@@ -179,7 +171,7 @@ class LoginScreen extends Component {
     const { username, password } = this.state
     if (username == null || password == null) {
       this._promptLogin();
-      return
+      return;
     }
     fetch(config.url + config.login,
       {method: "POST",
@@ -193,12 +185,7 @@ class LoginScreen extends Component {
       if (responseData.success === true) {
         AsyncStorage.removeItem('bundlePosts')
         AsyncStorage.setItem(async_keys.USER, JSON.stringify(responseData.user));
-        AsyncStorage.setItem(async_keys.TOKEN, responseData.token, () =>
-          this.props.navigator.push({
-            id:'mainView',
-            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
-          })
-        );
+        AsyncStorage.setItem(async_keys.TOKEN, responseData.token, () => this._toMainView());
       } else {
         this._displayIncorrectLogin();
       }
@@ -216,6 +203,13 @@ class LoginScreen extends Component {
 
   _promptLogin() {
     Alert.alert('Empty fields', 'Please enter username and password or register')
+  }
+
+  _toMainView() {
+    this.props.navigator.push({
+      id:'mainView',
+      sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+    });
   }
 
 }

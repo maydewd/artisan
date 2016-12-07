@@ -1,7 +1,7 @@
 /**
- * Messaging
+ * Messages, showing a user their messages
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
  */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -13,13 +13,14 @@ import {
   AsyncStorage,
   TouchableOpacity
 } from 'react-native';
-var NavigationBar = require('react-native-navbar');
 import {usableWithTop, getScreenWidth} from '../helpers/dimension'
 import { SwipeListView } from 'react-native-swipe-list-view';
-styles = require('../Styles/Layouts');
 import {async_keys} from '../resources/Properties.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ionic from 'react-native-vector-icons/Ionicons';
+styles = require('../Styles/Layouts');
+var NavigationBar = require('react-native-navbar');
+const config = require('../config/server');
 
 class Messages extends Component {
 
@@ -37,7 +38,7 @@ class Messages extends Component {
 
   _fetchMessages() {
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/messages/conversations",
+      fetch(config.url + config.conversations,
         {method: "GET",
           headers: {
             'Accept': 'application/json',
@@ -46,8 +47,6 @@ class Messages extends Component {
           }})
         .then((response) => response.json())
         .then((responseData) => {
-          console.log("RESPONSE");
-          console.log(responseData);
           this.setState({
             dataSource: this.state.dataSource.cloneWithRows(responseData),
           });
@@ -60,15 +59,8 @@ class Messages extends Component {
   }
 
   render() {
-    var titleConfig = {
-     title: 'Messages',
-   };
-
-   const leftButtonConfig = {
-    title: 'Back',
-    handler: () => {this.pop()}
-  };
-
+   var titleConfig = {title: 'Messages'};
+   const leftButtonConfig = {title: 'Back', handler: () => {this._pop()}};
     return (
       <View>
         <NavigationBar
@@ -91,7 +83,7 @@ class Messages extends Component {
     return (
       <View style = {{flexDirection: 'row',  justifyContent: 'space-between', alignItems: 'center'}}>
         <Image style = {{height: 80, width: 80}}
-         source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + imagePath}}/>
+         source = {{uri: config.url + "/" + imagePath}}/>
          <Text> {displayText} </Text>
          <Icon
           onPress= {() => this._message(rowData._id)}
@@ -110,7 +102,7 @@ class Messages extends Component {
     });
   }
 
-  pop() {
+  _pop() {
     this.props.navigator.pop()
   }
 

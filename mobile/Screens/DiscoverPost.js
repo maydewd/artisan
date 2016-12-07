@@ -1,7 +1,7 @@
 /**
- * screen for viewing discover post information
+ * Discover Post, used to show more information regarding the Post
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
  */
-
 import React, {Component} from 'react';
 import {
   AppRegistry,
@@ -19,9 +19,7 @@ import FA from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
 styles = require('../Styles/Layouts');
-
 
 class DiscoverPost extends Component {
   constructor(props) {
@@ -29,21 +27,15 @@ class DiscoverPost extends Component {
     this.state = {
       description: this.props.item.description,
       price: this.props.item.price,
-      number: 0,  // TODO
+      number: 0,
       imagePath: this.props.item.imagePath,
       locality: this.props.item.locality,
       type: this.props.item.type
     };
   }
   render() {
-    var titleConfig = {
-      title: 'Discover Post',
-    };
-    const leftButtonConfig = {
-      title: 'Back',
-      handler: () => {this.pop()}
-    };
-    // TODO: put uri somewhere else
+    var titleConfig = {title: 'Discover Post'};
+    const leftButtonConfig = {title: 'Back', handler: () => {this._pop()}};
     return (
       <View>
         <NavigationBar
@@ -108,7 +100,7 @@ class DiscoverPost extends Component {
     );
   }
 
-  pop() {
+  _pop() {
     this.props.navigator.pop()
   }
 }

@@ -14,3 +14,4 @@
 * Add an indicator to the StorkFront that let's the user know how many messages they have
 * Investigate different UI's for the Discover buttons
 * Add video capability
+* Check for valid cached user token when app is opened, prior to login

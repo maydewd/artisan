@@ -1,3 +1,7 @@
+/**
+ * AboutPage
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
+ */
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -45,6 +49,5 @@ class AboutPage extends Component {
   _pop() {
     this.props.navigator.pop()
   }
-
 }
 module.exports = AboutPage

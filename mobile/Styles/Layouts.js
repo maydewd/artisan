@@ -5,6 +5,98 @@ import {getScreenWidth, usableWithTop, getScreenHeight, topNavBarHeight, bottomN
 
 const styles = StyleSheet.create({
 
+  //New post
+
+  newPostContainer: {
+    width:  getScreenWidth(),
+    height: usablePercent(50),
+    alignItems: 'center',
+    justifyContent: "space-around",
+    backgroundColor: '#f6f6f6'
+  },
+
+  newPostAvatar: {
+    resizeMode: 'contain',
+    width: getScreenWidth(),
+    height: usablePercent(50)
+  },
+
+  story: {
+    flex: 3,
+    width: getScreenWidth(),
+    minHeight: usablePercent(30),
+    backgroundColor: 'white',
+    paddingTop: 10,
+    borderColor: 'gray',
+    borderTopWidth: 1
+  },
+
+  askingPrice: {
+    flex: 1,
+    width: getScreenWidth(),
+    minHeight: usablePercent(10),
+    backgroundColor: 'white',
+    borderColor: 'gray',
+    borderTopWidth: 1
+  },
+
+  newPostType: {
+    width: getScreenWidth(),
+    minHeight: usablePercent(10),
+    borderColor: 'gray',
+    borderTopWidth: 1
+  },
+
+  flexAndWidth: {
+    flex:1,
+    width: getScreenWidth()
+  },
+
+  newPostButton: {
+    padding:10,
+    overflow:'hidden',
+    maxHeight: bottomNavBarHeight(),
+    backgroundColor: '#24518D',
+    borderRadius: 2
+  },
+
+  //Bundle
+
+    usableWithTop: {
+      height: usableWithTop()
+    },
+
+    bundleImage: {
+      height: 80,
+      width: 80
+    },
+
+    bundleRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: getScreenWidth(),
+      backgroundColor: 'white'
+    },
+
+    rightPadding: {
+      paddingRight: 10
+    },
+
+    hiddenBundleRow: {
+      height: 80,
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      backgroundColor: 'red',
+      width: getScreenWidth()
+    },
+
+    paddedWhiteText: {
+      color: 'white',
+      paddingRight: 10
+    },
+
     //TABS
 
     tabcontainer: {
@@ -34,7 +126,7 @@ const styles = StyleSheet.create({
      alignItems: 'center',
      justifyContent: 'center'
    },
-   
+
     //REGSTER
     registerNavBar: {
       backgroundColor: '#24518D',
@@ -346,6 +438,12 @@ const styles = StyleSheet.create({
       paddingBottom: 10,
       fontSize: 16,
       textAlign: 'center',
+    },
+
+    settingsView: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center'
     },
 //==================================
 //  STORKFRONT

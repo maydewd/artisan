@@ -1,7 +1,9 @@
 /**
  * Storkfront screen
+ * Shows the user's profile information and posts.
+ * Gives user options to edit options, make a new post, edit posts, and check messages
+ * Ryan St.Pierre, David Maydew, Sung-Hoon Kim
  */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -22,6 +24,7 @@ import {async_keys} from '../resources/Properties.js';
 var NavigationBar = require('react-native-navbar');
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+const config = require('../config/server');
 
 const DefaultProfileImage = require("../resources/profile.png");
 
@@ -61,7 +64,7 @@ class StorkFront extends Component {
 
   _fetchData() {
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/me",
+      fetch(config.url + config.me,
         {method: "GET",
           headers: {
             'Accept': 'application/json',
@@ -70,23 +73,14 @@ class StorkFront extends Component {
           }})
         .then((response) => response.json())
         .then((responseData) => {
-          console.log(responseData);
-
             var posts = [];
-            responseData.forEach((item) => {
-              posts.push(
-                item
-              )
-            })
+            responseData.forEach((item) => {posts.push(item)});
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(posts)
             });
-            console.log("Successfully grabbed data");
          })
         .catch(function(err) {
-          alert("error");
-          console.log("Error in Posting");
-          console.log(err);
+          alert(err.message);
         })
         .done();
     });
@@ -128,13 +122,9 @@ class StorkFront extends Component {
     });
   }
 
-
   render() {
 
-    var titleConfig = {
-     title: 'StorkFront',
-    };
-
+    var titleConfig = {title: 'StorkFront',};
     var username = "";
     if(this.state.profile == null) {
       var imageSource={DefaultProfileImage};
@@ -142,7 +132,7 @@ class StorkFront extends Component {
       var imageSource = {uri: this.state.profile.facebookImagePath};
       username = this.state.profile.username
     } else {
-      var imageSource= {uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.profile.imagePath};
+      var imageSource= {uri: config.url + "/" + this.state.profile.imagePath};
       username = this.state.profile.username
     }
     return (
@@ -184,7 +174,7 @@ class StorkFront extends Component {
     return (
       <TouchableOpacity style = {styles.container} onPress={() => this._postPressed(data)}>
         <Image style = {styles.storkfrontImage}
-         source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + data.imagePath}}/>
+         source = {{uri: config.url + "/" + data.imagePath}}/>
         <View style = {styles.centered && {flexDirection: "row"}}>
           <Text style={styles.storkfrontPostText}>
             <Icon
@@ -206,7 +196,6 @@ class StorkFront extends Component {
   }
 
   _renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
-    // TODO:
     return (
       <View
         key={`${sectionID}-${rowID}`}
@@ -220,7 +209,6 @@ class StorkFront extends Component {
   }
 
   _postPressed(data) {
-    console.log("pressed")
     this.props.navigator.push({
       id: 'storkfrontPost',
       item: data

@@ -1,5 +1,6 @@
 /**
  * Storkfront settings Screen
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
  */
 
 import React, { Component } from 'react';
@@ -25,7 +26,7 @@ import Button from 'react-native-button';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Sae } from 'react-native-textinput-effects';
 import { SegmentedControls } from 'react-native-radio-buttons';
-
+const config = require('../config/server');
 import {usableWithTop, getScreenWidth} from '../helpers/dimension'
 import {getAllAsyncKeys, async_keys} from '../resources/Properties.js'
 styles = require('../Styles/Layouts');
@@ -50,7 +51,7 @@ class StorkFrontSettings extends Component {
     if(this.state.profile.imagePath === null) {
       var imageSource = {uri: this.state.profile.facebookImagePath};
     } else {
-      var imageSource={uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.profile.imagePath};
+      var imageSource={uri: config.url + "/" + this.state.profile.imagePath};
     }
     var fbButton = null;
     if (!this.state.fblinked) {
@@ -61,34 +62,29 @@ class StorkFrontSettings extends Component {
         loginBehavior={FBLoginManager.LoginBehaviors.Native}
         onLogin={(data) => this._connectFB(data)}
         onLogout={function(){
-          console.log("Logged out.");
+          //Fill out if desired
         }}
         onLoginFound={function(data){
-          console.log("Existing login found.");
-          console.log(data)
+          //Fill out if desired
         }}
         onLoginNotFound={function(){
-          console.log("No user logged in.");
+          //Fill out if desired
         }}
         onError={function(data){
-          console.log("ERROR");
-          console.log(data);
+          //Fill out if desired
         }}
         onCancel={function(){
-          console.log("User cancelled.");
+          //Fill out if desired
         }}
         onPermissionsMissing={function(data){
-          console.log("Check permissions!");
-          console.log(data);
+          //Fill out if desired
         }}
       />
     }
-
     const leftButtonConfig = {
       title: 'Back',
       handler: () => {this.pop()}
     };
-
     return (
 
       <View>
@@ -150,6 +146,7 @@ class StorkFrontSettings extends Component {
       </View>
     );
   }
+
   toStorkFront() {
     this.props.navigator.push({
       id: 'mainView',
@@ -157,11 +154,12 @@ class StorkFrontSettings extends Component {
       sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJumpFromRight
     });
   }
+
   pop() {
     this.props.navigator.pop();
   }
+
   selectPhotoTapped() {
-    console.log("Getting photo");
     const options = {
         quality: 1.0,
         maxWidth: 500,
@@ -171,24 +169,17 @@ class StorkFrontSettings extends Component {
         }
       };
     ImagePicker.showImagePicker(options, (response) => {
-        console.log('Response = ', response);
-
      if (response.didCancel) {
-       console.log('User cancelled photo picker');
+       //Fill out if desired
      }
      else if (response.error) {
-       console.log('ImagePicker Error: ', response.error);
+       //Fill out if desired
      }
      else if (response.customButton) {
-       console.log('User tapped custom button: ', response.customButton);
+       //Fill out if desired
      }
      else {
        var source;
-
-       // You can display the image using either:
-       //source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
-
-       //Or:
        if (Platform.OS === 'android') {
          source = {uri: response.uri, isStatic: true};
        } else {
@@ -204,9 +195,7 @@ class StorkFrontSettings extends Component {
 
   _connectFB(data) {
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
-      // console.log(result)
-      // console.log(data.credentials.token)
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/connect/fb",
+      fetch(config.url + config.connectFb,
         {method: "POST",
           headers: {
             'Accept': 'application/json',
@@ -237,7 +226,7 @@ class StorkFrontSettings extends Component {
   _save() {
     const {username, password, photoSource} = this.state;
     var request = new XMLHttpRequest();
-    request.open("POST", "http://colab-sbx-137.oit.duke.edu:3000/api/users/me");
+    request.open("POST", config.url + config.usersMe);
     request.setRequestHeader('Accept', 'application/json');
     request.setRequestHeader('Content-Type', 'multipart/form-data');
     var body = new FormData();
@@ -267,7 +256,6 @@ class StorkFrontSettings extends Component {
         return;
       }
       if (request.status === 200) {
-        console.log('success', request.responseText);
         var data = JSON.parse(request.response)
         AsyncStorage.setItem(async_keys.USER, JSON.stringify(data.user), () => {
           alert('Thanks!')
@@ -278,28 +266,26 @@ class StorkFrontSettings extends Component {
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
         request.setRequestHeader('Authorization', result);
         request.send(body);
-        console.log(body);
-        console.log(request);
-        console.log('request sent');
     });
   }
+
   _logoutPressed() {
     Alert.alert( 'Log out', 'Are you sure you want to log out?', [
       {text: 'Cancel', onPress: () => {}, style: 'cancel'},
       {text: 'OK', onPress: () => this._logout()},
     ] )
   }
+
   _logout() {
     if (this.state.fblinked) {
       FBLoginManager.logout((err, data) => {
-        console.log(err)
-        console.log(data)
         this._resetToLogin()
       });
     } else {
       this._resetToLogin()
     }
   }
+
   _resetToLogin() {
     keys = getAllAsyncKeys();
     AsyncStorage.multiRemove(keys, (err) => {

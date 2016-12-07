@@ -1,5 +1,6 @@
 /**
- * Register
+ * For user Registration
+ * Ryan St.Pierre, David Maydew, Sung-Hoon Kim
  */
 import React, { Component } from 'react';
 import {

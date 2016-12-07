@@ -1,7 +1,7 @@
 /**
- * screen for viewing storkfront post information
+ * Screen for viewing and editing StorkFront posts
+ * Ryan St.Pierre, David Maydew, Sung-Hoon Kim
  */
-
 import React, {Component} from 'react';
 import {
   Alert,
@@ -14,7 +14,7 @@ import {
   TouchableOpacity,
   ScrollView,
   AsyncStorage,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
@@ -26,7 +26,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ModalPicker from 'react-native-modal-picker';
 var ImagePicker = require('react-native-image-picker');
-
+const config = require('../config/server');
 styles = require('../Styles/Layouts');
 import {async_keys} from '../resources/Properties.js';
 
@@ -45,15 +45,11 @@ class StorkfrontPost extends Component {
       photoSource: null,
     };
   }
+
   _save() {
     const {description, type, price, photoSource, _id} = this.state;
-    console.log("id: " + _id)
-    console.log("description: " + description)
-    console.log("type: " + type)
-    console.log("photoSource: " + photoSource)
-    // console.log(AsyncStorage.getItem(async_keys.TOKEN));
     var request = new XMLHttpRequest();
-    request.open("POST", "http://colab-sbx-137.oit.duke.edu:3000/api/listings/"+_id);
+    request.open("POST", config.url + config.listings +_id);
     request.setRequestHeader('Accept', 'application/json');
     request.setRequestHeader('Content-Type', 'multipart/form-data');
     var body = new FormData();
@@ -80,10 +76,7 @@ class StorkfrontPost extends Component {
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
         request.setRequestHeader('Authorization', result);
         request.send(body);
-        console.log(body);
-        console.log(request);
-        console.log('request sent');
-        alert('Thanks!')
+        Alert.alert('Thanks!')
         this.pop()
     });
   }
@@ -96,7 +89,7 @@ class StorkfrontPost extends Component {
   _deletePost() {
     var currID = this.state._id;
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/" + currID,
+      fetch(config.url + config.listings + currID,
         {method: "DELETE",
           headers: {
             'Accept': 'application/json',
@@ -108,29 +101,21 @@ class StorkfrontPost extends Component {
       .then((responseData) => {
         console.log(responseData);
         if (responseData.success !== true) {
-          console.log('Failed to delete')
+          Alert.alert('Failed to delete')
         } else {
-          console.log('deleted');
-          alert('Thanks!')
+          Alert.alert('Thanks!')
           this.pop()
         }
       })
       .catch(function(err) {
-        console.log("Error in delete request");
-        console.log(err);
+        alert(err.message)
       })
       .done();
     });
   }
   render() {
-    var titleConfig = {
-      title: 'Storkfront Post',
-    };
-    const leftButtonConfig = {
-      title: 'Back',
-      handler: () => {this.pop()}
-    };
-    // TODO: put uri somewhere else
+    var titleConfig = {title: 'Storkfront Post',};
+    const leftButtonConfig = {title: 'Back',handler: () => {this.pop()}};
     return (
       <View>
         <NavigationBar
@@ -144,7 +129,7 @@ class StorkfrontPost extends Component {
             <View>
               {
                 this.state.photoSource === null ?
-                  <Image style={styles.discoverPostImage} source={{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.imagePath}} />:
+                  <Image style={styles.discoverPostImage} source={{uri: config.url + "/" + this.state.imagePath}} />:
                   <Image style={styles.sPostAvatar} source={this.state.photoSource} />
               }
               </View>
@@ -247,17 +232,11 @@ class StorkfrontPost extends Component {
       }
       else {
         var source;
-
-        // You can display the image using either:
-        //source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
-
-        //Or:
         if (Platform.OS === 'android') {
           source = {uri: response.uri, isStatic: true};
         } else {
           source = {uri: response.uri.replace('file://', ''), isStatic: true};
         }
-
         this.setState({
           photoSource: source
         });

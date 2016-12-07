@@ -1,7 +1,7 @@
 /**
- * MyBundle
+ * MyBundle, shows the posts the user has liked and saved
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
  */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -13,13 +13,14 @@ import {
   AsyncStorage,
   TouchableOpacity
 } from 'react-native';
-var NavigationBar = require('react-native-navbar');
 import {getScreenHeight, topNavBarHeight, getScreenWidth} from '../helpers/dimension'
 import { SwipeListView } from 'react-native-swipe-list-view';
-styles = require('../Styles/Layouts');
 import {async_keys} from '../resources/Properties.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ionic from 'react-native-vector-icons/Ionicons';
+var NavigationBar = require('react-native-navbar');
+const config = require('../config/server');
+styles = require('../Styles/Layouts');
 
 class MyBundle extends Component {
 
@@ -38,7 +39,7 @@ class MyBundle extends Component {
 
   _fetchData() {
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/liked",
+      fetch(config.url + config.liked,
         {method: "GET",
           headers: {
             'Accept': 'application/json',
@@ -47,16 +48,13 @@ class MyBundle extends Component {
           }})
         .then((response) => response.json())
         .then((responseData) => {
-          console.log(responseData);
             responseData.forEach((item) => {
               this.state.data.push(item)
             })
             this._updateList()
          })
         .catch(function(err) {
-          alert("error");
-          console.log("Error in Posting");
-          console.log(err);
+          alert(err.message);
         })
         .done();
     });
@@ -69,15 +67,8 @@ class MyBundle extends Component {
   }
 
   render() {
-    var titleConfig = {
-     title: 'MyBundle',
-   };
-
-   const leftButtonConfig = {
-    title: 'Back',
-    handler: () => {this.pop()}
-  };
-
+    var titleConfig = {title: 'MyBundle'};
+   const leftButtonConfig = {title: 'Back',handler: () => {this._pop()}};
     return (
       <View>
         <NavigationBar
@@ -88,14 +79,14 @@ class MyBundle extends Component {
         <SwipeListView
           enableEmptySections={true}
           disableRightSwipe={true}
-          style = {{height: getScreenHeight() -topNavBarHeight()-20}}
+          style = {styles.usableWithTop}
           dataSource = {this.state.dataSource}
           renderRow = {(item) => (
             <View
-            style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: getScreenWidth(), backgroundColor: 'white',}}>
-              <Image style = {{height: 80, width: 80}}
-               source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + item.imagePath}}/>
-               <TouchableOpacity style = {{paddingRight: 10}}>
+            style = {styles.bundleRow}>
+              <Image style = {styles.bundleImage}
+               source = {{uri: config.url + "/" + item.imagePath}}/>
+               <TouchableOpacity style = {styles.rightPadding}>
                 <Ionic onPress= {() => this._message(item)} name="ios-chatbubbles" size={30} color="black" />
               </TouchableOpacity>
              </View>
@@ -103,8 +94,8 @@ class MyBundle extends Component {
           renderHiddenRow = {(item, secId, rowId) => (
               <TouchableOpacity
               onPress={() => this._delete(item, rowId)}
-              style = {{height: 80, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', backgroundColor: 'red', width: getScreenWidth()}}>
-                <Text style = {{color: 'white', paddingRight: 10}}>Remove</Text>
+              style = {styles.hiddenBundleRow}>
+                <Text style = {styles.paddedWhiteText}>Remove</Text>
               </TouchableOpacity>
             )}
           rightOpenValue={-80}
@@ -120,23 +111,10 @@ class MyBundle extends Component {
     });
   }
 
-  renderPost(item) {
-    return (
-        <View
-        style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: getScreenWidth(), backgroundColor: 'white',}}>
-          <Image style = {{height: 80, width: 80}}
-           source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + item.imagePath}}/>
-           <TouchableOpacity style = {{paddingRight: 10}} onPress = {() => this.func()}>
-            <Icon onPress= {console.log(item)} name="envelope" size={20} color="black" />
-          </TouchableOpacity>
-         </View>
-    )
-  }
-
   _delete(item, index) {
     var currID = item._id;
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/" + currID + "/unlike",
+      fetch(config.url + config.listings + currID + "/unlike",
         {method: "POST",
           headers: {
             'Accept': 'application/json',
@@ -146,15 +124,13 @@ class MyBundle extends Component {
         })
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData);
         if (responseData.success !== true) {
           console.log('Failed to unlike')
         }
          return responseData;
        })
       .catch(function(err) {
-        console.log("Error in Login Fetch request");
-        console.log(err);
+        alert(err.message);
       })
       .done();
     });
@@ -162,7 +138,7 @@ class MyBundle extends Component {
     this._updateList()
   }
 
-  pop() {
+  _pop() {
     this.props.navigator.pop()
   }
 }

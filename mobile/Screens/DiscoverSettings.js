@@ -1,7 +1,7 @@
 /**
- * Discover Screen
+ * Discover Settings, used to change search preferences
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
  */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -12,12 +12,12 @@ import {
   Switch,
   Alert
 } from 'react-native';
-var NavigationBar = require('react-native-navbar');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { SegmentedControls } from 'react-native-radio-buttons';
-styles = require('../Styles/Layouts');
 import {async_keys} from '../resources/Properties.js';
 import {radii, costBrackets} from '../resources/Preferences';
+styles = require('../Styles/Layouts');
+var NavigationBar = require('react-native-navbar');
 
 class DiscoverSettings extends Component {
 
@@ -32,6 +32,7 @@ class DiscoverSettings extends Component {
     };
   }
 
+  //Grabs current preferences from ASYNC storage
   componentDidMount() {
     AsyncStorage.multiGet([async_keys.DISTANCE, async_keys.COST, async_keys.MYPOSTS, async_keys.DOWNED, async_keys.LIKED, async_keys.DISLIKED], (err, stores) => {
            var d = '5 miles';
@@ -66,7 +67,6 @@ class DiscoverSettings extends Component {
              seeLiked: seeLiked,
              seeDisliked: seeDisliked
            })
-           console.log(this.state)
        });
   }
 
@@ -78,8 +78,8 @@ class DiscoverSettings extends Component {
     )
   }
 
+  //Clears the cached posts so that the new changes can be reflected
   _save() {
-    var state = this.state;
     AsyncStorage.removeItem(async_keys.BUNDLE)
     AsyncStorage.setItem(async_keys.DISTANCE, this.state.distance);
     AsyncStorage.setItem(async_keys.COST, this.state.cost);
@@ -90,31 +90,20 @@ class DiscoverSettings extends Component {
   }
 
   render() {
-    var titleConfig = {
-     title: 'Discover Settings',
-   };
-
-   const leftButtonConfig = {
-    title: 'Back',
-    handler: () => {this.pop()}
-  };
-
+   var titleConfig = {title: 'Discover Settings'};
+   const leftButtonConfig = {title: 'Back', handler: () => {this._pop()}};
    const distanceOptions = radii();
    const priceOptions = costBrackets();
 
    function setDistance(selectedOption){
-     this.setState({
-       distance: selectedOption
-     });
+     this.setState({distance: selectedOption});
    }
 
    function setCost(selectedOption){
-     this.setState({
-       cost: selectedOption
-     });
-   }
-    return (
+     this.setState({cost: selectedOption});
+    }
 
+    return (
       <View>
         <NavigationBar
         style={styles.navBar}
@@ -152,31 +141,25 @@ class DiscoverSettings extends Component {
               <Text style = {styles.settingsText}>
                 Extras
               </Text>
-              <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+              <View style = {styles.settingsView}>
                 <Text> See my posts</Text>
                 <Switch
                     value={this.state.myPosts}
-                    onValueChange={(val) =>  this.setState({
-                         myPosts: val
-                    })}
+                    onValueChange={(val) =>  this.setState({myPosts: val})}
                 />
               </View>
-              <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+              <View style = {styles.settingsView}>
                 <Text> See posts I have liked</Text>
                 <Switch
                     value={this.state.seeLiked}
-                    onValueChange={(val) =>  this.setState({
-                       seeLiked: val
-                     })}
+                    onValueChange={(val) =>  this.setState({seeLiked: val})}
                 />
               </View>
-              <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+              <View style = {styles.settingsView}>
                 <Text> See post I have disliked </Text>
                 <Switch
                     value={this.state.seeDisliked}
-                    onValueChange={(val) =>  this.setState({
-                       seeDisliked: val
-                     })}
+                    onValueChange={(val) =>  this.setState({seeDisliked: val})}
                 />
               </View>
             </View>
@@ -184,7 +167,7 @@ class DiscoverSettings extends Component {
     );
   }
 
-  pop() {
+  _pop() {
     this.props.navigator.push({
       id: 'discover',
     });

@@ -1,7 +1,7 @@
 /**
- * New Post Screen
+ * Allow user to make a new post
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
  */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -17,7 +17,8 @@ import {
   ScrollView,
   AsyncStorage,
   KeyboardAvoidingView,
-  Navigator
+  Navigator,
+  Alert
 } from 'react-native';
 var NavigationBar = require('react-native-navbar');
 import Button from 'react-native-button'
@@ -30,10 +31,11 @@ import { Kohana } from 'react-native-textinput-effects';
 import ModalPicker from 'react-native-modal-picker';
 import FA from 'react-native-vector-icons/FontAwesome';
 import {async_keys} from '../resources/Properties.js';
-
 import Geocoder from 'react-native-geocoder';
 import {GOOGLE_API_KEY} from '../resources/Properties.js'
 Geocoder.fallbackToGoogle(GOOGLE_API_KEY);
+const config = require('../config/server');
+styles = require('../Styles/Layouts');
 
 class NewPost extends Component {
 
@@ -59,16 +61,9 @@ class NewPost extends Component {
   }
 
   render() {
-    var titleConfig = {
-     title: 'New Post',
-   };
-
-   const leftButtonConfig = {
-    title: 'Back',
-    handler: () => {this.toStorkFront()}
-  };
-
-    return (
+    var titleConfig = {title: 'New Post'};
+   const leftButtonConfig = {title: 'Back', handler: () => {this.toStorkFront()}};
+  return (
       <View>
         <NavigationBar
         style={styles.navBar}
@@ -77,62 +72,60 @@ class NewPost extends Component {
         />
         <KeyboardAvoidingView behavior='position'>
           <View style= {{height: usableWithTop()}}>
-          <TouchableOpacity style = {styles.container} onPress={this.selectPhotoTapped.bind(this)}>
-              <View>
-                { this.state.photoSource === null ? <MaterialIcons name="add-a-photo" size= {50}/>:
-                    <Image style={styles.avatar} source={this.state.photoSource} />
-                  }
-                </View>
-            </TouchableOpacity>
-            <Kohana
-              style={{flex: 3, width: getScreenWidth(), minHeight: usablePercent(30), backgroundColor: 'white', paddingTop: 10, borderColor: 'gray', borderTopWidth: 1}}
-              onChangeText={(username) => this.setState({username})}
-              label={'Story'}
-              iconClass={FA}
-              iconName={'book'}
-              iconColor={'#24518D'}
-              labelStyle={{ color: 'pink' }}
-              inputStyle={{ color: '#24518D' }}
-              multiline = {true}
-              numberOfLines = {2}
-              onChangeText={(description) => this.setState({description})}
-            />
-            <Kohana
-              style={{flex: 1, width: getScreenWidth(), minHeight: usablePercent(10), backgroundColor: 'white', borderColor: 'gray', borderTopWidth: 1}}
-              onChangeText={(username) => this.setState({username})}
-              label={'Asking Price'}
-              iconClass={MaterialIcons}
-              iconName={'payment'}
-              iconColor={'#24518D'}
-              labelStyle={{ color: 'pink' }}
-              inputStyle={{ color: '#24518D' }}
-              keyboardType = 'numeric'
-              onChangeText={(price) => this.setState({price})}
-            />
-            <ModalPicker
-                   data={grabArtTypes()}
-                   style = {{flex:1, width: getScreenWidth()}}
-                   initValue="Select a type"
-                   onChange={(option)=> this.setState({type:option.label})}
-                   >
-                       <Kohana
-                         style = {{width: getScreenWidth(), minHeight: usablePercent(10), borderColor: 'gray', borderTopWidth: 1}}
-                         editable= {false}
-                         label={'Type'}
-                         iconClass={MaterialIcons}
-                         iconName={'subject'}
-                         iconColor={'#24518D'}
-                         labelStyle={{ color: 'pink' }}
-                         inputStyle={{ color: '#24518D' }}
-                         value={this.state.type}
-                       />
-            </ModalPicker>
-            <Button
-              containerStyle={{padding:10, overflow:'hidden', maxHeight: bottomNavBarHeight(), backgroundColor: '#24518D', borderRadius: 2}}
-              style={{fontSize: 20, color: 'white'}}
-              onPress={() => this._postPressed()}>
-              Post
-            </Button>
+            <TouchableOpacity style = {styles.newPostContainer} onPress={this.selectPhotoTapped.bind(this)}>
+                <View>
+                  { this.state.photoSource === null ? <MaterialIcons name="add-a-photo" size= {50}/>:
+                      <Image style={styles.newPostAvatar} source={this.state.photoSource} />
+                    }
+                  </View>
+              </TouchableOpacity>
+              <Kohana
+                style={styles.story}
+                label={'Story'}
+                iconClass={FA}
+                iconName={'book'}
+                iconColor={'#24518D'}
+                labelStyle={{ color: 'pink' }}
+                inputStyle={{ color: '#24518D' }}
+                multiline = {true}
+                numberOfLines = {2}
+                onChangeText={(description) => this.setState({description})}
+              />
+              <Kohana
+                style={styles.askingPrice}
+                label={'Asking Price'}
+                iconClass={MaterialIcons}
+                iconName={'payment'}
+                iconColor={'#24518D'}
+                labelStyle={{ color: 'pink' }}
+                inputStyle={{ color: '#24518D' }}
+                keyboardType = 'numeric'
+                onChangeText={(price) => this.setState({price})}
+              />
+              <ModalPicker
+                     data={grabArtTypes()}
+                     style = {styles.flexAndWidth}
+                     initValue="Select a type"
+                     onChange={(option)=> this.setState({type:option.label})}
+                     >
+                         <Kohana
+                           style = {styles.newPostType}
+                           editable= {false}
+                           label={'Type'}
+                           iconClass={MaterialIcons}
+                           iconName={'subject'}
+                           iconColor={'#24518D'}
+                           labelStyle={{ color: 'pink' }}
+                           inputStyle={{ color: '#24518D' }}
+                           value={this.state.type}
+                         />
+              </ModalPicker>
+              <Button
+                containerStyle={styles.newPostButton}
+                style={{fontSize: 20, color: 'white'}}
+                onPress={() => this._postPressed()}>
+                Post
+              </Button>
             </View>
         </KeyboardAvoidingView>
       </View>
@@ -149,33 +142,23 @@ class NewPost extends Component {
         }
       };
     ImagePicker.showImagePicker(options, (response) => {
-        console.log('Response = ', response);
-
      if (response.didCancel) {
-       console.log('User cancelled photo picker');
+       //Fill in if desired
      }
      else if (response.error) {
-       console.log('ImagePicker Error: ', response.error);
+       //Fill in if desired
      }
      else if (response.customButton) {
-       console.log('User tapped custom button: ', response.customButton);
+       //Fill in if desired
      }
      else {
        var source;
-
-       // You can display the image using either:
-       //source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
-
-       //Or:
        if (Platform.OS === 'android') {
          source = {uri: response.uri, isStatic: true};
        } else {
          source = {uri: response.uri.replace('file://', ''), isStatic: true};
        }
-
-       this.setState({
-         photoSource: source
-       });
+       this.setState({photoSource: source});
      }
     });
   }
@@ -201,7 +184,7 @@ class NewPost extends Component {
       return;
     }
     var request = new XMLHttpRequest();
-    request.open("POST", "http://colab-sbx-137.oit.duke.edu:3000/api/listings");
+    request.open("POST", config.url + config.listings);
     request.setRequestHeader('Accept', 'application/json');
     request.setRequestHeader('Content-Type', 'multipart/form-data');
     var body = new FormData();
@@ -229,13 +212,13 @@ class NewPost extends Component {
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
         request.setRequestHeader('Authorization', result);
         request.send(body);
-        alert('Thanks!')
+        Alert.alert('Thanks!')
         this.toStorkFront()
     });
   }
 
+  //To be more effecient, location is grabbed upon loading
   _getLocation(callback) {
-
     navigator.geolocation.getCurrentPosition (
       (position) => {
         if (!this.mounted) {
@@ -285,37 +268,6 @@ class NewPost extends Component {
         sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJumpFromRight
     });
   }
-
 }
-
-const styles = StyleSheet.create({
-  navBar: {
-    backgroundColor: '#cce5ff'
-  },
-
-  container: {
-    width:  getScreenWidth(),
-    height: usablePercent(50),
-    alignItems: 'center',
-    justifyContent: "space-around",
-    backgroundColor: '#f6f6f6'
-  },
-
-  center: {
-    alignItems: 'center',
-    justifyContent: "space-around",
-  },
-
-  avatar: {
-    resizeMode: 'contain',
-    width: getScreenWidth(),
-    height: usablePercent(50)
-  },
-
-  picker: {
-    height: 150
-  }
-});
-
 
 module.exports = NewPost

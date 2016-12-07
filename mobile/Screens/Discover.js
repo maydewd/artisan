@@ -1,7 +1,7 @@
 /**
- * Discover Screen
+ * The Discover Screen
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
  */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -18,13 +18,15 @@ import BottomNav from '../Components/BottomNav'
 import MainNavBar from '../Components/MainNavBar'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Button from 'react-native-button';
-styles = require('../Styles/Layouts');
 import {async_keys} from '../resources/Properties.js';
-var NavigationBar = require('react-native-navbar');
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {getScreenWidth, getScreenHeight, getUsableScreenHeight, usablePercent} from '../helpers/dimension';
 import * as Animatable from 'react-native-animatable';
-//ms
+const config = require('../config/server');
+styles = require('../Styles/Layouts');
+var NavigationBar = require('react-native-navbar');
+
+//Animation time in ms
 const ANIMATION_LENGTH = 1000;
 const DOUBLE_PRESS_DELAY = 300;
 
@@ -38,6 +40,8 @@ class Discover extends Component {
     };
   }
 
+  //Checks to see if any posts are cached and if not fetches
+  //Additionally, the bundle size is checked to be indicated to the user
   componentDidMount() {
     AsyncStorage.getItem(async_keys.BUNDLE).then((value) => {
            if(value != null) {
@@ -58,7 +62,7 @@ class Discover extends Component {
 
   _updateBundleSize() {
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/liked/count",
+      fetch(config.url + config.likeCount,
         {method: "GET",
           headers: {
             'Accept': 'application/json',
@@ -72,12 +76,13 @@ class Discover extends Component {
           }
          })
         .catch(function(err) {
-          console.log(err);
+          alert(err);
         })
         .done();
     });
   }
 
+  //Get the next post to display.  If nothing is cached fetch posts from the server
   _nextListing() {
     AsyncStorage.getItem(async_keys.BUNDLE).then((value) => {
            if(value != null) {
@@ -85,15 +90,13 @@ class Discover extends Component {
              list.shift();
              AsyncStorage.setItem(async_keys.BUNDLE, JSON.stringify(list));
              if (list.length === 0) {
-               this._fetchData()
-               return
+               this._fetchData();
+               return;
              }
              this.setState( {
                currentListing: list[0]
              });
-           } else {
-               alert('this should not happen')
-          }
+           }
        }).done();
   }
 
@@ -145,7 +148,7 @@ class Discover extends Component {
       // TODO fix radius in query
       navigator.geolocation.getCurrentPosition (
         (position) => {
-          fetch(`http://colab-sbx-137.oit.duke.edu:3000/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=20&hideMine=${!myPosts}&hideLiked=${!seeLiked}&hideDisliked=${!seeDisliked}&lng=${position.coords.longitude}&lat=${position.coords.latitude}` + radius,
+          fetch(config.url + `/api/listings?minCost=${minCost}&maxCost=${maxCost}&limit=20&hideMine=${!myPosts}&hideLiked=${!seeLiked}&hideDisliked=${!seeDisliked}&lng=${position.coords.longitude}&lat=${position.coords.latitude}` + radius,
             {method: "GET",
               headers: {
                 'Accept': 'application/json',
@@ -154,7 +157,6 @@ class Discover extends Component {
               }})
             .then((response) => response.json())
             .then((responseData) => {
-              console.log(responseData);
                 var holder = [];
                 responseData.forEach((item) => {
                   holder.push(item);
@@ -166,6 +168,7 @@ class Discover extends Component {
                   })
                 } else {
                   Alert.alert('No more posts', 'Try changing your discover preferences');
+                  //Setting currentListing in state to null will signify no more posts
                   this.setState({
                     currentListing: null
                   })
@@ -180,27 +183,18 @@ class Discover extends Component {
         {enableHighAccuracy: true, timeout: 2000, maximumAge: 1000}
       );
     });
-    console.log(this.state.storedListings)
   }
 
   leftButton() {
     return  (
-      <TouchableOpacity style = {styles.navIcon} onPress={(event) => {this.goToSettings()}}>
+      <TouchableOpacity style = {styles.navIcon} onPress={(event) => {this._goToSettings()}}>
         <Ionicons name="ios-settings" size={30}/>
       </TouchableOpacity>
     );
   }
 
-  goToSettings() {
-    this.props.navigator.push({
-        id: 'discoverSettings'
-    });
-  }
-
-  goToMyBundle() {
-    this.props.navigator.push({
-        id: 'myBundle'
-    });
+  _goToSettings() {
+    this.props.navigator.push({id: 'discoverSettings'});
   }
 
   rightButton() {
@@ -209,10 +203,10 @@ class Discover extends Component {
       displayText = "9+";
     }
     return (
-      <TouchableOpacity style = {styles.navIcon}  onPress={(event) => {this.goToMyBundle()}}>
+      <TouchableOpacity style = {styles.navIcon}  onPress={(event) => {this._goToMyBundle()}}>
         <Ionicons name="ios-basket" size={30}/>
         <Animatable.View ref = "bubble" style = {styles.circle}>
-          <Text   style = {styles.displayText}>
+          <Text style = {styles.displayText}>
             {displayText}
           </Text>
         </Animatable.View>
@@ -220,11 +214,13 @@ class Discover extends Component {
     );
   }
 
-  render() {
-    var titleConfig = {
-      title: 'Discover',
-    };
+  _goToMyBundle() {
+    this.props.navigator.push({id: 'myBundle'});
+  }
 
+  render() {
+    var titleConfig = {title: 'Discover',};
+    //If there are no more posts to be displayed
     if (this.state.currentListing === null) {
       var components =
         <View style = {styles.centeredBoth}>
@@ -245,30 +241,29 @@ class Discover extends Component {
           <TouchableWithoutFeedback  onPress={(event) => this._handleImagePress(event)}>
             <Image
                   style = {[styles.discoverImage, {width: getScreenWidth()}]}
-                  source = {{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.currentListing.imagePath}}
+                  source = {{uri: config.url + "/" + this.state.currentListing.imagePath}}
              />
           </TouchableWithoutFeedback>
           <View style = {styles.centered && {flexDirection: "row", paddingLeft: 30, paddingRight: 30, paddingBottom: 30, paddingTop: 2}}>
                 <Button
-                containerStyle={styles.discoverButtonContainerDown}
-                style={styles.discoverButtonDown}
-                onPress={() => this._thumbsDownPressed()}
+                  containerStyle={styles.discoverButtonContainerDown}
+                  style={styles.discoverButtonDown}
+                  onPress={() => this._thumbsDownPressed()}
                 >
                   <Icon name="thumbs-down" size={usablePercent(8)}/>
                 </Button>
             <View style={{flex:1}}></View>
             <Animatable.View ref = "thumbsUp">
                 <Button
-                  containerStyle={styles.discoverButtonContainerUp}
-                  style={styles.discoverButtonUp}
-                  onPress={() => this._thumbsUpPressed()}>
+                    containerStyle={styles.discoverButtonContainerUp}
+                    style={styles.discoverButtonUp}
+                    onPress={() => this._thumbsUpPressed()}>
                   <Icon name="thumbs-up" size={usablePercent(8)}/>
                 </Button>
             </Animatable.View>
           </View>
         </View>
     }
-
     return (
       <View>
         <NavigationBar
@@ -285,8 +280,6 @@ class Discover extends Component {
   }
 
   _infoPressed() {
-    //TODO
-    console.log("info pressed")
     this.props.navigator.push({
       id: 'discoverPost',
       item: this.state.currentListing,
@@ -297,7 +290,7 @@ class Discover extends Component {
   _thumbsDownPressed() {
     var currID = this.state.currentListing._id;
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/" + currID + "/dislike",
+      fetch(config.url + config.listings + currID + "/dislike",
         {method: "POST",
           headers: {
             'Accept': 'application/json',
@@ -314,7 +307,7 @@ class Discover extends Component {
         return responseData;
        })
       .catch(function(err) {
-        console.log(err);
+        alert(err);
       })
       .done();
     });
@@ -324,7 +317,7 @@ class Discover extends Component {
   _thumbsUpPressed() {
     var currID = this.state.currentListing._id;
     AsyncStorage.getItem('jwtToken', (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/listings/" + currID + "/like",
+      fetch(config.url + config.listings + currID + "/like",
         {method: "POST",
           headers: {
             'Accept': 'application/json',
@@ -334,16 +327,15 @@ class Discover extends Component {
         })
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData);
         if (responseData.success !== true) {
-          console.log('Failed to like')
+          alert('Failed to like')
         } else if (responseData.message !== "User already liked post") {
           this._incrementBundleSize();
         }
         return responseData;
        })
       .catch(function(err) {
-        console.log(err);
+        alert(err);
       })
       .done();
   });
@@ -352,19 +344,15 @@ class Discover extends Component {
   }
 
   _handleImagePress(e) {
-
     //Bruno Tavares double tap gesture
     const now = new Date().getTime();
-
     if (this.lastImagePress && (now - this.lastImagePress) < DOUBLE_PRESS_DELAY) {
-      console.log('double');
       delete this.lastImagePress;
       this.refs.thumbsUp.flash(ANIMATION_LENGTH);
       this._thumbsUpPressed();
       return;
     }
     else {
-      console.log('single')
       this.lastImagePress = now;
       return;
     }

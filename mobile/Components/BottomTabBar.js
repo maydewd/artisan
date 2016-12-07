@@ -3,7 +3,6 @@
  * Responsible for handling the transition between the Discover and StorkFront screens
  * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
  */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,

@@ -1,7 +1,7 @@
 /**
- * Messaging
+ * The view corresponding to a one on one chat
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
  */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -13,13 +13,14 @@ import {
   AsyncStorage,
   TouchableOpacity
 } from 'react-native';
-var NavigationBar = require('react-native-navbar');
 import {usableWithTop} from '../helpers/dimension'
 import {async_keys} from '../resources/Properties.js';
 import { SwipeListView } from 'react-native-swipe-list-view';
-styles = require('../Styles/Layouts');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { GiftedChat } from 'react-native-gifted-chat';
+const config = require('../config/server');
+var NavigationBar = require('react-native-navbar');
+styles = require('../Styles/Layouts');
 
 class Chat extends Component {
 
@@ -27,7 +28,6 @@ class Chat extends Component {
      super(props);
      this.state = {messages: []};
      this.onSend = this.onSend.bind(this);
-     this.renderActions = this.renderActions.bind(this);
    }
 
    componentWillMount() {
@@ -49,8 +49,7 @@ class Chat extends Component {
    }
 
    _fetchMessages(route) {
-     var route = "http://colab-sbx-137.oit.duke.edu:3000/api/messages/" + route;
-     console.log(route);
+     var route = config.url + config.messages + route;
      AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
        fetch(route,
          {method: "GET",
@@ -65,27 +64,22 @@ class Chat extends Component {
              responseData.forEach((item) => {
                holder.unshift(this._reformat(item));
              })
-             console.log(holder);
-             this.setState({
-               messages: holder
-             });
+             this.setState({messages: holder});
           })
          .catch(function(err) {
-           alert("error");
-           console.log("Error in Posting");
-           console.log(err);
+           alert(err.message);
          })
          .done();
      });
    }
 
+   //Reformats the item from the server to a format the GiftedChat 3rd party expects
    _reformat(item) {
-
      var imagePath =  item.sender.imagePath;
      if (imagePath == null) {
        imagePath = item.sender.facebookImagePath;
      } else {
-       imagePath = "http://colab-sbx-137.oit.duke.edu:3000/" + imagePath
+       imagePath = config.url + "/" + imagePath
      }
      return ({
        _id: item._id,
@@ -115,7 +109,7 @@ class Chat extends Component {
 
   _post(message, route) {
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
-      fetch("http://colab-sbx-137.oit.duke.edu:3000/api/messages/" + route,
+      fetch(config.url + config.messages + route,
         {method: "POST",
           headers: {
             'Accept': 'application/json',
@@ -126,35 +120,21 @@ class Chat extends Component {
         })
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData);
         if (responseData.success !== true) {
-          console.log('Failed to send to server')
+          alert('Failed to send to server')
         }
          return responseData;
        })
       .catch(function(err) {
-        console.log("Error");
-        console.log(err);
+        alert(err.message);
       })
       .done();
     });
   }
 
-  //Fill this in if we want to render something to the left of the input box
-  renderActions() {
-
-  }
-
   render() {
-    var titleConfig = {
-       title: 'Messages',
-    };
-
-    const leftButtonConfig = {
-      title: 'Back',
-      handler: () => {this.pop()}
-    };
-
+    var titleConfig = {title: 'Messages'};
+    const leftButtonConfig = {title: 'Back', handler: () => {this._pop()}};
     return (
           <View>
             <NavigationBar
@@ -166,18 +146,16 @@ class Chat extends Component {
               <GiftedChat
                messages={this.state.messages}
                onSend={this.onSend}
-               //Add back if desired
-               //renderActions={this.renderActions}
                user={{
                  _id: this.state.userID
                }}
                />
              </View>
-            </View>
+          </View>
       );
-    }
+  }
 
-  pop() {
+  _pop() {
     this.props.navigator.pop()
   }
 
