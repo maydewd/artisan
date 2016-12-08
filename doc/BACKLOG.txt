@@ -13,6 +13,6 @@
 * Have messages refresh when a new message is detected
 * Add an indicator to the StorkFront that let's the user know how many messages they have
 * Investigate different UI's for the Discover buttons
-* Add video capability
-* Check for valid cached user token when app is opened, prior to login
+* Add ability to attach videos to listings
+* Check for valid cached user token when app is opened (persistent login)
 * Remove the server request call from the Screen classes
