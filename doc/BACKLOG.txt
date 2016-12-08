@@ -15,3 +15,4 @@
 * Investigate different UI's for the Discover buttons
 * Add video capability
 * Check for valid cached user token when app is opened, prior to login
+* Remove the server request call from the Screen classes

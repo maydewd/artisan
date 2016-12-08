@@ -1,0 +1,58 @@
+Frequently Asked Questions
+
+How do I register locally?
+
+From the login screen of the app tap the Sign Up bottom.  Enter the necessary information such as username, password, and profile image.  You can grab the profile image from your phone's local camera roll or take a photo on the spot (photos with square dimensions work best). In addition to this information you need to set your default preferences.  These are the original search settings that will filter the art posts you see in the app.  A further description of each preference is given below:
+
+* Discover radius: this is the range in which you will be able to see posts.
+* Price range: this is the range of prices that posts shown to you will have.
+* See my posts: if this is selected as true (switch to on/green) posts you have made will show up on your discover feed.
+* See down voted posts:  if this is selected as true (switch to on/green) you will see posts in your discover feed that you have previously down voted (thumbs downed).
+
+How do I login using a local Storkd Account?
+
+While on the login screen, enter your username and password.  If you do not have a username and password (with an associated account) please reference the Register Locally section above.
+
+How do I make a new account using Facebook?
+
+On the Login Screen press the button that says “Login with Facebook.”  This will prompt you to approve the app’s access to your account.
+
+How do I link my current Storkd account to my Facebook?
+
+To link your Facebook account to a pre-existing local account go to the StorkFront settings.  The StorkFront settings can be accessed by going to the StorkFront page and clicking the gear next to your username.  Once on the StorkFront settings there will be a button to link your Facebook account. 
+
+What do the thumbs up and down do on the Discover page? 
+
+The thumbs up and down are ways for you to response to the post you are viewing.  If you like the post and want to save it for later viewing press the thumbs up or double click!  This will add the post to your bundle (reference “What is ‘my bundle’ below?”).  If you don’t like the art post and want to see another press the thumbs down.  
+
+What is “my bundle”? 
+
+Your bundle is a place you can view all the art you liked!  Your bundle can be accessed in the top right of the Discover screen, indicated by a small basket with a number corresponding to how many items are currently in your bundle.  Once you are viewing your bundle you can easily view the image of the art post, quickly contact the artist, and remove an item from your bundle by swiping right.
+
+How do I get more information about a Discover art post? 
+
+Click the “information i” button on the top right of the discover post.
+
+On the Discover screen, it says there are no more posts for me to view.  What do I do? 
+
+This means there are no more Discover posts in your search area matching the search requirements that you set in your preferences.  Try changing locations, trying again later, or changing your search preferences (see “How do I change my search preferences?” below).
+
+How do I change my search preferences? 
+
+Click the gear in the upper left of the Discover screen. This screen will allow you to change your search radius size and well as other filter preferences (see “How do I register locally?” above for full list).  Don’t forget to save!
+
+How do I make a new post?  What information should I provide? 
+
+You can make a new post by clicking the plus button in the top right of the StorkFront screen.  You should include a clear image of the art work, a story, a asking price, and type.  The story should detail what the art piece is as well as the story behind the art piece, such as what makes it special!
+
+How do I edit and delete posts?
+
+You can accomplish both of these from the StorkFront Post screen, which can be accessed by tapping one of your posts in your StorkFront.
+
+How do I check if any interested buyers have contacted me? 
+
+You can navigate to your inbox by clicking the inbox icon in the top left of the StorkFront screen.
+
+How do I logout? 
+
+Navigate to the StorkFront screen. From there click the gear icon to the right of the username.  This will bring you to the StorkFront Settings page where you can logout.

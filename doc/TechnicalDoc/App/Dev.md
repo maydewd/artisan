@@ -1,6 +1,6 @@
-# Technical Documentation
+# Mobile
 
-## Mobile
+This is a resource aimed at helping understand the codebase and making the addition of features easier.
 
 ### Launch and Screens
 
@@ -61,5 +61,3 @@ The test suit for the mobile application can be found under  */mobile/__test__/*
 This test suit can be run with the command "npm test".  Running the command "npm test -- -u" will overwrite the screenshots from the last test.
 
 ### Geolocation
-
-## Server
