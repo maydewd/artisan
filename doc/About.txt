@@ -1,0 +1,1 @@
+The about page that contains our names, client names, and Duke University is located on the Login Screen of our app under the About screen.  The screenshot of this can be seen under the TechnicalDoc folder.
