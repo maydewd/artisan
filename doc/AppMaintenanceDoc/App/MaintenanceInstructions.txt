@@ -1,0 +1,12 @@
+**Maintenance Instructions**Im
+
+* Changing server URL *
+
+If the server URL is changed or the paths are changed the config file in "mobile/config/Server.js" needs to be changed.  In this document you will find all the URLs in the app.
+
+* Update App Logo *
+
+1. Generate the different size logos necessary using the following tool: https://makeappicon.com/.  It is necessary to have all the required logo sizes.  This resource will return a folder with the right app icon sizes (if desired generate this folder any way you like - the above resource is just one that worked well for us).
+2. Replace the AppIcon.appiconset folder with the folder you generated in step 1 in the “/mobile/ios/Storkd/Images.xcassets.”
+
+* Change Default Splash Screen *

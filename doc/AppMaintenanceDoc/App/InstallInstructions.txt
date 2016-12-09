@@ -1,0 +1,25 @@
+**Install Instructions**
+
+To get the app running you need to download React Native and install all of the App’s dependencies listed in the package.json file.
+
+**React Native**
+
+To download and get started with React Native reference the following link: 
+
+https://facebook.github.io/react-native/docs/getting-started.html
+
+
+**Installing App Dependencies** 
+
+The best way to install the App’s dependencies is to use npm, a package manager for javascript.  You should have npm upon completing the downloading of React Native (reference above).  However, in the future if this is not the case, downloading this package manager can be accomplished at: https://www.npmjs.com/.  Once npm is installed all of the app’s dependencies can be added at once by running the command “npm install” in the command line while in the project’s directory. 
+
+*iOS*
+
+To run the app on an iOS laptop Xcode is needed.  Xcode can be downloaded for free on the iOS App Store. Once Xcode is installed the app can be launched in the Xcode simulator in one of two ways.  
+
+1.  The app can be launched be running the command “react-native run-ios”, which will open the Xcode simulator.  
+2.  Open the Xcode project in Xcode by opening Storkd.xcodeproj under the “/mobile/ios/“ folder.  You can then run the Xcode project by clicking the play button.  Choosing this option (option 2) will allow you to more easily edit the simulator (such as launching the simulator as different devices and changing privacy settings).
+
+*Android*
+
+
