@@ -3,3 +3,6 @@ We used a variety of 3rd party libraries in our app.  All of these dependencies 
 **DEV dependencies**
 
 The dev dependencies listed in the packages.json file are Jest and Babel, both of which are needed to run the test suit.
+
+
+Note: All currently added dependencies are MIT licensed. 

@@ -1,0 +1,23 @@
+With additional app features and a larger user base it might be necessary to make changes to improve the performance of the app. Below we have included some easy fixes that we believe will boost performance.
+
+* Caching *
+
+We are currently caching the Discover posts in the Discover screen in asynchronous storage.  Currently, the Discover screen is caching up to 20 posts when it makes a fetch call to the server.  This can be seen in the _fetchData method in the limit parameter of the fetch URL.  This can be increased and decreased as desired. 
+
+Additionally, we are caching parts of the “user” object upon login, such as username and profile picture.  We do such to avoid make a network call anytime we desire information about the user. 
+
+We believe any place where caching can be done to limit server calls will help boost the performance of the app.  However, the tradeoffs of using more asynchronous phone storage needs to be considered.
+
+* Pushing in Navigation * 
+
+There are several instances in the app where we push screens on to the Navigator in order to use the “pop” functionality and to take advantage of animations (which is not the case when using “replace”). We believe there may be instances where pushing may cause the navigation stack to get out of hand, so given time, this issue should be addressed.  To learn more about how Navigation is handled and how to best address this problem please reference the navigation section of the Dev.md file in this folder.
+
+Additionally, one suggestion that could improve app performance on the navigation front is to limit gestures (such as swiping back).  These gestures are by default built into React Native navigation, but can be overridden.  
+
+* Native modules *
+
+For the sake of quick development we used third party modules that allowed us to build functionality without writing native modules.  Such an example of where we use a wrapper for functionality is the Gifted Chat- a module used to help handle in chat messaging.  To improve performance more native modules can be written (Swift modules for iOS and Java for android).  Native modules can be written for: 
+
+1. In app messaging
+2. Camera roll access
+3. Facebook integration
