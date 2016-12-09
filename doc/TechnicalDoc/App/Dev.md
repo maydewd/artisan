@@ -60,4 +60,8 @@ The test suit for the mobile application can be found under  */mobile/__test__/*
 
 This test suit can be run with the command "npm test".  Running the command "npm test -- -u" will overwrite the screenshots from the last test.
 
+### Keyboard Avoiding 
+
+There are several places in the code base where we shift the view so the user can see the input they are putting into a text field.  For example, in the Login Screen we shift the screen up when the user enters their username and password.  We are currently doing this using React Native’s built in KeyboardAvoidingView.
+
 ### Geolocation
