@@ -18,10 +18,15 @@ Dev Team:
 * Jest
 * Node Package Manager (npm)
 
+### Abbreviated Install Instructions
+(see /doc/AppMaintenanceDoc/ for more details)
+* App:
+* Server: pull repository, follow provision instructions in /server/provision/notes_provision.txt, start up server with npm start (or pm2 start) from /server/ directory.
+
 ### File Structure
 
 **/mobile/**
-* test : test suit
+* test: test suite
 * android: generated build files for Android
 * Components: classes used as mini UI components in the project
 * config: configuration files (server URL)
@@ -29,6 +34,15 @@ Dev Team:
 * resources: images and property files
 * Screens: code for each Component screen that is viewed in the app
 * Styles: CSS style sheets
+
+**/server/**
+* app: code responsible for running nodeJS server
+  * config: routing and middleware for requests
+  * controllers: grouped handlers for each route
+  * models: mongoose/mongodb object models with fields and types
+* provision: scripts and notes for provisioning fresh server
+* public: static files to be publicly accessible
+* test: script responsible for running server-side automated tests
 
 ### Folders
 
