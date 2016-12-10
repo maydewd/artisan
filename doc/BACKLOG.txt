@@ -3,10 +3,7 @@
 * Allow filtering based on type
 * In-app purchases
 * Ability to add title to a post
-* Other forms of login through social media
-  * Twitter
-  * Google
-  * Instagram
+* Other forms of login through social media (Twitter, Google, Instagram)
 * Time to make parameter on a post- this would allow an artist to attach a parameter to a post that would notify the user how long it would take to make the item
 * Design and integrate an algorithm that would better suggest posts to users
 * Integrate in-app messaging with text messaging or email
@@ -16,3 +13,9 @@
 * Add ability to attach videos to listings
 * Check for valid cached user token when app is opened (persistent login)
 * Remove the server request call from the Screen classes
+* Custom photo editing on upload
+* Refactor server calls out of views (Screens)
+* Single tap image in My Bundle for more information
+* In the register screen check if the inputs are valid dynamically and give instant feedback (such as check if the passwords are valid and if username is available).  This is done upon pressing register, but not in live time.
+* Prompt the user “Do they want to save” when they press back in Discover Settings. 
+* When the user opens the app for the first time walk them through the basic functionality of the app (especially a description of what the icons mean). 

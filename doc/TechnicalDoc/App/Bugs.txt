@@ -7,3 +7,9 @@ This is a document describing some of the bugs we know exist and that arose duri
 * Swiping - In several points in the app there are places when the user can swipe left and right to navigate through the app in a less than desirable fashion.  This is linked to our use of React Native’s navigator.  Some of the transitions in the React Native navigator have built in gestures, the push has a built in “swipe right to go back” gesture for example.  To prevent undesirable swiping these gestures need to be limited.  One example of where this is done is the _toMainView method in the LoginScreen.js file.  Please reference this instance and apply such a fix to other transition cases.
 
 * Exiting New Post Screen - When you press the Story text field in the New Post screen there is no intuitive way to exit the Keyboard (please reference the “Keyboard” bug above).  Additionally, the screen is shifted upward to avoid the Keyboard.  Thus, there is no way to access the “back” button.  This creates a bug in which the user can not cancel the making of a New Post once they press the Story text field (unless they do unintuitive navigation where they click other text fields to exit the keyboard then press back).
+
+* Modal Picker - In the New Post screen there is an option to select “Type.” This is a Modal Picker (3rd party extension of Component(overtop a text field with animation).  Clicking the middle of the type textfield will open the Modal as desired.  However, if the user clicks to the left of the text box, where there is an icon, they will be able to input any text they desire. 
+
+* Photo scaling - Make changes such that the photo sizing is more consistent.  Sometimes the photos are stretched, other times scaled.  Right now square photos look best.
+
+* Discover Post Info Screen - When the user taps the asking price on the Discover Post “more information screen” the keyboard appears.
