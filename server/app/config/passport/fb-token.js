@@ -1,3 +1,5 @@
+// Author: DM 2016
+
 const FacebookTokenStrategy = require('passport-facebook-token');
 const User = require('../../models/user');
 const config = require('../config');

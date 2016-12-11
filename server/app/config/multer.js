@@ -1,3 +1,5 @@
+// Author: DM 2016
+
 const crypto = require('crypto');
 const path = require('path');
 const multer = require('multer');

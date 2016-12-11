@@ -12,7 +12,7 @@ E-commerce apps focusing on the sale of art is already a populated market, with 
 
 Currently, if someone who is traveling decides they want to buy a local artwork as a souvenir, they might go to a gift shop and get some unoriginal trinket. However, with Stork'd, they can find a specific, unique piece of art in the local area, and interact directly with the artisan who made it. Not only does this add a sense of authenticity to the souvenir, the discovery of the item and the transaction become a unique, memorable experience.  
 
-For the artisan, Stork'd provides a way to build a local presence and connect with the local community, providing a quick and easy way to sell goods.  It's as simple as taking a picture, adding a price and appropriate tags.
+For the artisan, Storkd provides a way to build a local presence and connect with the local community, providing a quick and easy way to sell goods.  It's as simple as taking a picture, adding a price and appropriate tags.
 
 ### Team
 

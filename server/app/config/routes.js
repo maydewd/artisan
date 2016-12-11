@@ -1,3 +1,5 @@
+// Author: DM 2016
+
 'use strict';
 
 /*

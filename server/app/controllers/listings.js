@@ -1,3 +1,5 @@
+// Author: DM 2016
+
 const User = require('../models/user');
 const Listing = require('../models/listing');
 const mongoose = require('mongoose');

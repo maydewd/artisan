@@ -1,3 +1,5 @@
+// Author: DM 2016
+
 // get an instance of mongoose and mongoose.Schema
 var mongoose = require('mongoose');
 
