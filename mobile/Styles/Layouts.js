@@ -5,7 +5,8 @@ import {getScreenWidth, usableWithTop, getScreenHeight, topNavBarHeight, bottomN
 
 const styles = StyleSheet.create({
 
-  //New post
+  //==================================
+  //  NEW POST
 
   newPostContainer: {
     width:  getScreenWidth(),
@@ -14,13 +15,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     backgroundColor: '#f6f6f6'
   },
-
   newPostAvatar: {
     resizeMode: 'contain',
     width: getScreenWidth(),
     height: usablePercent(50)
   },
-
   story: {
     flex: 3,
     width: getScreenWidth(),
@@ -30,7 +29,6 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderTopWidth: 1
   },
-
   askingPrice: {
     flex: 1,
     width: getScreenWidth(),
@@ -39,19 +37,16 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderTopWidth: 1
   },
-
   newPostType: {
     width: getScreenWidth(),
     minHeight: usablePercent(10),
     borderColor: 'gray',
     borderTopWidth: 1
   },
-
   flexAndWidth: {
     flex:1,
     width: getScreenWidth()
   },
-
   newPostButton: {
     padding:10,
     overflow:'hidden',
@@ -60,17 +55,17 @@ const styles = StyleSheet.create({
     borderRadius: 2
   },
 
-  //Bundle
+
+  //==================================
+  //  Bundle
 
     usableWithTop: {
       height: usableWithTop()
     },
-
     bundleImage: {
       height: 80,
       width: 80
     },
-
     bundleRow: {
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -78,11 +73,9 @@ const styles = StyleSheet.create({
       width: getScreenWidth(),
       backgroundColor: 'white'
     },
-
     rightPadding: {
       paddingRight: 10
     },
-
     hiddenBundleRow: {
       height: 80,
       flexDirection: 'row',
@@ -91,53 +84,49 @@ const styles = StyleSheet.create({
       backgroundColor: 'red',
       width: getScreenWidth()
     },
-
     paddedWhiteText: {
       color: 'white',
       paddingRight: 10
     },
 
-    //TABS
+
+  //==================================
+  //  TABS
 
     tabcontainer: {
      flex: 1,
      backgroundColor: 'white'
     },
-
     tabTextActive: {
       fontSize: 10,
       color: '#24518D'
     },
-
     tabText: {
       fontSize: 10,
     },
-
     iconActive : {
       color: '#24518D'
     },
-
     tabIcon : {
       color: 'black'
     },
-
     tabItem: {
      flex: 1,
      alignItems: 'center',
      justifyContent: 'center'
    },
 
-    //REGSTER
+
+  //==================================
+  //  REGISTER
+
     registerNavBar: {
       backgroundColor: '#24518D',
       height: topNavBarHeight()
     },
-
     registerWidth: {
       width: 0.8 * getScreenWidth()
     },
-
-    //TODO make profile picture circular
     registerContainer: {
       width:  getScreenWidth()/2,
       height: getScreenWidth()/2,
@@ -148,19 +137,16 @@ const styles = StyleSheet.create({
       borderColor: 'black',
       borderWidth: 1
     },
-
     registerAvatar: {
       resizeMode: 'stretch',
       width: getScreenWidth()/2,
       height: getScreenWidth()/2,
       borderRadius: getScreenWidth()/4,
     },
-
     registerBackground: {
       backgroundColor: 'white',
       height: usableWithTop(),
     },
-
     registerText: {
       textAlign: 'center',
       color: '#24518D',
@@ -168,7 +154,6 @@ const styles = StyleSheet.create({
       marginBottom: 5,
       fontSize: 20
     },
-
     bottomBorder: {
       borderBottomColor: '#24518D',
       borderBottomWidth: 2,
@@ -177,32 +162,26 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center'
     },
-
     registerRow: {
       flexDirection: 'row',
       alignItems: 'center',
 
     },
-
     registerTitle: {
       flexDirection: 'row',
       alignItems: 'center',
       flex: 1,
     },
-
     registerCancel: {
       color: 'white'
     },
-
     registerArrow: {
       color: 'white',
       paddingLeft: 10
     },
-
     baseText: {
       // fontFamily: "serif"
     },
-
     centeredBuff: {
       flex: 1,
       justifyContent: "space-between",
@@ -210,20 +189,22 @@ const styles = StyleSheet.create({
       paddingLeft: 20,
     },
 
+
+  //==================================
+  //  LOGIN
+
     loginTopTextField: {
       width: getScreenWidth() * .9,
       backgroundColor: 'white',
       borderTopRightRadius:10,
       borderTopLeftRadius:10
     },
-
     loginBottomTextField: {
       width: getScreenWidth() * .9,
       backgroundColor: 'white',
       borderBottomRightRadius:10,
       borderBottomLeftRadius:10
     },
-
     loginButton: {
           paddingTop: 7,
           width: 110,
@@ -232,7 +213,6 @@ const styles = StyleSheet.create({
           borderRadius:4,
           backgroundColor: 'pink'
     },
-
     topLoginView: {
         flexDirection: "column",
         justifyContent: "space-around",
@@ -241,12 +221,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#e6f2ff',
         height: getScreenHeight()
     },
-
     loginImage: {
       width: usablePercent(30),
       height: usablePercent(30)
     },
-
     loginScreenView: {
       flexDirection: "column",
       justifyContent: "space-around",
@@ -254,42 +232,35 @@ const styles = StyleSheet.create({
       paddingTop: 40,
       backgroundColor: '#e6f2ff'
     },
-
     centered: {
       flex: 1,
       flexDirection: "column",
       justifyContent: "space-between",
       alignItems: "center",
     },
-
     centeredBoth: {
       flex: 1,
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
     },
-
     navBar: {
       backgroundColor: '#cce5ff',
       height: topNavBarHeight()
     },
-
     navIcon: {
       padding: 10
     },
-
     container: {
       flex: 1,
       justifyContent: 'space-between',
       alignItems: 'center',
       backgroundColor: '#f6f6f6',
     },
-
     logo: {
       width: usablePercent(30),
       height: usablePercent(30)
     },
-
     textBox: {
       height: 40,
       width: getScreenWidth() * .9,
@@ -298,20 +269,17 @@ const styles = StyleSheet.create({
       padding: 4,
       alignSelf: 'center'
     },
-
     groupedTextBoxes: {
       flex: 1,
       flexDirection: 'column',
       justifyContent: 'space-between',
       maxHeight: 150
     },
-
     welcome: {
       fontSize: 20,
       textAlign: 'center',
       margin: 10,
     },
-
     instructions: {
       textAlign: 'center',
       color: '#333333',
@@ -320,8 +288,8 @@ const styles = StyleSheet.create({
     },
 
 
-//==================================
-//  DISCOVER
+  //==================================
+  //  DISCOVER
     discover: {
       backgroundColor: 'white',
       height: getUsableScreenHeight(),
@@ -331,12 +299,10 @@ const styles = StyleSheet.create({
       resizeMode: 'contain',
       height: usablePercent(60),
     },
-
     discoverBlankImage: {
       flex: 1,
       height: usablePercent(60),
     },
-
     discoverIconInfo: {
       marginRight: 0
     },
@@ -356,7 +322,6 @@ const styles = StyleSheet.create({
       borderRadius: 20,
       backgroundColor: '#ec7063'
     },
-
     // TODO the stylings for the different post screens are nearly identical
     discoverPostContainer: {
       // width: 400,
@@ -413,8 +378,7 @@ const styles = StyleSheet.create({
       color: 'white'
     },
 
-    //Right Nav Icon in Discover
-
+    // Right Nav Icon in Discover
     circle: {
       justifyContent: 'center',
       alignItems: 'center',
@@ -426,27 +390,26 @@ const styles = StyleSheet.create({
       top: 4,
       left: 0
     },
-
     displayText: {
       fontSize: 12,
       backgroundColor: 'rgba(0,0,0,0)',
       color: 'rgb(255,255,255)'
     },
-
     settingsText: {
       paddingTop: 10,
       paddingBottom: 10,
       fontSize: 16,
       textAlign: 'center',
     },
-
     settingsView: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center'
     },
-//==================================
-//  STORKFRONT
+
+
+  //==================================
+  //  STORKFRONT
 
     storkfrontScreen: {
       flex: 1,
@@ -455,7 +418,6 @@ const styles = StyleSheet.create({
       alignItems: "center",
       paddingTop: 5
     },
-
     storkFront: {
       flex: 1,
       flexDirection: 'column',
@@ -463,7 +425,6 @@ const styles = StyleSheet.create({
       alignItems: "center",
       height: getUsableScreenHeight(),
     },
-
     storkFrontBanner: {
       flex: 1,
       flexDirection: 'row',
@@ -474,36 +435,35 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderColor: 'pink',
     },
-
-    //Remove this hardcoded 80 - it corresponds to profile height
+    // TODO: Remove this hardcoded 80 - it corresponds to profile height
     storkfrontList: {
       width: getScreenWidth(),
       maxHeight: getUsableScreenHeight() - 80
     },
-
     storkfrontList2: {
       flex: 1,
       flexDirection: 'column'
     },
-
     storkfrontProfileImage: {
       resizeMode: 'stretch',
       height: 75,
       width: 75,
       borderRadius: 37
     },
-
     storkfrontProfileText: {
       flex: 1,
       padding: 10,
       fontSize: 16,
     },
-
     storkfrontImage: {
       resizeMode: 'contain',
       height: usablePercent(60),
       width: getScreenWidth()
     },
+
+
+  //==================================
+  //  STORKFRONT POST
 
     sPostImageContainer: {
       width:  getScreenWidth(),
@@ -547,7 +507,10 @@ const styles = StyleSheet.create({
       fontSize: 20,
       color: 'white'
     },
-    // STORKFRONT/PROFILE SETTINGS
+
+  //==================================
+  //  STORKFRONT/PROFILE SETTINGS
+
     profileSettings: {
       flex: 1,
       // flexDirection: 'row',
@@ -556,7 +519,7 @@ const styles = StyleSheet.create({
       maxHeight: 80,
       padding: 5
     },
-    // TODO: use register layout
+    // TODO: this layout is identical to ones used in register
     profileImageContainer: {
       width: getScreenWidth()/2,
       height: getScreenWidth()/2,
@@ -598,8 +561,9 @@ const styles = StyleSheet.create({
       color: 'white'
     },
 
-    //==================================
-    //  AboutPage
+
+  //==================================
+  //  ABOUT PAGE
 
     AboutView: {
       height: usableWithTop(),
@@ -607,25 +571,21 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       backgroundColor: '#003366'
     },
-
     AboutHeader: {
       textAlign: 'center',
       marginBottom: 20,
       fontSize: 24,
       color: 'white'
     },
-
     AboutBasic: {
       textAlign: 'center',
       marginBottom: 2,
       color: 'white'
     },
-
     DukeText: {
       textAlign: 'center',
       color: 'white'
     },
-
     AboutNavBar: {
       backgroundColor: 'white',
       height: topNavBarHeight(),
