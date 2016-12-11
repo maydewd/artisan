@@ -4,22 +4,33 @@ To get the app running you need to download React Native and install all of the 
 
 **React Native**
 
-To download and get started with React Native reference the following link: 
+To download and get started with React Native reference the following link:
 
 https://facebook.github.io/react-native/docs/getting-started.html
 
 
-**Installing App Dependencies** 
+**Installing App Dependencies**
 
-The best way to install the App’s dependencies is to use npm, a package manager for javascript.  You should have npm upon completing the downloading of React Native (reference above).  However, in the future if this is not the case, downloading this package manager can be accomplished at: https://www.npmjs.com/.  Once npm is installed all of the app’s dependencies can be added at once by running the command “npm install” in the command line while in the project’s directory. 
+The best way to install the App’s dependencies is to use npm, a package manager for javascript.  You should have npm upon completing the downloading of React Native (reference above).  However, in the future if this is not the case, downloading this package manager can be accomplished at: https://www.npmjs.com/.  Once npm is installed all of the app’s dependencies can be added at once by running the command “npm install” in the command line while in the project’s directory.
 
 *iOS*
 
-To run the app on an iOS laptop Xcode is needed.  Xcode can be downloaded for free on the iOS App Store. Once Xcode is installed the app can be launched in the Xcode simulator in one of two ways.  
+To run the app on an iOS laptop Xcode is needed.  Xcode can be downloaded for free on the iOS App Store. Once Xcode is installed the app can be launched in the Xcode simulator in one of two ways.
 
-1.  The app can be launched be running the command “react-native run-ios”, which will open the Xcode simulator.  
+1.  The app can be launched be running the command “react-native run-ios”, which will open the Xcode simulator.
 2.  Open the Xcode project in Xcode by opening Storkd.xcodeproj under the “/mobile/ios/“ folder.  You can then run the Xcode project by clicking the play button.  Choosing this option (option 2) will allow you to more easily edit the simulator (such as launching the simulator as different devices and changing privacy settings).
 
 *Android*
 
+The React Native reference above provides instructions for setting up the Android development environment. It requires installation of Android Studio, which will also install the Android SDK and emulator necessary to run the app. Android Studio can be downloaded here: https://developer.android.com/studio/install.html.
 
+To run the app in an emulator:
+
+1.  Run the command "android avd". This will open the Android Virtual Device Manager.
+2.  In the manager, select the AVD created earlier during development environment setup, and click "Start".
+3.  While in the "/mobile" folder run "react-native start". This will start the packager.
+4.  In a new command prompt, run "react-native run-android". It should be able to find the running AVD and launch the app in the emulator.
+
+To run the app on an Android device, you will need to generate a signed APK, which can then be distributed through the Google Play store or email. Instructions for doing so can be found here:
+
+https://facebook.github.io/react-native/docs/signed-apk-android.html
