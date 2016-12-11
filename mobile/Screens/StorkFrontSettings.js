@@ -93,56 +93,55 @@ class StorkFrontSettings extends Component {
         title={titleConfig}
         leftButton={leftButtonConfig}
         />
-
-          <View style = {{height: usableWithTop(), alignItems: 'center'}}>
-            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-              <View style = {styles.profileImageContainer}>
-                { this.state.photoSource === null ? <Image style = {styles.profileImage} source={imageSource} />:
-                  <Image style={styles.profileImage} source={this.state.photoSource} />
-                }
-              </View>
-            </TouchableOpacity>
-            <Sae
-              label={'Username'}
-              iconClass={MaterialIcons}
-              style = {{width: 0.8 * getScreenWidth()}}
-              labelStyle={{ color: '#24518D' }}
-              inputStyle={{ color: '#24518D' }}
-              iconName={'perm-identity'}
-              iconColor={'#24518D'}
-              autoCapitalize={'none'}
-              autoCorrect={false}
-              value={this.state.username}
-              onChangeText={(username) => this.setState({username})}
-            />
-            <Sae
-              label={'Password'}
-              iconClass={MaterialIcons}
-              style = {{width: 0.8 * getScreenWidth()}}
-              labelStyle={{ color: '#24518D' }}
-              inputStyle={{ color: '#24518D' }}
-              iconName={'lock'}
-              iconColor={'#24518D'}
-              autoCapitalize={'none'}
-              autoCorrect={false}
-              secureTextEntry = {true}
-              onChangeText={(password) => this.setState({password})}
-            />
-            <View style={{flex:1}}></View>
-            {fbButton}
-            <Button
-              containerStyle={styles.fullWidthSaveButtonContainer}
-              style={styles.saveButton}
-              onPress={() => this._save()}>
-              Save
-            </Button>
-            <Button
-              containerStyle={styles.logoutContainer}
-              style={styles.logout}
-              onPress={() => this._logoutPressed()}>
-              Log out
-            </Button>
-          </View>
+        <View style = {{height: usableWithTop(), alignItems: 'center'}}>
+          <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+            <View style = {styles.profileImageContainer}>
+              { this.state.photoSource === null ? <Image style = {styles.profileImage} source={imageSource} />:
+                <Image style={styles.profileImage} source={this.state.photoSource} />
+              }
+            </View>
+          </TouchableOpacity>
+          <Sae
+            label={'Username'}
+            iconClass={MaterialIcons}
+            style = {{width: 0.8 * getScreenWidth()}}
+            labelStyle={{ color: '#24518D' }}
+            inputStyle={{ color: '#24518D' }}
+            iconName={'perm-identity'}
+            iconColor={'#24518D'}
+            autoCapitalize={'none'}
+            autoCorrect={false}
+            value={this.state.username}
+            onChangeText={(username) => this.setState({username})}
+          />
+          <Sae
+            label={'Password'}
+            iconClass={MaterialIcons}
+            style = {{width: 0.8 * getScreenWidth()}}
+            labelStyle={{ color: '#24518D' }}
+            inputStyle={{ color: '#24518D' }}
+            iconName={'lock'}
+            iconColor={'#24518D'}
+            autoCapitalize={'none'}
+            autoCorrect={false}
+            secureTextEntry = {true}
+            onChangeText={(password) => this.setState({password})}
+          />
+          <View style={{flex:1}}></View>
+          {fbButton}
+          <Button
+            containerStyle={styles.fullWidthSaveButtonContainer}
+            style={styles.saveButton}
+            onPress={() => this._save()}>
+            Save
+          </Button>
+          <Button
+            containerStyle={styles.logoutContainer}
+            style={styles.logout}
+            onPress={() => this._logoutPressed()}>
+            Log out
+          </Button>
+        </View>
       </View>
     );
   }
@@ -161,35 +160,34 @@ class StorkFrontSettings extends Component {
 
   selectPhotoTapped() {
     const options = {
-        quality: 1.0,
-        maxWidth: 500,
-        maxHeight: 500,
-        storageOptions: {
-          skipBackup: true
-        }
-      };
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
     ImagePicker.showImagePicker(options, (response) => {
-     if (response.didCancel) {
-       //Fill out if desired
-     }
-     else if (response.error) {
-       //Fill out if desired
-     }
-     else if (response.customButton) {
-       //Fill out if desired
-     }
-     else {
-       var source;
-       if (Platform.OS === 'android') {
-         source = {uri: response.uri, isStatic: true};
-       } else {
-         source = {uri: response.uri.replace('file://', ''), isStatic: true};
-       }
-
-       this.setState({
-         photoSource: source
-       });
-     }
+      if (response.didCancel) {
+        //Fill out if desired
+      }
+      else if (response.error) {
+        //Fill out if desired
+      }
+      else if (response.customButton) {
+        //Fill out if desired
+      }
+      else {
+        var source;
+        if (Platform.OS === 'android') {
+          source = {uri: response.uri, isStatic: true};
+        } else {
+          source = {uri: response.uri.replace('file://', ''), isStatic: true};
+        }
+        this.setState({
+          photoSource: source
+        });
+      }
     });
   }
 
@@ -261,11 +259,13 @@ class StorkFrontSettings extends Component {
           alert('Thanks!')
           this.toStorkFront()
         });
-      } else { console.warn('error'); }
+      } else {
+        console.warn('error');
+      }
     };
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
-        request.setRequestHeader('Authorization', result);
-        request.send(body);
+      request.setRequestHeader('Authorization', result);
+      request.send(body);
     });
   }
 
@@ -287,6 +287,7 @@ class StorkFrontSettings extends Component {
   }
 
   _resetToLogin() {
+    // NOTE: currently, logout removes all async keys used by the app, including discover preferences
     keys = getAllAsyncKeys();
     AsyncStorage.multiRemove(keys, (err) => {
       console.log(err)
