@@ -68,6 +68,6 @@ There are several places in the code base where we shift the view so the user ca
 
 Basic geolocation is achieved using React Native's built in [geolocation API](https://facebook.github.io/react-native/docs/geolocation.html). Using this we are able to get the current location as a coordinate pair. An example of geolocation can be found in the `_getLocation(callback)` method in *NewPost.js*.
 
-### Geocoding
+**Geocoding**
 
 To translate geolocation data into location information such as locality, address, or zipcode, we use a third party [geocoder library](https://github.com/devfd/react-native-geocoder). The coding is done app-side when a new post is uploaded, in *NewPost.js*. The library will attempt to use a native geocoder service if one is available. If there is none, it will default to using the Google Maps API. This requires a Google Maps API key: `Geocoder.fallbackToGoogle(GOOGLE_API_KEY);`. The `GOOGLE_API_KEY` constant can be found in */mobile/resouces/Properties.js*. A key can be acquired here: https://developers.google.com/maps/documentation/geocoding/get-api-key.

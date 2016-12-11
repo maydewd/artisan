@@ -1,4 +1,7 @@
-// property file
+/**
+ * Properties
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
+ */
 
 export const async_keys = {
   // async keys for authentication
