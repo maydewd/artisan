@@ -1,0 +1,11 @@
+**Install Instructions**
+
+To get the server running you need to have a machine with a publicly-accessible IP address. The target server should be running ubuntu linux, ideally version 16.04. Once the machine is running, you should configure public-key based authentication and disable password-based authentication. Once the machine is figured to meet your specifications, run the provision script with the following command `sh server/provision/provision.sh`. This script installs a few necessary pieces of software, most notably NodeJS (the server base) and MongoDB (the database). Once that is complete, you can start up the server by running `npm start` from within the server/ directory. If you wish to use a process manager service, such as pm2 which is installed in the provision script, run `pm2 start server.js` instead (http://pm2.keymetrics.io/).
+
+**NodeJS**
+
+To read about NodeJS or to download it manually, visit https://nodejs.org/en/. It is a lightweight javascript-based server that allows the developer to iterate and improve quickly. By default, the provision script will install the current version of NodeJS.
+
+**Installing Server Dependencies**
+
+To install the third-party modules required to run the server, run the command `npm install` from the /server/ directory. This will automatically install of the dependencies listed in the package.json file.
