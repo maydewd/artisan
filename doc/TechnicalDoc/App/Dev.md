@@ -60,8 +60,14 @@ The test suit for the mobile application can be found under  */mobile/__test__/*
 
 This test suit can be run with the command "npm test".  Running the command "npm test -- -u" will overwrite the screenshots from the last test.
 
-### Keyboard Avoiding 
+### Keyboard Avoiding
 
 There are several places in the code base where we shift the view so the user can see the input they are putting into a text field.  For example, in the Login Screen we shift the screen up when the user enters their username and password.  We are currently doing this using React Native’s built in KeyboardAvoidingView.
 
 ### Geolocation
+
+Basic geolocation is achieved using React Native's built in [geolocation API](https://facebook.github.io/react-native/docs/geolocation.html). Using this we are able to get the current location as a coordinate pair. An example of geolocation can be found in the `_getLocation(callback)` method in *NewPost.js*.
+
+### Geocoding
+
+To translate geolocation data into location information such as locality, address, or zipcode, we use a third party [geocoder library](https://github.com/devfd/react-native-geocoder). The coding is done app-side when a new post is uploaded, in *NewPost.js*. The library will attempt to use a native geocoder service if one is available. If there is none, it will default to using the Google Maps API. This requires a Google Maps API key: `Geocoder.fallbackToGoogle(GOOGLE_API_KEY);`. The `GOOGLE_API_KEY` constant can be found in */mobile/resouces/Properties.js*. A key can be acquired here: https://developers.google.com/maps/documentation/geocoding/get-api-key.

@@ -6,16 +6,16 @@ export const async_keys = {
   "TOKEN" : "jwtToken",
   // async keys for discover filtering
   "COST" : "cost",
-  "MYPOSTS" : "myPosts",
-  "LIKED" : "seeLiked",
-  "DISLIKED" : "seeDisliked",
+  "MYPOSTS" : "myPosts",      // flag for whether or not to display user's own posts
+  "LIKED" : "seeLiked",       // flag for whether or not to display previously liked posts
+  "DISLIKED" : "seeDisliked", // flag for whether or not to display previously disliked posts
   "BUNDLE" : "bundlePosts",
   "DISTANCE" : "distance",
   "DOWNED" : "downedPost",
 }
 
-// TODO: get yer own key
-export const GOOGLE_API_KEY = 'AIzaSyB4Wup3-phaP5kaiLHUOELxdtMKzm1GuxI';
+// TODO: Google Maps API key: https://developers.google.com/maps/documentation/geocoding/get-api-key
+export const GOOGLE_API_KEY = '';
 
 export function getAllAsyncKeys() {
   // get an array of async keys; intended for use with AsyncStorage.multiRemove
