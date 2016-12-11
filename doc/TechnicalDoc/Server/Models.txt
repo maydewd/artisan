@@ -1,0 +1,36 @@
+** Models **
+
+*A relational diagram of the 4 models can be seen in the database-schema-diagram.png file.*
+
+*All of the models are defined in /server/app/models/*
+
+* User: represents the account of each user
+  * username: unique string created during local registration OR unique string copied from facebook email
+  * password: (hashed) string created during local registration
+  * imagePath: filepath of locally stored profile image
+  * posts: array of Listing Object IDs
+  * likes: array of Listing Object IDs
+  * dislikes: array of Listing Object IDs
+  * facebookID: optional field for user's unique Facebook account ID
+  * facebookImagePath: url of user's facebook profile image (via Facebook Graph API)
+* Listing: represents a post
+  * creator: User Object ID of account that posted this listing
+  * description: long-form text describing this posting
+  * price: cost number to purchase
+  * type: required category string
+  * imagePath: filepath of locally stored listing image
+  * numLikes: number of people that current like this post (non-relational)
+  * coordinates: longitude, latitude pair of coordinates
+  * locality: City/Town name associated with coordinates above
+* Conversation
+  * buyer: User Object ID of potential buyer in this conversation
+  * seller: User Object ID of seller (item creator) in this conversation
+  * item: Listing Object ID associated with this conversation
+  * messages: array of Message Object ID's associated with this conversation
+  * createdAt: timestamp of when this object was created
+  * updatedAt: timestamp of last time this object was modified
+* Message
+  * sender: User Object ID for who sent the message
+  * text: string of the message text
+  * createdAt: timestamp of when this object was created
+  * updatedAt: timestamp of last time this object was modified

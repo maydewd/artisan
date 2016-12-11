@@ -1,0 +1,5 @@
+** Authentication **
+
+The server currently supports one centralized form of authentication: JWT (JSON Web Tokens). These are returned to the user upon logging in and are essentially a session key. The one major difference is that the JWT itself contains the user's id, so that doesn't need to be fetched from the database at a later point. The validity of the JWT is ensured by using a 'secret' to sign the JWT, which is then verified later to ensure that the user id was not forged or tampered with. The JWT also handles expiration times internally, so both the client and server can check if the token is expired by just looking at the encoded JWT data.
+
+To accommodate for alternative forms of login, such as facebook login, we can simply have the user first access a route that requires the user to send an appropriate facebook login, which is then verified through a passport strategy. Once the user is verified to have a facebook account (and a new account is potentially created), the user is sent a JWT token. The user can then use this JWT token to access the main portions of the app in the same way that they would if they were logged in with a local account. 
