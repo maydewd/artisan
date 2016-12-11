@@ -33,12 +33,12 @@ import FA from 'react-native-vector-icons/FontAwesome';
 import {async_keys} from '../resources/Properties.js';
 import Geocoder from 'react-native-geocoder';
 import {GOOGLE_API_KEY} from '../resources/Properties.js'
+// Set Google Maps geocoding API key in case native geocoder fails
 Geocoder.fallbackToGoogle(GOOGLE_API_KEY);
 const config = require('../config/server');
 styles = require('../Styles/Layouts');
 
 class NewPost extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -53,7 +53,9 @@ class NewPost extends Component {
   }
 
   componentWillMount() {
+    // flag to prevent state changes due to asynchronous geolocation calls when unmounted
     this.mounted = true;
+    // do geolocation and geocoding now, as they take a long time
     this._getLocation()
   }
   componentWillUnmount() {
@@ -62,71 +64,71 @@ class NewPost extends Component {
 
   render() {
     var titleConfig = {title: 'New Post'};
-   const leftButtonConfig = {title: 'Back', handler: () => {this.toStorkFront()}};
-  return (
+    const leftButtonConfig = {title: 'Back', handler: () => {this.toStorkFront()}};
+    return (
       <View>
         <NavigationBar
-        style={styles.navBar}
-        title={titleConfig}
-        leftButton={leftButtonConfig}
+          style={styles.navBar}
+          title={titleConfig}
+          leftButton={leftButtonConfig}
         />
         <KeyboardAvoidingView behavior='position'>
           <View style= {{height: usableWithTop()}}>
             <TouchableOpacity style = {styles.newPostContainer} onPress={this.selectPhotoTapped.bind(this)}>
-                <View>
-                  { this.state.photoSource === null ? <MaterialIcons name="add-a-photo" size= {50}/>:
-                      <Image style={styles.newPostAvatar} source={this.state.photoSource} />
-                    }
-                  </View>
-              </TouchableOpacity>
+              <View>
+                { this.state.photoSource === null ? <MaterialIcons name="add-a-photo" size= {50}/>:
+                  <Image style={styles.newPostAvatar} source={this.state.photoSource} />
+                }
+              </View>
+            </TouchableOpacity>
+            <Kohana
+              style={styles.story}
+              label={'Story'}
+              iconClass={FA}
+              iconName={'book'}
+              iconColor={'#24518D'}
+              labelStyle={{ color: 'pink' }}
+              inputStyle={{ color: '#24518D' }}
+              multiline = {true}
+              numberOfLines = {2}
+              onChangeText={(description) => this.setState({description})}
+            />
+            <Kohana
+              style={styles.askingPrice}
+              label={'Asking Price'}
+              iconClass={MaterialIcons}
+              iconName={'payment'}
+              iconColor={'#24518D'}
+              labelStyle={{ color: 'pink' }}
+              inputStyle={{ color: '#24518D' }}
+              keyboardType = 'numeric'
+              onChangeText={(price) => this.setState({price})}
+            />
+            <ModalPicker
+              data={grabArtTypes()}
+              style = {styles.flexAndWidth}
+              initValue="Select a type"
+              onChange={(option)=> this.setState({type:option.label})}
+            >
               <Kohana
-                style={styles.story}
-                label={'Story'}
-                iconClass={FA}
-                iconName={'book'}
-                iconColor={'#24518D'}
-                labelStyle={{ color: 'pink' }}
-                inputStyle={{ color: '#24518D' }}
-                multiline = {true}
-                numberOfLines = {2}
-                onChangeText={(description) => this.setState({description})}
-              />
-              <Kohana
-                style={styles.askingPrice}
-                label={'Asking Price'}
+                style = {styles.newPostType}
+                editable= {false}
+                label={'Type'}
                 iconClass={MaterialIcons}
-                iconName={'payment'}
+                iconName={'subject'}
                 iconColor={'#24518D'}
                 labelStyle={{ color: 'pink' }}
                 inputStyle={{ color: '#24518D' }}
-                keyboardType = 'numeric'
-                onChangeText={(price) => this.setState({price})}
+                value={this.state.type}
               />
-              <ModalPicker
-                     data={grabArtTypes()}
-                     style = {styles.flexAndWidth}
-                     initValue="Select a type"
-                     onChange={(option)=> this.setState({type:option.label})}
-                     >
-                         <Kohana
-                           style = {styles.newPostType}
-                           editable= {false}
-                           label={'Type'}
-                           iconClass={MaterialIcons}
-                           iconName={'subject'}
-                           iconColor={'#24518D'}
-                           labelStyle={{ color: 'pink' }}
-                           inputStyle={{ color: '#24518D' }}
-                           value={this.state.type}
-                         />
-              </ModalPicker>
-              <Button
-                containerStyle={styles.newPostButton}
-                style={{fontSize: 20, color: 'white'}}
-                onPress={() => this._postPressed()}>
-                Post
-              </Button>
-            </View>
+            </ModalPicker>
+            <Button
+              containerStyle={styles.newPostButton}
+              style={{fontSize: 20, color: 'white'}}
+              onPress={() => this._postPressed()}>
+              Post
+            </Button>
+          </View>
         </KeyboardAvoidingView>
       </View>
     );
@@ -134,32 +136,32 @@ class NewPost extends Component {
 
   selectPhotoTapped() {
     const options = {
-        quality: 1.0,
-        maxWidth: 500,
-        maxHeight: 500,
-        storageOptions: {
-          skipBackup: true
-        }
-      };
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
     ImagePicker.showImagePicker(options, (response) => {
-     if (response.didCancel) {
-       //Fill in if desired
-     }
-     else if (response.error) {
-       //Fill in if desired
-     }
-     else if (response.customButton) {
-       //Fill in if desired
-     }
-     else {
-       var source;
-       if (Platform.OS === 'android') {
-         source = {uri: response.uri, isStatic: true};
-       } else {
-         source = {uri: response.uri.replace('file://', ''), isStatic: true};
-       }
-       this.setState({photoSource: source});
-     }
+      if (response.didCancel) {
+        //Fill in if desired
+      }
+      else if (response.error) {
+        //Fill in if desired
+      }
+      else if (response.customButton) {
+        //Fill in if desired
+      }
+      else {
+        var source;
+        if (Platform.OS === 'android') {
+          source = {uri: response.uri, isStatic: true};
+        } else {
+          source = {uri: response.uri.replace('file://', ''), isStatic: true};
+        }
+        this.setState({photoSource: source});
+      }
     });
   }
 
@@ -210,14 +212,14 @@ class NewPost extends Component {
     }
     body.append('image', photo);
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
-        request.setRequestHeader('Authorization', result);
-        request.send(body);
-        Alert.alert('Thanks!')
-        this.toStorkFront()
+      request.setRequestHeader('Authorization', result);
+      request.send(body);
+      Alert.alert('Thanks!')
+      this.toStorkFront()
     });
   }
 
-  //To be more effecient, location is grabbed upon loading
+  // updates the state with location information. The callback is optional
   _getLocation(callback) {
     navigator.geolocation.getCurrentPosition (
       (position) => {
@@ -233,27 +235,32 @@ class NewPost extends Component {
           lng: position.coords.longitude
         }
         Geocoder.geocodePosition(loc).then(res => {
-          console.log(res)
-          // TODO: res is an array of geocoding objects, and the information is not guaranteed to be there
+          /*
+          NOTE: res is an array of geocoding objects, and the information is not guaranteed to be there.
+          It has information other than locality, which we do not use.
+          For the full object specification, see: https://github.com/devfd/react-native-geocoder#geocoding-object-format
+          */
           if (!this.mounted) {
             return;
           }
-          this.setState({locality: res[0].locality})
+          this.setState({
+            locality: res[0].locality   // locality refers to city, town, or political entity
+          })
           if (callback) {
             callback();
           }
         })
         .catch(err => {
-          console.log(err);
-          alert(JSON.stringify(err));
+          alert(err.message);
         })
       },
-      (error) => alert(JSON.stringify(error)),
+      (error) => alert(error.message),
       {enableHighAccuracy: true, timeout: 2000, maximumAge: 1000}
     );
   }
 
   _postPressed() {
+    // if location coding has not finished by the time of posting, try again
     if (this.state.lat === null || this.state.lng === null || this.state.locality === null) {
       this._getLocation(this._post);
     } else {
@@ -263,9 +270,9 @@ class NewPost extends Component {
 
   toStorkFront() {
     this.props.navigator.push({
-        id: 'mainView',
-        screen: 'storkFront',
-        sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJumpFromRight
+      id: 'mainView',
+      screen: 'storkFront',
+      sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJumpFromRight
     });
   }
 }
