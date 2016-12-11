@@ -11,6 +11,9 @@ const compression = require('compression');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -33,7 +36,11 @@ module.exports = function (app, passport) {
 
   // Don't log during tests
   // Logging middleware
-  // if (env !== 'test') app.use(morgan(log));
+  if (env !== 'test') {
+    // create a write stream (in append mode)
+    var accessLogStream = fs.createWriteStream(path.join(os.homedir(), 'access.log'), {flags: 'a'})
+    app.use(morgan('combined', {stream: accessLogStream}));
+  }
 
   // expose package.json to views
   app.use(function (req, res, next) {
