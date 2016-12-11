@@ -288,7 +288,7 @@ class Register extends Component {
     AsyncStorage.setItem(async_keys.DISTANCE, this.state.distance);
     AsyncStorage.setItem(async_keys.COST, this.state.cost);
     AsyncStorage.setItem(async_keys.MYPOSTS, JSON.stringify(this.state.myPosts));
-    AsyncStorage.setItem(async_keys.DOWNED, JSON.stringify(this.state.downedPost));
+    AsyncStorage.setItem(async_keys.DISLIKED, JSON.stringify(this.state.downedPost));
   }
 
   selectPhotoTapped() {

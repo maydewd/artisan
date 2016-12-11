@@ -34,11 +34,10 @@ class DiscoverSettings extends Component {
 
   //Grabs current preferences from ASYNC storage
   componentDidMount() {
-    AsyncStorage.multiGet([async_keys.DISTANCE, async_keys.COST, async_keys.MYPOSTS, async_keys.DOWNED, async_keys.LIKED, async_keys.DISLIKED], (err, stores) => {
+    AsyncStorage.multiGet([async_keys.DISTANCE, async_keys.COST, async_keys.MYPOSTS, async_keys.LIKED, async_keys.DISLIKED], (err, stores) => {
            var d = '5 miles';
            var c = '$20-100';
            var mP = false;
-           var dP = false;
            var seeLiked = false;
            var seeDisliked = false
            if(stores[0][1] != null) {
@@ -51,19 +50,15 @@ class DiscoverSettings extends Component {
              var mP = JSON.parse(stores[2][1])
            }
            if(stores[3][1] != null) {
-             var dP = JSON.parse(stores[3][1])
+             var seeLiked = JSON.parse(stores[3][1])
            }
            if(stores[4][1] != null) {
-             var seeLiked = JSON.parse(stores[4][1])
-           }
-           if(stores[5][1] != null) {
-             var seeDisliked = JSON.parse(stores[5][1])
+             var seeDisliked = JSON.parse(stores[4][1])
            }
            this.setState({
              distance: d,
              cost: c,
              myPosts: mP,
-             downedPost: dP,
              seeLiked: seeLiked,
              seeDisliked: seeDisliked
            })
