@@ -8,6 +8,9 @@ To update third-party modules, an admin can simply run the `npm install` command
 
 To access the database directly, an admin with access to the web/database server can open a shell to interface with MongoDB by entering `mongo` into the terminal. From there, the admin can enter a variety of MongoDB commands to insert, update, or delete records in the database (https://docs.mongodb.com/manual/reference/mongo-shell/). The default database name that the server uses is 'storkd'.
 
+* Logging *
+
+To view the access logs for the server, view the file 'access.log' under the server user's home directory. The logs are stored in standard Apache format, and can be cleared by simply deleting the file. To perform more detailed analysis on the logs, the file would likely need to be put into a database or tokenized before being used with an analytics service.
 
 * Uploaded Files *
 
@@ -15,4 +18,4 @@ By default, all uploaded files are stored to the /public/ directory, where they 
 
 * Configuration *
 
-If the user base becomes large enough that the app requires a dedicated database server (separate from the web and app server), the only change that needs to be made is in the /server/app/config/config.js file. The 'database' item contains the url location of the database. Since the database server currently resides on the same machine as the app server, it is only accessible locally and thus does not need a password. If the database server is hosted separately, it will need to be password protected to prevent intruders from being able to connect to it directly. 
+If the user base becomes large enough that the app requires a dedicated database server (separate from the web and app server), the only change that needs to be made is in the /server/app/config/config.js file. The 'database' item contains the url location of the database. Since the database server currently resides on the same machine as the app server, it is only accessible locally and thus does not need a password. If the database server is hosted separately, it will need to be password protected to prevent intruders from being able to connect to it directly.
