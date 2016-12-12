@@ -17,10 +17,12 @@ For the artisan, Storkd provides a way to build a local presence and connect wit
 ### Team
 
 Clients:
+
 * Brian Anderson
 * Edreys Wajed
 
 Dev Team:
+
 * Ryan St.Pierre
 * David Maydew
 * Sung-Hoon Kim
@@ -42,6 +44,7 @@ Dev Team:
 ### File Structure
 
 **/mobile/**
+
 * test: test suite
 * android: generated build files for Android
 * Components: classes used as mini UI components in the project
@@ -52,6 +55,7 @@ Dev Team:
 * Styles: CSS style sheets
 
 **/server/**
+
 * app: code responsible for running nodeJS server
   * config: routing and middleware for requests
   * controllers: grouped handlers for each route

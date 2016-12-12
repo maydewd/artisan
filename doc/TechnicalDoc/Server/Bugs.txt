@@ -1,4 +1,4 @@
 ** Bugs **
 
-* The only currently known bug happens when a user attempts to link their profile to a brand new Facebook account.
+* When a user attempts to link their profile to a brand new Facebook account, the accounts do not merge correctly and there ends up being two separate accounts (one through local login, one through Facebook login).
 * Other than basic required vs. optional field designations and username uniqueness, most of the database fields do not have any validations. This includes things such as password strength requirements or acceptable language in post descriptions.
