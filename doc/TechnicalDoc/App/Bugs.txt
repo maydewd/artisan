@@ -8,8 +8,12 @@ This is a document describing some of the bugs we know exist and that arose duri
 
 * Exiting New Post Screen - When you press the Story text field in the New Post screen there is no intuitive way to exit the Keyboard (please reference the “Keyboard” bug above).  Additionally, the screen is shifted upward to avoid the Keyboard.  Thus, there is no way to access the “back” button.  This creates a bug in which the user can not cancel the making of a New Post once they press the Story text field (unless they do unintuitive navigation where they click other text fields to exit the keyboard then press back).
 
-* Modal Picker - In the New Post screen there is an option to select “Type.” This is a Modal Picker (3rd party extension of Component(overtop a text field with animation).  Clicking the middle of the type textfield will open the Modal as desired.  However, if the user clicks to the left of the text box, where there is an icon, they will be able to input any text they desire. 
+* Modal Picker - In the New Post screen there is an option to select “Type.” This is a Modal Picker (3rd party extension of Component(overtop a text field with animation).  Clicking the middle of the type textfield will open the Modal as desired.  However, if the user clicks to the left of the text box, where there is an icon, they will be able to input any text they desire.
+
+* Modal Picker - On certain Android devices, the modal picker is unable to be selected when used with a disabled text-input.
 
 * Photo scaling - Make changes such that the photo sizing is more consistent.  Sometimes the photos are stretched, other times scaled.  Right now square photos look best.
 
 * Discover Post Info Screen - When the user taps the asking price on the Discover Post “more information screen” the keyboard appears.
+
+* New Post - If there is an error message stating that there is no geocoder available for the platform, check to see that there is a valid Google API key.

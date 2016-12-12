@@ -38,7 +38,6 @@ class StorkfrontPost extends Component {
       _id: this.props.item._id,
       description: this.props.item.description,
       price: this.props.item.price,
-      number: 0,  // TODO
       imagePath: this.props.item.imagePath,
       locality: this.props.item.locality,
       type: this.props.item.type,
@@ -74,10 +73,10 @@ class StorkfrontPost extends Component {
       body.append('image', photo);
     }
     AsyncStorage.getItem(async_keys.TOKEN, (err, result) => {
-        request.setRequestHeader('Authorization', result);
-        request.send(body);
-        Alert.alert('Thanks!')
-        this.pop()
+      request.setRequestHeader('Authorization', result);
+      request.send(body);
+      Alert.alert('Thanks!')
+      this.pop()
     });
   }
   _deletePressed() {
@@ -113,9 +112,10 @@ class StorkfrontPost extends Component {
       .done();
     });
   }
+
   render() {
     var titleConfig = {title: 'Storkfront Post',};
-    const leftButtonConfig = {title: 'Back',handler: () => {this.pop()}};
+    const leftButtonConfig = {title: 'Back', handler: () => {this.pop()}};
     return (
       <View>
         <NavigationBar
@@ -124,59 +124,58 @@ class StorkfrontPost extends Component {
           leftButton={leftButtonConfig}
         />
         <KeyboardAvoidingView behavior='position'>
-        <View style = {{height: usableWithTop()}}>
-          <TouchableOpacity style = {styles.sPostImageContainer} onPress={this.selectPhotoTapped.bind(this)}>
-            <View>
-              {
-                this.state.photoSource === null ?
-                  <Image style={styles.discoverPostImage} source={{uri: config.url + "/" + this.state.imagePath}} />:
-                  <Image style={styles.sPostAvatar} source={this.state.photoSource} />
-              }
+          <View style = {{height: usableWithTop()}}>
+            <TouchableOpacity style = {styles.sPostImageContainer} onPress={this.selectPhotoTapped.bind(this)}>
+              <View>
+                {
+                  this.state.photoSource === null ?
+                    <Image style={styles.discoverPostImage} source={{uri: config.url + "/" + this.state.imagePath}} />:
+                    <Image style={styles.sPostAvatar} source={this.state.photoSource} />
+                }
               </View>
-          </TouchableOpacity>
-          {/* Description */}
-          <Kohana
-            style={styles.discoverPostStory}
-            label={'Story'}
-            iconClass={FA}
-            iconName={'book'}
-            iconColor={'#24518D'}
-            labelStyle={{ color: 'pink' }}
-            inputStyle={{ color: '#24518D' }}
-            multiline = {true}
-            numberOfLines = {2}
-            value = {this.state.description != null ? this.state.description.toString() : "N/A"}
-            onChangeText={(description) => this.setState({description})}
-          />
-          <Kohana
-            style={styles.discoverPostLocation}
-            editable= {false}
-            label={'Location'}
-            iconClass={FA}
-            iconName={'globe'}
-            iconColor={'#24518D'}
-            labelStyle={{ color: 'pink' }}
-            inputStyle={{ color: '#24518D' }}
-            value = {this.state.locality != null ? this.state.locality.toString() : "N/A"}
-          />
-          <Kohana
-            style={styles.discoverPostPrice}
-            label={'Asking Price'}
-            iconClass={MaterialIcons}
-            iconName={'payment'}
-            iconColor={'#24518D'}
-            labelStyle={{ color: 'pink' }}
-            inputStyle={{ color: '#24518D' }}
-            keyboardType = 'numeric'
-            value = {this.state.price != null ? this.state.price.toString() : "N/A"}
-            onChangeText={(price) => this.setState({price})}
-          />
-          <ModalPicker
-          data={grabArtTypes()}
-          style = {{flex:1, width: getScreenWidth()}}
-          initValue="Select a type"
-          onChange={(option)=> this.setState({type:option.label})}
-          >
+            </TouchableOpacity>
+            <Kohana
+              style={styles.discoverPostStory}
+              label={'Story'}
+              iconClass={FA}
+              iconName={'book'}
+              iconColor={'#24518D'}
+              labelStyle={{ color: 'pink' }}
+              inputStyle={{ color: '#24518D' }}
+              multiline = {true}
+              numberOfLines = {2}
+              value = {this.state.description != null ? this.state.description.toString() : "N/A"}
+              onChangeText={(description) => this.setState({description})}
+            />
+            <Kohana
+              style={styles.discoverPostLocation}
+              editable= {false}
+              label={'Location'}
+              iconClass={FA}
+              iconName={'globe'}
+              iconColor={'#24518D'}
+              labelStyle={{ color: 'pink' }}
+              inputStyle={{ color: '#24518D' }}
+              value = {this.state.locality != null ? this.state.locality.toString() : "N/A"}
+            />
+            <Kohana
+              style={styles.discoverPostPrice}
+              label={'Asking Price'}
+              iconClass={MaterialIcons}
+              iconName={'payment'}
+              iconColor={'#24518D'}
+              labelStyle={{ color: 'pink' }}
+              inputStyle={{ color: '#24518D' }}
+              keyboardType = 'numeric'
+              value = {this.state.price != null ? this.state.price.toString() : "N/A"}
+              onChangeText={(price) => this.setState({price})}
+            />
+            <ModalPicker
+              data={grabArtTypes()}
+              style = {{flex:1, width: getScreenWidth()}}
+              initValue="Select a type"
+              onChange={(option)=> this.setState({type:option.label})}
+            >
               <Kohana
                 style = {styles.discoverPostType}
                 editable= {false}
@@ -188,29 +187,28 @@ class StorkfrontPost extends Component {
                 inputStyle={{ color: '#24518D' }}
                 value={this.state.type != null ? this.state.type.toString() : "N/A"}
               />
-          </ModalPicker>
-          <View style={{flexDirection: "row"}}>
-            <Button
-              containerStyle={styles.saveButtonContainer}
-              style={styles.saveButton}
-              onPress={() => this._save()}>
-              Save
-            </Button>
-            <Button
-              containerStyle={styles.deleteButtonContainer}
-              style={styles.deleteButton}
-              onPress={() => this._deletePressed()}>
-              Delete
-            </Button>
+            </ModalPicker>
+            <View style={{flexDirection: "row"}}>
+              <Button
+                containerStyle={styles.saveButtonContainer}
+                style={styles.saveButton}
+                onPress={() => this._save()}>
+                Save
+              </Button>
+              <Button
+                containerStyle={styles.deleteButtonContainer}
+                style={styles.deleteButton}
+                onPress={() => this._deletePressed()}>
+                Delete
+              </Button>
+            </View>
           </View>
-        </View>
         </KeyboardAvoidingView>
       </View>
     );
   }
 
   selectPhotoTapped() {
-    console.log("Getting photo: storkfrontPost");
     const options = {
       quality: 1.0,
       maxWidth: 500,

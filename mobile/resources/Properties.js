@@ -1,4 +1,7 @@
-// property file
+/**
+ * Properties
+ * Ryan St.Pierre, Sung-Hoon Kim, David Maydew
+ */
 
 export const async_keys = {
   // async keys for authentication
@@ -11,7 +14,6 @@ export const async_keys = {
   "DISLIKED" : "seeDisliked", // flag for whether or not to display previously disliked posts
   "BUNDLE" : "bundlePosts",
   "DISTANCE" : "distance",
-  "DOWNED" : "downedPost",
 }
 
 // TODO: Google Maps API key: https://developers.google.com/maps/documentation/geocoding/get-api-key

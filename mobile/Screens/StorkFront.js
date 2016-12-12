@@ -33,10 +33,7 @@ class StorkFront extends Component {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows([
-        {imagePath: require('../resources/Saddle-Billed_Stork.jpg'), price: "$10", likes: "5"},
-        {imagePath: require('../resources/Logo1.png'), price: "$5", like: "0"}
-      ]),
+      dataSource: ds.cloneWithRows([]),
       refreshing: false,
       profile: null
     };
@@ -70,19 +67,20 @@ class StorkFront extends Component {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': result
-          }})
-        .then((response) => response.json())
-        .then((responseData) => {
-            var posts = [];
-            responseData.forEach((item) => {posts.push(item)});
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(posts)
-            });
-         })
-        .catch(function(err) {
-          alert(err.message);
-        })
-        .done();
+      }})
+      .then((response) => response.json())
+      .then((responseData) => {
+        var posts = [];
+        responseData.forEach((item) => {posts.push(item)});
+        this.setState({
+          // populate ListView with user's posts
+          dataSource: this.state.dataSource.cloneWithRows(posts)
+        });
+       })
+      .catch(function(err) {
+        alert(err.message);
+      })
+      .done();
     });
   }
 
@@ -104,14 +102,14 @@ class StorkFront extends Component {
 
   goToNewPost() {
     this.props.navigator.push({
-        id: 'newPost',
-        sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+      id: 'newPost',
+      sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
     });
   }
 
   goToMessages() {
     this.props.navigator.push({
-        id: 'messages'
+      id: 'messages'
     });
   }
 
@@ -123,7 +121,6 @@ class StorkFront extends Component {
   }
 
   render() {
-
     var titleConfig = {title: 'StorkFront',};
     var username = "";
     if(this.state.profile == null) {
@@ -147,7 +144,12 @@ class StorkFront extends Component {
           <View style = {styles.storkFrontBanner}>
             <Image style = {styles.storkfrontProfileImage} source={imageSource} />
             <Text style = {styles.storkfrontProfileText}>{username}</Text>
-            <Ionicons name = "ios-settings" size = {30} onPress={(event) => {this.goToProfileSettings()}} style = {{paddingRight: 8}} />
+            <Ionicons
+              name = "ios-settings"
+              size = {30}
+              onPress={(event) => {this.goToProfileSettings()}}
+              style = {{paddingRight: 8}}
+            />
           </View>
           <View style = {{flex:1}}>
           <ListView
@@ -159,8 +161,8 @@ class StorkFront extends Component {
             renderSeparator = {this._renderSeparator}
             refreshControl = {
               <RefreshControl
-                  refreshing={this.state.refreshing}
-                  onRefresh={this._onRefresh.bind(this)}
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh.bind(this)}
               />
             }
           />
@@ -173,19 +175,21 @@ class StorkFront extends Component {
   _renderPost(data) {
     return (
       <TouchableOpacity style = {styles.container} onPress={() => this._postPressed(data)}>
-        <Image style = {styles.storkfrontImage}
-         source = {{uri: config.url + "/" + data.imagePath}}/>
+        <Image
+          style = {styles.storkfrontImage}
+          source = {{uri: config.url + "/" + data.imagePath}}
+        />
         <View style = {styles.centered && {flexDirection: "row"}}>
           <Text style={styles.storkfrontPostText}>
             <Icon
-            name="thumbs-up"
-            size={25}
-            color = 'black'
-            padding = {2}
-            backgroundColor= 'rgba(0,0,0,0)'
+              name="thumbs-up"
+              size={25}
+              color = 'black'
+              padding = {2}
+              backgroundColor= 'rgba(0,0,0,0)'
             />
-            {" "}{data.numLikes}<
-          /Text>
+            {" "}{data.numLikes}
+          </Text>
           <View style={{flex:1}}></View>
           <Text style = {styles.storkfrontPostText}>
             {'$' + data.price}
@@ -214,7 +218,6 @@ class StorkFront extends Component {
       item: data
     });
   }
-
 }
 
 module.exports = StorkFront

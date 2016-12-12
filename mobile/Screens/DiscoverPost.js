@@ -20,14 +20,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 styles = require('../Styles/Layouts');
+const config = require('../config/server');
 
 class DiscoverPost extends Component {
   constructor(props) {
     super(props);
+    // the post information is passed through the props from the navigator
     this.state = {
       description: this.props.item.description,
       price: this.props.item.price,
-      number: 0,
       imagePath: this.props.item.imagePath,
       locality: this.props.item.locality,
       type: this.props.item.type
@@ -46,9 +47,8 @@ class DiscoverPost extends Component {
         <ScrollView style = {{height: usableWithTop()}}>
           <View
             style = {styles.discoverPostContainer}>
-            <Image style={styles.discoverPostImage} source={{uri: "http://colab-sbx-137.oit.duke.edu:3000/" + this.state.imagePath}} />
+            <Image style={styles.discoverPostImage} source={{uri: config.url + "/" + this.state.imagePath}} />
           </View>
-          {/* Description */}
           <Kohana
             style={styles.discoverPostStory}
             editable= {false}
