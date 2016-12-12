@@ -156,7 +156,7 @@ class DiscoverSettings extends Component {
                 />
               </View>
               <View style = {styles.settingsView}>
-                <Text> See post I have disliked </Text>
+                <Text> See posts I have disliked </Text>
                 <Switch
                     value={this.state.seeDisliked}
                     onValueChange={(val) =>  this.setState({seeDisliked: val})}
